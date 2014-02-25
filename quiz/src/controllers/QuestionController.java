@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class QuestionController
+ * 
+ * Take care of the communication between request and models
  */
 @WebServlet("/QuestionController")
 public class QuestionController extends HttpServlet {

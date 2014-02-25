@@ -13,7 +13,7 @@ public class Question implements model {
 	private static int id_counter = 0;
 	
 	/** Mapping back to Quiz */
-	private int quiz_id;
+	public int quiz_id = -1;
 	/**
 	 * 
 	 */
@@ -24,22 +24,21 @@ public class Question implements model {
 	}
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-		
+		// General verification
+		if (quiz_id != -1) {
+			// No mapping to a quiz
+		}	
 	}
 	@Override
 	public void fetch() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 	

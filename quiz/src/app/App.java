@@ -10,6 +10,8 @@ import models.Quiz;
  * Class for the overlaying application
  * Takes care of the initialization of the whole application
  * and fundamental communication, gluing together components
+ * 
+ * Create a new app for every visit?
  */
 public class App {
 	

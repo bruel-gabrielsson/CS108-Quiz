@@ -15,7 +15,7 @@ public class Quiz implements model {
 	private static int id_counter = 0;
 	
 	/** Mapping back to User */
-	private int user_id;
+	public int user_id;
 	/**
 	 * 
 	 */
@@ -26,22 +26,18 @@ public class Quiz implements model {
 	}
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void fetch() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 	

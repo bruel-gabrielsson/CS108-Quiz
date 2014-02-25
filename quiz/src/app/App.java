@@ -1,4 +1,9 @@
 package app;
+
+import models.User;
+import models.Quiz;
+
+
 /**
  * 
  * @author rickardbruelgabrielsson

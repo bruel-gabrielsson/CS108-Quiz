@@ -10,3 +10,6 @@
 
 # Ignore server configs
 Servers*
+
+# Ignore build directory
+*/build

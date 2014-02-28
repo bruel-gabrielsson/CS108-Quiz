@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author rickardbruelgabrielsson
@@ -10,20 +12,20 @@ package models;
  * 
  */
 public class User implements model {
-	private final int id;
-	private static int id_counter = 0;
+	public int user_id;
+	public String date_created;
+	public String user_name;
+	public boolean is_admin = false;
 	
-	private String name;
+	public Quiz[] quizzes;
+	
 	
 	/**
 	 * 
 	 */
 	User(String name) {
 		// Every instance gets a unique id
-		id_counter ++;
-		id = id_counter;
-		
-		this.name = name;
+		this.user_name = name;
 	}
 	
 	// Through relationship?
@@ -32,20 +34,34 @@ public class User implements model {
 	}
 	
 	@Override
-	public void save() {
+	public boolean save() {
+		// Write to database
+		return true;
 		
 	}
 	@Override
-	public void fetch() {
+	public boolean fetch() {
+		// populate all the fields
+		this.date_created = "";
+		this.user_name = "";
+		this.is_admin = false;
 		
+		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
+		
+		
+		return true;
 	}
 	@Override
-	public void update() {
-		
+	public boolean update() {
+		// Update fields to database
+		return true;
 	}
 	@Override
-	public void destroy() {
+	public boolean destroy() {
+		// Destroy the column from the database
 		
+		// Set all the quizzes user_id to null or something similar to indicate that user has been destroyed
+		return true;
 	}
 	
 	

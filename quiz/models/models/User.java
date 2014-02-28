@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * 
  */
 public class User implements model {
+	
 	public int user_id;
 	public String date_created;
 	public String user_name;
@@ -24,7 +25,7 @@ public class User implements model {
 	/**
 	 * 
 	 */
-	User() {
+	public User() {
 		
 	}
 	

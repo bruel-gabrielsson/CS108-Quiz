@@ -31,18 +31,10 @@ public class App {
 		this.number_users = 1;
 		this.number_quizzes = 1;
 		
+		current_user = new User();
 		
 	}
 	
-	public boolean signIn(String user_name, String password) {
-		
-		return true;
-	}
-	
-	public boolean signOut() {
-		
-		return true;
-	}
 	
 	// How are quizzes created???
 }

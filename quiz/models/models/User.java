@@ -1,6 +1,10 @@
 package models;
 
 import java.util.ArrayList;
+import java.sql.*; 
+
+import database.DBConnector;
+import app.App;
 
 /**
  * 
@@ -10,23 +14,37 @@ import java.util.ArrayList;
  * RELATIONS (Should always be specified):
  * HAS-MANY: QUIZZES
  * 
+ * FETCH: BASED ON user_name
  */
 public class User implements model {
 	
 	public int user_id;
 	public String date_created;
-	public String user_name;
+	public String user_name = null;
+	public int message_received;
+	public int challenge_received;
 	
 	public ArrayList<Quiz> quizzes = null;
 	
 	private boolean is_admin = false;
+	
+	private DBConnector connector = null;
 	
 	
 	/**
 	 * 
 	 */
 	public User() {
+		connector = new DBConnector();
 		
+	}
+	
+	public boolean signIn(String password) {
+		if (this.user_name == null) {
+			return false;
+			// and if log in succeded
+		}
+		return true;
 	}
 	
 	// Through relationship?
@@ -49,19 +67,46 @@ public class User implements model {
 	@Override
 	public boolean fetch() {
 		// populate all the fields
-		this.date_created = "";
-		this.user_name = "";
-		this.is_admin = false;
-		
-		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
-		Quiz temp_quiz = new Quiz();
-		temp_quiz.quiz_id = 1;
-		if (temp_quiz.fetch()) {
-			this.quizzes.add(temp_quiz);
-		} else {
-			// error fetching quizzes
+		if (this.user_name == null) {
+			return false;
 		}
 		
+		String query = "SELECT * FROM user WHERE user_name = "+ this.user_name +"";
+		connector.openConnection();
+		ResultSet rs = connector.query(query);
+		
+		try {
+			this.user_id = rs.getInt("user_id");
+			this.date_created = rs.getString("date_created");
+			this.user_name = rs.getString("user_name");
+			this.message_received = rs.getInt("message_received");
+			this.challenge_received = rs.getInt("challenge_received");
+			this.is_admin = rs.getInt("is_admin") == 1;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
+		
+		String quiz_query = "SELECT quiz_id FROM quiz WHERE user_id = " + this.user_id + "";
+		rs = null;
+		rs = connector.query(quiz_query);
+		
+		try {
+			while(rs.next()) {
+				int quiz_id = rs.getInt("quiz_id");
+				Quiz temp_quiz = new Quiz();
+				temp_quiz.quiz_id = quiz_id;
+				if (temp_quiz.fetch()) {
+					this.quizzes.add(temp_quiz);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		connector.closeConnection();
 		return true;
 	}
 	

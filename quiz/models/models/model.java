@@ -27,4 +27,5 @@ public interface model {
 	 * Destroys the model and all its information from the database
 	 */
 	public boolean destroy();
+	
 }

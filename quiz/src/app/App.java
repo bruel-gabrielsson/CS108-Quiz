@@ -2,6 +2,8 @@ package app;
 
 import java.util.ArrayList;
 
+import com.mysql.jdbc.Connection;
+
 import models.User;
 import models.Quiz;
 
@@ -19,6 +21,8 @@ public class App {
 	public int number_users;
 	public int number_quizzes;
 	
+	public App app = null;
+	
 	//public ArrayList<Announcement> announcements = null;
 	public ArrayList<Quiz> popular_quizzes = null;
 	public ArrayList<Quiz> recently_quizzes = null;
@@ -28,11 +32,40 @@ public class App {
 	public void initialize() {
 		// Fetch all the overall information for the app, top scores, etc
 		
-		this.number_users = 1;
-		this.number_quizzes = 1;
+		app = new App();
+		
+		app.number_users = 1;
+		app.number_quizzes = 1;
 		
 		current_user = new User();
 		
+		/// TESTING
+		
+		this.current_user.user_name = "Tyler";
+		if (this.current_user.fetch()) {
+			System.out.println("success");
+		}
+		
+	}
+	
+	public boolean signIn(String user_name, String password) {
+		this.current_user.user_name = user_name;
+		if (this.current_user.signIn(password)) {
+			return this.current_user.fetch();
+		} else {
+			this.current_user.user_name = null;
+			return false;
+		}
+	}
+	
+	public boolean openConnection() {
+		
+		return true;
+	}
+	
+	public boolean closeConnection() {
+		
+		return true;
 	}
 	
 	

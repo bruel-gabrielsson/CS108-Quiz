@@ -15,14 +15,13 @@ public class FillInTheBlank extends Question {
 	public String answer;
 	
 	
-	FillInTheBlank() {
+	public FillInTheBlank() {
 		// Call constructor of superclass, gives an unique id
 		super();
 	}
 
 	@Override
 	public boolean save() {
-		
 		
 		return true;
 	}

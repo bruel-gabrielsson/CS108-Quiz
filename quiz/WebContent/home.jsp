@@ -21,6 +21,8 @@
 			<form> 
 				username <input type="text" name="username">&nbsp;
 				password <input type="text" name="password">
+				<input type="submit" value="LOGIN">
+				
 			</form>	
 		</div>
 	</div>
@@ -53,7 +55,11 @@
 
 <!--RIGHT SECTION-->
 	<div id="sidebar">
-		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</p>
+		<div id="announcements">
+			<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
+			<div id="announcements-body">Welcome to Quizz! This home page should contain an announcement section, list of popular quizzes, etc.</div>
+		</div>
+	
 		<div class="smallHeader">YOUR QUIZZES</div>
 		<div class="smallHeader">YOUR FRIENDS</div>
 		<div class="smallHeader">YOUR ACHIEVEMENTS</div>

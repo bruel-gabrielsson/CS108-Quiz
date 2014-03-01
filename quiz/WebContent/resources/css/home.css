@@ -34,6 +34,14 @@ ul {
 	padding: 20px 8px 8px 10px;
 }
 
+input[type=submit] {
+	margin-left: 10px;
+	padding:3px 15px 3px 15px; 
+	background:#CC6633; 
+	border:0 none;
+	cursor:pointer;
+	color: white;
+}
 
 /* MAIN ---------------------------------------------------------------- */
 
@@ -87,3 +95,22 @@ div.quizWidget .dateDiv {
 	float:left;
 	width:28%;
 }
+
+#announcements {
+	margin: 20px 0px 30px 0px;
+}
+
+#announcements-header {
+	color: #C4DCE8;
+	background: #4E81A1;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#announcements-body {
+	color: #39647A;
+	background: #C4DCE8;
+	padding: 10px 12px 26px 12px;
+}
+
+

@@ -1,5 +1,89 @@
 @CHARSET "UTF-8";
 
-h1 {
-	color: blue;
+body, html {
+	margin:0;
+	padding:0;
+	color:#000;
+	background: white;
+	font-family: "Myriad Pro", "Helvetica", "Arial", serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* HEADER -------------------------------------------------------------- */
+
+#header {
+	background: #8AC7ED;
+	color: #4E81A1;
+	overflow: hidden;
+
+}
+
+#header-title {
+	font-size: 36px;
+	font-weight: bold;
+	padding: 8px 0px 8px 15px;
+	margin-bottom: 5px;
+	float:left;
+}
+
+#header-form {
+	float:right;
+	padding: 20px 8px 8px 10px;
+}
+
+
+/* MAIN ---------------------------------------------------------------- */
+
+#main {
+	float:left;
+	width:68%;
+}
+
+div.largeHeader {
+	font-size: 26px;
+	font-weight: bold;
+	color: #303336;
+	border-bottom: solid #8AC7ED;
+	border-bottom-width: 1px;
+	width: 90%;
+	margin: 20px 10px 0px 26px;
+	padding-bottom: 9px;
+}
+
+div.smallHeader {
+	font-size: 18px;
+	font-weight: bold;
+	color: #303336;
+	border-bottom: solid #8AC7ED;
+	border-bottom-width: 1px;
+	padding: 2px;
+}
+
+div.quizWidget {
+	overflow: hidden;
+}
+
+div.quizWidget .imgDiv {
+	float:left;
+}
+
+div.quizWidget .contentDiv {
+	margin-left: 10px;
+	float:left;
+}
+
+div.quizWidget .dateDiv {
+	float:right;
+	margin-right: 100px;
+}
+
+
+/* SIDEBAR ------------------------------------------------------------ */
+
+#sidebar {
+	float:left;
+	width:28%;
 }

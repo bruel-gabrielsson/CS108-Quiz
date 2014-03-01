@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+body, html {
+	margin:0;
+	padding:0;
+	color:#000;
+	background: white;
+	font-family: "Myriad Pro", "Helvetica", "Arial", serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* HEADER -------------------------------------------------------------- */
+
+#header {
+	background: #8AC7ED;
+	color: #4E81A1;
+	overflow: hidden;
+}
+
+#header-title {
+	font-size: 36px;
+	font-weight: bold;
+	padding: 8px 0px 8px 15px;
+	margin-bottom: 5px;
+	float:left;
+}
+
+#header-form {
+	float:right;
+	padding: 20px 8px 8px 10px;
+}
+
+input[type=submit] {
+	margin-left: 10px;
+	padding:2px 25px 2px 25px; 
+	background:#CC6633; 
+	border:1px solid #CC9999;
+	cursor:pointer;
+	color: white;
+}
+
+input[type=submit]:hover{
+	background:#CC9966; 
+}
+
+/* MAIN ---------------------------------------------------------------- */
+
+#main {
+	float:left;
+	width:68%;
+	overflow:scroll;
+}
+
+
+/* SIDEBAR ------------------------------------------------------------ */
+
+#sidebar {
+	float:left;
+	width:28%;
+}

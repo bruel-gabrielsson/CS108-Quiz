@@ -44,7 +44,10 @@ public class App {
 		this.current_user.user_name = "Tyler";
 		if (this.current_user.fetch()) {
 			System.out.println("success");
+			String s = this.current_user.challenge_received + this.current_user.date_created.toString() + this.current_user.user_name + Integer.toString(this.current_user.user_id) + this.current_user.quizzes.toString();
+			System.out.println(s);
 		}
+		
 		
 	}
 	

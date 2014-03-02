@@ -34,9 +34,8 @@ public class FreeResponse extends Question {
 		}
 		
 		connector.openConnection();
-		String query = "SELECT * FROM question_free_response WHERE fr_question_id = " + this.fr_question_id + "";
+		String query = "SELECT * FROM question_free_response WHERE fr_question_id = '" + this.fr_question_id + "'";
 		ResultSet rs = connector.query(query);
-		
 		
 		try {
 			name = rs.getString("name");

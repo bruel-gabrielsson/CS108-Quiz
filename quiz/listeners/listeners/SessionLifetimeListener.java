@@ -24,7 +24,7 @@ public class SessionLifetimeListener implements HttpSessionListener {
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent arg0) {
-       
+    	System.out.println("APP CREATED");
     	App app = new App();
     	app.initialize();
     	

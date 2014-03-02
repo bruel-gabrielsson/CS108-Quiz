@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import app.App;
+
 /**
  * Servlet implementation class AppController
  */
@@ -31,6 +33,15 @@ public class AppController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// CREATING THE APP FOR THE SESSION
+		if (request.getSession().getAttribute("app") == null) {
+			System.out.println("APP CREATED");
+	    	App app = new App();
+	    	app.initialize();
+	    	
+	    	request.getSession().setAttribute("app", app);
+		}
+			
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 		rd.forward(request, response);
 	}

@@ -42,14 +42,6 @@ public class User implements model {
 		
 	}
 	
-	public boolean signIn(String password) {
-		if (this.user_name == null) {
-			return false;
-			// and if log in succeded
-		}
-		return true;
-	}
-	
 	// Through relationship?
 	public void friendRequest(int friend_id) {
 		
@@ -74,27 +66,30 @@ public class User implements model {
 			return false;
 		}
 		
-		String query = "SELECT * FROM user WHERE user_name = "+ this.user_name +"";
+		String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
 		connector.openConnection();
 		ResultSet rs = connector.query(query);
 		
 		try {
-			this.user_id = rs.getInt("user_id");
-			this.date_created = rs.getString("date_created");
-			this.user_name = rs.getString("user_name");
-			this.message_received = rs.getInt("message_received");
-			this.challenge_received = rs.getInt("challenge_received");
-			this.is_admin = rs.getInt("is_admin") == 1;
-			
+			if (rs.next()) {
+				this.user_id = rs.getInt("user_id");
+				this.date_created = rs.getString("date_created");
+				this.user_name = rs.getString("user_name");
+				this.message_received = rs.getInt("message_recived"); // SPELLING ERROR!!!!
+				this.challenge_received = rs.getInt("challenge_received");
+				this.is_admin = rs.getInt("is_admin") == 1;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
 		
-		String quiz_query = "SELECT quiz_id FROM quiz WHERE user_id = " + this.user_id + "";
+		String quiz_query = "SELECT quiz_id FROM quiz WHERE creator_id = '" + this.user_id + "'";
 		rs = null;
 		rs = connector.query(quiz_query);
+		
+		this.quizzes = new ArrayList<Quiz>();
 		
 		try {
 			while(rs.next()) {
@@ -118,6 +113,7 @@ public class User implements model {
 		// Update fields to database
 		return true;
 	}
+	
 	@Override
 	public boolean destroy() {
 		// Destroy the column from the database
@@ -126,7 +122,15 @@ public class User implements model {
 		return true;
 	}
 	
-	/*
+	public boolean signIn(String password) {
+		if (this.user_name == null) {
+			return false;
+		}	
+		
+		return true;
+	}
+	
+	/**
 	  Returns a secure random salt as a string,
 	  to be called once per User, upon account
 	  creation
@@ -135,7 +139,7 @@ public class User implements model {
 		 return hexToString(new SecureRandom().generateSeed(SALT_LENGTH));
 	}
 	
-	/*
+	/**
 	 Given a User's plain text password and salt,
 	 returns the hash of that users password. To
 	 be used upon account creation (to generate the
@@ -155,7 +159,7 @@ public class User implements model {
 		}
 	}
 	
-	/*
+	/**
 	 Given a byte[] array, produces a hex String,
 	 such as "234a6f". with 2 chars for each byte in the array.
 	 (provided code)

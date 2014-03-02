@@ -17,11 +17,15 @@ public class DBConnector {
 
 	public boolean openConnection() {
 		try {
+			Class.forName("com.mysql.jdbc.Driver"); 
 			connection = DriverManager.getConnection 
 					( "jdbc:mysql://" + MYSQL_DATABASE_SERVER, MYSQL_USERNAME, MYSQL_PASSWORD);
 		} catch (SQLException e) {
 			return false;
 			//e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} 
 		
 		return true;

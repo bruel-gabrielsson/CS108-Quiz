@@ -60,7 +60,7 @@ public class Quiz implements model {
 		}
 		
 		connector.openConnection();
-		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = " + this.quiz_id + "ORDER BY question_number";
+		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = '" + this.quiz_id + "' ORDER BY question_number";
 		ResultSet rs = connector.query(query);
 		
 		try {

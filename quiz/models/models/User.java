@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.sql.*; 
+import java.security.*;
 
 import database.DBConnector;
 import app.App;
@@ -30,6 +31,8 @@ public class User implements model {
 	
 	private DBConnector connector = null;
 	
+	private static final String ALGORITHM = "SHA";
+	private static final int SALT_LENGTH = 32;
 	
 	/**
 	 * 
@@ -123,5 +126,49 @@ public class User implements model {
 		return true;
 	}
 	
+	/*
+	  Returns a secure random salt as a string,
+	  to be called once per User, upon account
+	  creation
+	 */
+	public String generateSalt() {
+		 return hexToString(new SecureRandom().generateSeed(SALT_LENGTH));
+	}
+	
+	/*
+	 Given a User's plain text password and salt,
+	 returns the hash of that users password. To
+	 be used upon account creation (to generate the
+	 hash to be stored) and login (for comparison
+	 with stored hash).  Returns null upon internal
+	 error.
+	 */
+	public String hashPassword(String password, String salt) {
+		try {		
+			String toHash = salt + password;
+			MessageDigest md = MessageDigest.getInstance(ALGORITHM);
+			byte[] bytes = md.digest(toHash.getBytes());
+			return hexToString(bytes);
+			
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		}
+	}
+	
+	/*
+	 Given a byte[] array, produces a hex String,
+	 such as "234a6f". with 2 chars for each byte in the array.
+	 (provided code)
+	*/
+	private String hexToString(byte[] bytes) {
+		StringBuffer buff = new StringBuffer();
+		for (int i=0; i<bytes.length; i++) {
+			int val = bytes[i];
+			val = val & 0xff;  // remove higher bits, sign
+			if (val<16) buff.append('0'); // leading 0
+			buff.append(Integer.toString(val, 16));
+		}
+		return buff.toString();
+	}
 	
 }

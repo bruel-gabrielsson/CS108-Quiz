@@ -43,6 +43,11 @@ public class Quiz implements model {
 	}
 	
 	// TAKING THE QUIZ, get the questions enough?
+	public boolean correctQuestion(Question q, String answer) {
+		//???
+		
+		return true;
+	}
 	
 	@Override
 	public boolean save() {

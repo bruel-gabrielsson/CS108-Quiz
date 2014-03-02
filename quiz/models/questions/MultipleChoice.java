@@ -7,7 +7,7 @@ import database.DBConnector;
 import models.Question;
 
 public class MultipleChoice extends Question {
-	public static final String type = "question_multiple_choice";
+	public static final String this_type = "question_multiple_choice";
 	
 	public int mc_question_id = -1;
 	public String question_text;
@@ -28,6 +28,7 @@ public class MultipleChoice extends Question {
 	
 	public MultipleChoice() {
 		super();
+		type = this_type;
 		connector = new DBConnector();
 	}
 
@@ -48,7 +49,6 @@ public class MultipleChoice extends Question {
 		
 		try {
 			if (rs.next()) {
-				// Question superclass
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");
 				name = rs.getString("name");

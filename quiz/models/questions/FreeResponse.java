@@ -7,7 +7,7 @@ import database.DBConnector;
 import models.Question;
 
 public class FreeResponse extends Question {
-	public static final String type = "question_free_response";
+	public static final String this_type = "question_free_response";
 	
 	public String question_text = null;
 	public String answer = null;
@@ -17,6 +17,7 @@ public class FreeResponse extends Question {
 	
 	public FreeResponse() {
 		super();
+		type = this_type;
 		connector = new DBConnector();
 	}
 
@@ -38,7 +39,6 @@ public class FreeResponse extends Question {
 		
 		try {
 			if (rs.next()) {
-				// Question superclass
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");
 				name = rs.getString("name");

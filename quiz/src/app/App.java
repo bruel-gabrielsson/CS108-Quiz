@@ -6,6 +6,7 @@ import questions.FreeResponse;
 
 import com.mysql.jdbc.Connection;
 
+import models.Question;
 import models.User;
 import models.Quiz;
 
@@ -53,6 +54,15 @@ public class App {
 			System.out.println(fr.question_text);
 			System.out.println(fr.name);
 			System.out.println(fr.type);
+			
+			for (Question q : this.current_user.quizzes.get(0).questions) {
+				if (q.type == "question_free_response") {
+					FreeResponse nq = (FreeResponse) q;
+					String s1 = nq.name + nq.answer + nq.question_text;
+					System.out.println(s1);
+					
+				}
+			}
 			
 		}
 	}

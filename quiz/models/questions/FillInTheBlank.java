@@ -7,7 +7,7 @@ import database.DBConnector;
 import models.Question;
 
 public class FillInTheBlank extends Question {
-	public static final String type = "question_fill_in_blank";
+	public static final String this_type = "question_fill_in_blank";
 	
 	public int fib_question_id = -1;
 	public String question_text_before;
@@ -18,6 +18,7 @@ public class FillInTheBlank extends Question {
 	
 	public FillInTheBlank() {
 		super();
+		type = this_type;
 		connector = new DBConnector();
 	}
 
@@ -39,7 +40,6 @@ public class FillInTheBlank extends Question {
 		
 		try {
 			if (rs.next()) {
-				// Question superclass
 				question_text_before = rs.getString("question_text_before");
 				question_text_after = rs.getString("question_text_after");
 				answer = rs.getString("answer");

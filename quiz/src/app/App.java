@@ -2,6 +2,8 @@ package app;
 
 import java.util.ArrayList;
 
+import questions.FreeResponse;
+
 import com.mysql.jdbc.Connection;
 
 import models.User;
@@ -46,9 +48,13 @@ public class App {
 			System.out.println("success");
 			String s = this.current_user.challenge_received + this.current_user.date_created.toString() + this.current_user.user_name + Integer.toString(this.current_user.user_id) + this.current_user.quizzes.toString();
 			System.out.println(s);
+			
+			FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
+			System.out.println(fr.question_text);
+			System.out.println(fr.name);
+			System.out.println(fr.type);
+			
 		}
-		
-		
 	}
 	
 	public boolean signIn(String user_name, String password) {
@@ -59,16 +65,6 @@ public class App {
 			this.current_user.user_name = null;
 			return false;
 		}
-	}
-	
-	public boolean openConnection() {
-		
-		return true;
-	}
-	
-	public boolean closeConnection() {
-		
-		return true;
 	}
 	
 	

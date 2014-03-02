@@ -1,4 +1,7 @@
 package models;
+
+import java.util.ArrayList;
+
 /**
  * 
  * @author rickardbruelgabrielsson
@@ -9,14 +12,22 @@ package models;
  * BELONGS-TO: QUIZ
  */
 public abstract class Question implements model {
-	private int question_id;
+	// Generic to all questions types:
+	public String name;
+	public int question_type_id;
+	public int question_id;
+	public String date_created;
+	public int question_number;
 	
 	/** Mapping back to Quiz */
 	public int quiz_id = -1;
+	
+
 	/**
 	 * 
 	 */
 	public Question() {
+		
 		
 	}
 	

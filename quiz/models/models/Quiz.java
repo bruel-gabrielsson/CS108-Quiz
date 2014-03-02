@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import database.DBConnector;
 import questions.FillInTheBlank;
 import questions.FreeResponse;
+import questions.MultipleChoice;
 
 /**
  * 
@@ -33,7 +34,7 @@ public class Quiz implements model {
 	
 	private DBConnector connector;
 	
-	public ArrayList<Question> questions;
+	public ArrayList<Question> questions = null;
 	/**
 	 * 
 	 */
@@ -63,6 +64,9 @@ public class Quiz implements model {
 		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = '" + this.quiz_id + "' ORDER BY question_number";
 		ResultSet rs = connector.query(query);
 		
+		// Creating instance of questions
+		this.questions = new ArrayList<Question>();
+		
 		try {
 			while(rs.next()) {
 				int question_type_id = rs.getInt("question_type_id");
@@ -74,16 +78,33 @@ public class Quiz implements model {
 						if (temp_question.fetch()) {
 							this.questions.add(temp_question);
 						} else {
+							System.out.println("Error fetching question type 1");
 							//error fetching question
 						}
 						
 					} break;
 					
 					case 2: {
+						FillInTheBlank temp_question = new FillInTheBlank();
+						temp_question.fib_question_id = rs.getInt("fib_question_id");
+						if (temp_question.fetch()) {
+							this.questions.add(temp_question);
+						} else {
+							System.out.println("Error fetching question type 2");
+							//error fetching question
+						}
 						
 					} break;
 					
 					case 3: {
+						MultipleChoice temp_question = new MultipleChoice();
+						temp_question.mc_question_id = rs.getInt("mc_question_id");
+						if (temp_question.fetch()) {
+							this.questions.add(temp_question);
+						} else {
+							System.out.println("Error fetching question type 2");
+							//error fetching question
+						}
 						
 					} break;
 				}

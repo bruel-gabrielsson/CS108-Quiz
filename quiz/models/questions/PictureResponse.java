@@ -4,7 +4,9 @@ import models.Question;
 
 public class PictureResponse extends Question {
 	private static final String type = "PictureResponse";
-
+	
+	// NOT IMPLEMENTED IN THE DATABASE YET
+	
 	@Override
 	public boolean save() {
 		return true;

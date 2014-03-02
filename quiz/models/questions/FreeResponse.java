@@ -7,17 +7,16 @@ import database.DBConnector;
 import models.Question;
 
 public class FreeResponse extends Question {
-	private static final String type = "QuestionResponse";
+	public static final String type = "question_free_response";
 	
+	public String question_text = null;
+	public String answer = null;
 	public int fr_question_id = -1;
-	
-	public String name;
-	public String question_text;
-	public String answer;
 	
 	private DBConnector connector;
 	
 	public FreeResponse() {
+		super();
 		connector = new DBConnector();
 	}
 
@@ -38,12 +37,16 @@ public class FreeResponse extends Question {
 		ResultSet rs = connector.query(query);
 		
 		try {
-			name = rs.getString("name");
-			question_text = rs.getString("question_text");
-			answer = rs.getString("answer");
+			if (rs.next()) {
+				// Question superclass
+				question_text = rs.getString("question_text");
+				answer = rs.getString("answer");
+				name = rs.getString("name");
+			}
+			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
-			//e.printStackTrace();
 		}
 		
 		connector.closeConnection();

@@ -27,6 +27,7 @@ public class User implements model {
 	
 	public ArrayList<Quiz> quizzes = null;
 	public ArrayList<String> friends = null;
+	public ArrayList<Message> messages = null;
 	
 	private boolean is_admin = false;
 	
@@ -151,6 +152,31 @@ public class User implements model {
 		// Destroy the column from the database
 		
 		// Set all the quizzes user_id to null or something similar to indicate that user has been destroyed
+		return true;
+	}
+	
+	public boolean fetchMessages() {
+		
+		connector.openConnection();
+		
+		// Populate Messages list
+		String message_id_query = "SELECT * FROM message WHERE to_user_id = '" + this.user_id + "' ORDER BY time_sent";
+		ResultSet rs = connector.query(message_id_query);
+		this.messages = new ArrayList<Message>();
+		try {
+			while(rs.next()) {
+				int message_id = rs.getInt("message_id");
+				Message new_msg = new Message();
+				new_msg.message_id = message_id;
+				if (new_msg.fetch()) {
+					this.messages.add(new_msg);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		connector.closeConnection();
 		return true;
 	}
 	

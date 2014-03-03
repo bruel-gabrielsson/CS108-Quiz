@@ -19,16 +19,33 @@
 		<% 	User user = new User(); 
 			user.user_name = username;  %>
 	
+		<!-- Fetch user based on user name -->
 		<% 	if (user.fetch()) { %>
-			<h1>Profile for <%= user.user_name %></h1> <br/>
+			
+			<h1>Profile for <%= user.user_name %></h1>
 			<h3>User ID: <%= user.user_id %></h3>
 			<h3>Date Created: <%= user.date_created %></h3>
 			<h3>Messages received: <%= user.message_received %></h3>
+			
+			<hr />
+			
+			<h2>Messages</h2>
+			<ul>
+				<% 	user.fetchMessages();
+					for (Message msg : user.messages) { %>
+
+						<li>From: <%= msg.from_user_name %> Title: <%= msg.title %></li>
+							
+				<% } %>
+					
+			</ul>
+			
 		<% } else { %>
 			<h1>Profile for <%= username %> not found!</h1> <br/>
 		<% } %>
 
 	<% } %>
+	
 
 </body>
 </html>

@@ -19,17 +19,19 @@
 <!--HEADER BAR-->
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
-		
+
 		<!-- Grab username and loginStatus (if they exist) from the session  -->
 		<%	String username = (String)session.getAttribute("username");
 			String loginStatus = (String)session.getAttribute("loginStatus"); %>
 		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
-			<p> Welcome <%= session.getAttribute("username") %> </p>
+			<div id="header-profile"> 
+				Welcome <a href="profile.jsp"><%= session.getAttribute("username") %></a>! 
+			</div>
 			
 		<% } else { %>	
-			<!-- User isn't logged in. Display login form / login message if login failed-->
+			<!-- User isn't logged in. Also display login form / login message if login failed-->
 			<div id="header-form">
 				<% if (loginStatus != null && !loginStatus.isEmpty()) { %>
 					<p><%= loginStatus %>&nbsp;</p>

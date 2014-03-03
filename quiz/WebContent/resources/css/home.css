@@ -24,14 +24,18 @@ ul {
 #header-title {
 	font-size: 36px;
 	font-weight: bold;
-	padding: 8px 0px 8px 15px;
-	margin-bottom: 5px;
+	padding: 12px 0px 8px 15px;
 	float:left;
 }
 
 #header-form {
 	float:right;
 	padding: 20px 8px 8px 10px;
+}
+
+#header-profile {
+	float:right;
+	padding: 23px 8px 8px 10px;	
 }
 
 input[type=submit] {

@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="app.*" %>
-<%@ page import="controllers.*" %>
+<%@ page import="servlets.*" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="stylesheet" type="text/css" href="./resources/css/home.css?v=2"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css"/>
 	<title>Welcome to Quizz!</title>
 </head>
 <body>
@@ -27,7 +26,7 @@
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 
-				Welcome <a href="profile.jsp"><%= session.getAttribute("username") %></a>! 
+				Welcome <a href="profile.jsp"><%= session.getAttribute("username") %></a>! &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
 			</div>
 			
 		<% } else { %>	
@@ -37,7 +36,7 @@
 					<p><%= loginStatus %>&nbsp;</p>
 				<% } %>
 			
-				<form action="UserController" method="get"> 
+				<form action="LoginServlet" method="post"> 
 					username <input type="text" name="username" />&nbsp;
 					password <input type="text" name="password" />
 					<input type="submit" value="LOGIN" />

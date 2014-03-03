@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="app.*" %>
+<%@ page import="controllers.*" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<link rel="stylesheet" type="text/css" href="./resources/css/home.css?v=2"/>
 	<title>Welcome to Quizz!</title>
 </head>
@@ -17,14 +19,24 @@
 <!--HEADER BAR-->
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
-		<div id="header-form">
-			<form> 
-				username <input type="text" name="username">&nbsp;
-				password <input type="text" name="password">
-				<input type="submit" value="LOGIN">
+		
+		<%	String username = (String)session.getAttribute("username");
+		 	if (username == null || username.isEmpty()) { %>
+
+				<div id="header-form">
+					<form action="UserController" method="get"> 
+						username <input type="text" name="username" />&nbsp;
+						password <input type="text" name="password" />
+						<input type="submit" value="LOGIN" />
+					</form>	
+				</div>
 				
-			</form>	
-		</div>
+		<% } else { %>
+		
+			<p> Welcome <%= session.getAttribute("username") %> </p>
+		
+		<% } %>
+		
 	</div>
 
 <!--MAIN, LEFT SECTION-->
@@ -39,8 +51,8 @@
 						<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 					</div>
 					<div class="contentDiv">
-						Trivia on crabs<br/>
-						Created by Jikyu Choi
+						<a href="quiz.jsp">Trivia on crabs</a><br/>
+						Created by <a href="#">Jikyu Choi</a>
 					</div>
 					<div class="dateDiv">
 						February 4th, 2014

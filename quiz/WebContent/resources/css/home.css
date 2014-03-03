@@ -36,11 +36,15 @@ ul {
 
 input[type=submit] {
 	margin-left: 10px;
-	padding:3px 15px 3px 15px; 
+	padding:2px 25px 2px 25px; 
 	background:#CC6633; 
-	border:0 none;
+	border:1px solid #CC9999;
 	cursor:pointer;
 	color: white;
+}
+
+input[type=submit]:hover{
+	background:#CC9966; 
 }
 
 /* MAIN ---------------------------------------------------------------- */

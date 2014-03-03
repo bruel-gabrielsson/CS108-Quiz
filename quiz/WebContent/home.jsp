@@ -59,7 +59,7 @@
 					</div>
 					<div class="contentDiv">
 						<a href="quiz.jsp">Trivia on crabs</a><br/>
-						Created by <a href="#">Jikyu Choi</a>
+						Created by <a href="profile.jsp">Jikyu Choi</a>
 					</div>
 					<div class="dateDiv">
 						February 4th, 2014

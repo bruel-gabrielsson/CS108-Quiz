@@ -113,7 +113,7 @@
 			<div class="smallHeader">YOUR QUIZZES</div>
 			<ul>
 				<%	for (Quiz quiz : user.quizzes) { %>
-					<li><a href="quiz.jsp"><%= quiz.quiz_name %></a> <%= quiz.date_created %></li>	
+					<li><a href="quiz.jsp?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a> <%= quiz.date_created %></li>	
 				<% } %>
 			</ul>
 			
@@ -123,9 +123,7 @@
 			User has <%= user.friends.size() %> friends
 			<ul>
 				<%	for (String friend : user.friends) { %>
-
-					<li><a href="profile.jsp"><%= friend %></a></li>	
-				
+					<li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>	
 				<% } %>
 			</ul>
 			

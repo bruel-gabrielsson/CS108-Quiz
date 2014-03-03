@@ -26,6 +26,7 @@ public class User implements model {
 	public int challenge_received;
 	
 	public ArrayList<Quiz> quizzes = null;
+	public ArrayList<String> friends = null;
 	
 	private boolean is_admin = false;
 	
@@ -61,15 +62,16 @@ public class User implements model {
 	
 	@Override
 	public boolean fetch() {
-		// populate all the fields
+
 		if (this.user_name == null) {
 			return false;
 		}
 		
-		String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
 		connector.openConnection();
-		ResultSet rs = connector.query(query);
 		
+		// populate all the fields
+		String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
+		ResultSet rs = connector.query(query);
 		try {
 			if (rs.next()) {
 				this.user_id = rs.getInt("user_id");
@@ -84,13 +86,10 @@ public class User implements model {
 		}
 		
 		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
-		
 		String quiz_query = "SELECT quiz_id FROM quiz WHERE creator_id = '" + this.user_id + "'";
 		rs = null;
 		rs = connector.query(quiz_query);
-		
 		this.quizzes = new ArrayList<Quiz>();
-		
 		try {
 			while(rs.next()) {
 				int quiz_id = rs.getInt("quiz_id");
@@ -102,6 +101,39 @@ public class User implements model {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+		
+		// Populate Friends ID list
+		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' ORDER BY date_created";
+		rs = null;
+		rs = connector.query(friends_id_query);
+		ArrayList<Integer> friendIDs = new ArrayList<Integer>();
+		try {
+			while(rs.next()) {
+				int friend_id = rs.getInt("friend_id");
+				friendIDs.add(friend_id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		// Translate friends ID list to friends username
+		this.friends = new ArrayList<String>();
+		for (Integer friend_id : friendIDs) {
+		
+			String friends_query = "SELECT * FROM user WHERE user_id = '" + friend_id + "'";
+			rs = null;
+			rs = connector.query(friends_query);
+			try {
+				while(rs.next()) {
+					String friend_name = rs.getString("user_name");
+					this.friends.add(friend_name);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		connector.closeConnection();

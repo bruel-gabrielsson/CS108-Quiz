@@ -59,15 +59,27 @@ public class Quiz implements model {
 	public boolean fetch() {
 		
 		
-		// populate everything
-		// Populare questions, find the questions TYPE, to know what questions to create
+		// Populate quiz info
 		if (this.quiz_id == -1) {
 			return false;
 		}
-		
 		connector.openConnection();
+		String quizQuery = "SELECT * FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
+		ResultSet rs = connector.query(quizQuery);
+		try {
+			while(rs.next()) {
+				this.quiz_name = rs.getString("quiz_name");
+				this.date_created = rs.getString("date_created");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		
+		// Populate questions, find the questions TYPE, to know what questions to create
 		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = '" + this.quiz_id + "' ORDER BY question_number";
-		ResultSet rs = connector.query(query);
+		rs = null;
+		rs = connector.query(query);
 		
 		// Creating instance of questions
 		this.questions = new ArrayList<Question>();

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="servlets.*" %>
+<%@ page import="app.*" %>
+<%@ page import="models.*" %>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -21,7 +24,8 @@
 
 		<!-- Grab username and loginStatus (if they exist) from the session  -->
 		<%	String username = (String)session.getAttribute("username");
-			String loginStatus = (String)session.getAttribute("loginStatus"); %>
+			String loginStatus = (String)session.getAttribute("loginStatus"); 
+			App app = (App)session.getAttribute("app"); %>
 		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
@@ -97,16 +101,37 @@
 	</div>
 
 <!--RIGHT SECTION, ONLY DISPLAYED IF USER IS LOGGED IN-->
-	<%	if (username != null && !username.isEmpty()) { %>
+	<%	if (username != null && !username.isEmpty() && app != null) { %>
+		<% 	User user = app.current_user; %>
 		<div id="sidebar">
 			<div id="announcements">
 				<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
 				<div id="announcements-body">Welcome to Quizz! This home page should contain an announcement section, list of popular quizzes, etc.</div>
 			</div>
 		
+			<!-- Arraylist of user's quizzes -->
 			<div class="smallHeader">YOUR QUIZZES</div>
+			<ul>
+				<%	for (Quiz quiz : user.quizzes) { %>
+					<li><a href="quiz.jsp"><%= quiz.quiz_name %></a> <%= quiz.date_created %></li>	
+				<% } %>
+			</ul>
+			
+			<!-- Arraylist of user's friends -->
+			<!--  TODO For now it's simply friends list, but needs to be history of friend's activities -->
 			<div class="smallHeader">YOUR FRIENDS</div>
+			User has <%= user.friends.size() %> friends
+			<ul>
+				<%	for (String friend : user.friends) { %>
+
+					<li><a href="profile.jsp"><%= friend %></a></li>	
+				
+				<% } %>
+			</ul>
+			
+			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
+			
 		</div>
 	<% } %>
 </div>

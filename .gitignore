@@ -27,3 +27,5 @@ Servers*
 /.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat
 /.metadata/.plugins/org.eclipse.rse.core/.log
 /.metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
+
+.DS_Store

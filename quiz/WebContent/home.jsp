@@ -20,20 +20,27 @@
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
 		
+		<!-- Grab username and loginStatus (if they exist) from the session  -->
 		<%	String username = (String)session.getAttribute("username");
-		 	if (username == null || username.isEmpty()) { %>
-
-				<div id="header-form">
-					<form action="UserController" method="get"> 
-						username <input type="text" name="username" />&nbsp;
-						password <input type="text" name="password" />
-						<input type="submit" value="LOGIN" />
-					</form>	
-				</div>
-				
-		<% } else { %>
+			String loginStatus = (String)session.getAttribute("loginStatus"); %>
 		
+		<%	if (username != null && !username.isEmpty()) { %>
+			<!-- User is logged in  -->
 			<p> Welcome <%= session.getAttribute("username") %> </p>
+			
+		<% } else { %>	
+			<!-- User isn't logged in. Display login form / login message if login failed-->
+			<div id="header-form">
+				<% if (loginStatus != null && !loginStatus.isEmpty()) { %>
+					<p><%= loginStatus %>&nbsp;</p>
+				<% } %>
+			
+				<form action="UserController" method="get"> 
+					username <input type="text" name="username" />&nbsp;
+					password <input type="text" name="password" />
+					<input type="submit" value="LOGIN" />
+				</form>	
+			</div>
 		
 		<% } %>
 		

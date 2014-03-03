@@ -45,10 +45,8 @@ public class UserController extends HttpServlet {
 		if(!username.isEmpty() && !password.isEmpty()){
 			
 			// Check for auth here
-			boolean authSuccessful = false;
-			if (authSuccessful){
-				
-				// Store username as a session variable
+			if (app.signIn(username, password)){
+				// Login successful,Store username as a session variable
 				request.getSession().setAttribute("username", username);
 				request.getSession().setAttribute("loginStatus", "Success");
 			} else {

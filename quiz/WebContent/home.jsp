@@ -30,7 +30,7 @@
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 
-				Welcome <a href="profile.jsp"><%= session.getAttribute("username") %></a>! &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
+				Welcome <a href="profile.jsp?username=<%= username %>"><%= username %></a>! &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
 			</div>
 			
 		<% } else { %>	

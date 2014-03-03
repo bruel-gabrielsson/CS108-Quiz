@@ -49,42 +49,66 @@
 
 <!--MAIN, LEFT SECTION-->
 	<div id="main">
+	
 		<div class="largeHeader">Most Popular</div>
 		<ul>
-		
 			<!--TODO: Auto-generate quiz items based on below template-->
-			<li>
-				<div class="quizWidget">
-					<div class="imgDiv">
-						<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
+			<%	for (int i=0; i<3; i++) {%>
+				<li>
+					<div class="quizWidget">
+						<div class="imgDiv">
+							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
+						</div>
+						<div class="contentDiv">
+							<a href="quiz.jsp">Trivia on crabs</a><br/>
+							Created by <a href="profile.jsp">Jikyu Choi</a>
+						</div>
+						<div class="dateDiv">
+							February 4th, 2014
+						</div>
 					</div>
-					<div class="contentDiv">
-						<a href="quiz.jsp">Trivia on crabs</a><br/>
-						Created by <a href="profile.jsp">Jikyu Choi</a>
-					</div>
-					<div class="dateDiv">
-						February 4th, 2014
-					</div>
-				</div>
-			</li>
+				</li>	
+			<% } %>
+			
+			
 		</ul>
 		
 		<div class="largeHeader">Recently Created</div>
+		<ul>
+			<!--TODO: Auto-generate quiz items based on below template-->
+			<%	for (int i=0; i<2; i++) {%>
+				<li>
+					<div class="quizWidget">
+						<div class="imgDiv">
+							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
+						</div>
+						<div class="contentDiv">
+							<a href="quiz.jsp">Trivia on lobsters</a><br/>
+							Created by <a href="profile.jsp">Jikyu Choi</a>
+						</div>
+						<div class="dateDiv">
+							February 4th, 2014
+						</div>
+					</div>
+				</li>	
+			<% } %>
+		</ul>
 
 	</div>
 
-<!--RIGHT SECTION-->
-	<div id="sidebar">
-		<div id="announcements">
-			<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
-			<div id="announcements-body">Welcome to Quizz! This home page should contain an announcement section, list of popular quizzes, etc.</div>
+<!--RIGHT SECTION, ONLY DISPLAYED IF USER IS LOGGED IN-->
+	<%	if (username != null && !username.isEmpty()) { %>
+		<div id="sidebar">
+			<div id="announcements">
+				<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
+				<div id="announcements-body">Welcome to Quizz! This home page should contain an announcement section, list of popular quizzes, etc.</div>
+			</div>
+		
+			<div class="smallHeader">YOUR QUIZZES</div>
+			<div class="smallHeader">YOUR FRIENDS</div>
+			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
 		</div>
-	
-		<div class="smallHeader">YOUR QUIZZES</div>
-		<div class="smallHeader">YOUR FRIENDS</div>
-		<div class="smallHeader">YOUR ACHIEVEMENTS</div>
-	</div>
-	
+	<% } %>
 </div>
 
 

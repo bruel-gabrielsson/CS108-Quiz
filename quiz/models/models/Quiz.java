@@ -38,7 +38,7 @@ public class Quiz implements model {
 	/**
 	 * 
 	 */
-	Quiz() {
+	public Quiz() {
 		connector = new DBConnector();
 	}
 	

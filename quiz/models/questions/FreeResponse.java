@@ -39,6 +39,7 @@ public class FreeResponse extends Question {
 		
 		try {
 			if (rs.next()) {
+				question_type_id = rs.getInt("question_type_id");
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");
 				name = rs.getString("name");

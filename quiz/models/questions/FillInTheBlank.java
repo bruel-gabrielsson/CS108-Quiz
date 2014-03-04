@@ -40,6 +40,7 @@ public class FillInTheBlank extends Question {
 		
 		try {
 			if (rs.next()) {
+				question_type_id = rs.getInt("question_type_id");
 				question_text_before = rs.getString("question_text_before");
 				question_text_after = rs.getString("question_text_after");
 				answer = rs.getString("answer");

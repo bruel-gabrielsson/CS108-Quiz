@@ -33,9 +33,19 @@
 			<ul>
 				<% 	user.fetchMessages();
 					for (Message msg : user.messages) { %>
-
-						<li>From: <%= msg.from_user_name %> Title: <%= msg.title %></li>
+						<li>
+							From: <%= msg.from_user_name %> Title: <%= msg.title %>
 							
+							<!-- This is really fucking hacky way of showing messages, figure out a better, faster way -->
+							<% String focusedmessage = request.getParameter("focusedmessage"); %>
+							<% if (focusedmessage != null && !focusedmessage.isEmpty() && focusedmessage.equals(Integer.toString(msg.message_id))) {%>
+								<a href="profile.jsp?username=<%=username%>">HIDE</a>
+								<div><%= msg.body %></div>
+							<% } else { %>
+								<a href="profile.jsp?username=<%=username%>&focusedmessage=<%=msg.message_id%>">SHOW</a>
+							<% } %>
+						
+						</li>
 				<% } %>
 					
 			</ul>

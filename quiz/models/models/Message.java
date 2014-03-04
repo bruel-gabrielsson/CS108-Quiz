@@ -60,7 +60,7 @@ public class Message implements model {
 		rs = connector.query(userQuery);
 		try {
 			while(rs.next()) {
-				this.from_user_name = rs.getString("user_id");
+				this.from_user_name = rs.getString("user_name");
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();

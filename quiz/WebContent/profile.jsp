@@ -34,7 +34,9 @@
 				<% 	user.fetchMessages();
 					for (Message msg : user.messages) { %>
 						<li>
-							From: <%= msg.from_user_name %> Title: <%= msg.title %>
+							Date: <%= msg.time_sent %> 
+							From: <a href="profile.jsp?username=<%=msg.from_user_name%>"><%= msg.from_user_name %></a>
+							Title: <%= msg.title %>
 							
 							<!-- This is really fucking hacky way of showing messages, figure out a better, faster way -->
 							<% String focusedmessage = request.getParameter("focusedmessage"); %>

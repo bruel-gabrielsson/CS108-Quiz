@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<<<<<<< HEAD
 <%@ page import="models.*" %>
 <%@ page import="questions.*" %>
+<%@ page import="app.*" %>
     
 <%
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
 	
 %>
-=======
-    
-<%@ page import="app.*" %>
-<%@ page import="models.*" %>
->>>>>>> 638443547acc42288fd410cbdc7dc65401d4d832
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -62,12 +57,10 @@
 	
 <!-- Quiz main content -->
 
-<<<<<<< HEAD
-=======
+
 	<% String quiz_id = request.getParameter("quiz_id"); %>
 	<% if (quiz_id != null && !quiz_id.isEmpty()) {%>	
 		
->>>>>>> 638443547acc42288fd410cbdc7dc65401d4d832
 	<div>
 		<h1>Quiz <%= quiz.quiz_name %></h1>
 		<h1>Trivia on crabs and lobsters</h1>
@@ -75,8 +68,8 @@
 		<ol>
 			<% for (Question q : quiz.questions) { %>
 				<li>
+				<div>
 				<% int type = q.question_type_id; %>
-				<%= Integer.toString(type) %>
 				<% switch (type) {
 				
 					case 1: 
@@ -96,11 +89,12 @@
 						FillInTheBlank fib = (FillInTheBlank) q;
 					%>
 					
-					<%= fib.question_text_before %>
 					<form>
+						<%= fib.question_text_before %>
 						<input type="text" name="<%= fib.question_number %>">
+						<%= fib.question_text_after %>
 					</form>
-					<%= fib.question_text_after %>
+					
 					<br/>
 					
 					<%
@@ -111,13 +105,20 @@
 					%>
 					
 					<%= mc.question_text %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_a %>"><br>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_b %>"><br>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_c %>"><br>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_d %>"><br>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_e %>"><br>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_f %>"><br>
-				
+					<br></br>
+					<p><%= mc.choice_a %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_a %>"></input><br/>
+					<%= mc.choice_b %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_b %>"></input><br/>
+					<%= mc.choice_c %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_c %>"></input><br/>
+					<%= mc.choice_d %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_d %>"></input><br/>
+					<%= mc.choice_e %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_e %>"></input><br/>
+					<%= mc.choice_f %>
+					<input type="radio" name="q2choice1" value="<%= mc.choice_f %>"></input><br/>
+					</p>
 					<%
 						break;
 					
@@ -126,8 +127,11 @@
 						break;
 					}
 				%>
+				</div>
 				</li>
 			<% } %>
+		<% } %>
+			
 			
 			<!--  
 			<li>

@@ -9,7 +9,7 @@ public class Challenge implements model {
 	public int to_user_id;
 	public int from_user_id;
 	public int quiz_id;
-	public int accepted_yn;
+	public int challenge_status;
 	public String time_sent;
 	
 	public String from_user_name;
@@ -34,6 +34,7 @@ public class Challenge implements model {
 		}
 		
 		connector.openConnection();
+		
 		String query;
 		ResultSet rs;
 		
@@ -45,7 +46,7 @@ public class Challenge implements model {
 				this.to_user_id = rs.getInt("to_user_id");
 				this.from_user_id = rs.getInt("from_user_id");
 				this.quiz_id = rs.getInt("quiz_id");
-				this.accepted_yn = rs.getInt("accepted_yn");
+				this.challenge_status = rs.getInt("challenge_status");
 				this.time_sent = rs.getString("time_sent");
 			}
 		} catch (SQLException e) {
@@ -53,7 +54,7 @@ public class Challenge implements model {
 			return false;
 		}
 		
-		query = "SELECT * FROM user WHERE user_id = '" + this.from_user_id + "'";
+		query = "SELECT user_name FROM user WHERE user_id = '" + this.from_user_id + "'";
 		rs = connector.query(query);
 		
 		try {
@@ -65,7 +66,7 @@ public class Challenge implements model {
 			return false;
 		}
 		
-		query = "SELECT * FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
+		query = "SELECT quiz_name FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
 		rs = connector.query(query);
 		
 		try {

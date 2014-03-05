@@ -34,6 +34,7 @@ public class Challenge implements model {
 		}
 		
 		connector.openConnection();
+		
 		String query;
 		ResultSet rs;
 		
@@ -53,7 +54,7 @@ public class Challenge implements model {
 			return false;
 		}
 		
-		query = "SELECT * FROM user WHERE user_id = '" + this.from_user_id + "'";
+		query = "SELECT user_name FROM user WHERE user_id = '" + this.from_user_id + "'";
 		rs = connector.query(query);
 		
 		try {
@@ -65,7 +66,7 @@ public class Challenge implements model {
 			return false;
 		}
 		
-		query = "SELECT * FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
+		query = "SELECT quiz_name FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
 		rs = connector.query(query);
 		
 		try {

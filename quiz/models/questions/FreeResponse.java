@@ -7,6 +7,8 @@ import database.DBConnector;
 import models.Question;
 
 public class FreeResponse extends Question {
+	public String error = null;
+	
 	public static final String this_type = "question_free_response";
 	
 	public String question_text = null;
@@ -28,8 +30,10 @@ public class FreeResponse extends Question {
 
 	@Override
 	public boolean fetch() {
+		this.error = null;
 		
 		if (fr_question_id == -1) {
+			this.error = "Question id not specified";
 			return false;
 		}
 		

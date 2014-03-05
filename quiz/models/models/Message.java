@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import database.DBConnector;
 
 public class Message implements model {
+	public String error = null;
 
 	public int message_id = -1;
 	public int to_user_id = -1;
@@ -30,8 +31,11 @@ public class Message implements model {
 	
 	@Override
 	public boolean fetch() {
+		this.error = null;
+		
 		// Populate quiz info
 		if (this.message_id == -1) {
+			this.error = "id was not specified";
 			return false;
 		}
 		
@@ -49,7 +53,7 @@ public class Message implements model {
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			return false;
+			//return false;
 		}		
 		
 		

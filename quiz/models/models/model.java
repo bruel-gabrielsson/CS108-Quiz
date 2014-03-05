@@ -9,6 +9,7 @@ package models;
  * Returns true if successful, and false if error
  */
 public interface model {
+	
 	/**
 	 * Saves the model and its information to the database
 	 */

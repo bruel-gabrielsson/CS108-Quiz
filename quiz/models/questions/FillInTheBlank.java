@@ -7,6 +7,8 @@ import database.DBConnector;
 import models.Question;
 
 public class FillInTheBlank extends Question {
+	public String error = null;
+	
 	public static final String this_type = "question_fill_in_blank";
 	
 	public int fib_question_id = -1;
@@ -30,7 +32,10 @@ public class FillInTheBlank extends Question {
 
 	@Override
 	public boolean fetch() {
+		this.error = null;
+		
 		if (fib_question_id == -1) {
+			this.error = "Question id not specified";
 			return false;
 		}
 		

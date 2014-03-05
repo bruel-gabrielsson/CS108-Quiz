@@ -21,6 +21,8 @@ import questions.MultipleChoice;
  * BELONGS-TO: USER
  */
 public class Quiz implements model {
+	public String error = null;
+	
 	// private previous variables? remove update
 	
 	public int quiz_id = -1;
@@ -32,7 +34,7 @@ public class Quiz implements model {
 	/** Mapping back to User */
 	public int creator_id;
 	
-	private DBConnector connector;
+	private DBConnector connector = null;
 	
 	public ArrayList<Question> questions = null;
 	/**
@@ -55,17 +57,48 @@ public class Quiz implements model {
 		
 		return true;
 	}
+	
+	/* ???
+	public ArrayList<Quiz> parse(ResultSet rs) {
+		ArrayList<Quiz> qs = new ArrayList<Quiz>();
+		
+		try {
+			rs.beforeFirst();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			while(rs.next()) {
+				Quiz temp_quiz = new Quiz();
+				temp_quiz.populate(rs);
+				qs.add(temp_quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return qs;
+	} */
+	
 	@Override
 	public boolean fetch() {
-		
-		
+		this.error = null;
 		// Populate quiz info
 		if (this.quiz_id == -1) {
+			this.error = "Quiz id was not specified";
 			return false;
 		}
+		
 		connector.openConnection();
 		String quizQuery = "SELECT * FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
 		ResultSet rs = connector.query(quizQuery);
+		
+		this.populate(rs);
+		
+		connector.closeConnection();
+		return true;
+	}
+	
+	private boolean populate(ResultSet rs) {
 		try {
 			while(rs.next()) {
 				this.quiz_name = rs.getString("quiz_name");
@@ -74,7 +107,6 @@ public class Quiz implements model {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-
 		
 		// Populate questions, find the questions TYPE, to know what questions to create
 		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = '" + this.quiz_id + "' ORDER BY question_number";
@@ -92,6 +124,8 @@ public class Quiz implements model {
 					case 1: {
 						FreeResponse temp_question = new FreeResponse();
 						temp_question.fr_question_id = rs.getInt("fr_question_id");
+						
+						
 						if (temp_question.fetch()) {
 							this.questions.add(temp_question);
 						} else {
@@ -131,18 +165,17 @@ public class Quiz implements model {
 			e.printStackTrace();
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
+	
 	@Override
 	public boolean update() {
 		return true;
 	}
+	
 	@Override
 	public boolean destroy() {
 		return true;
 	}
-	
-	
-	
+		
 }

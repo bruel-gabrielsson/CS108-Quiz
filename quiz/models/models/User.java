@@ -18,6 +18,7 @@ import app.App;
  * FETCH: BASED ON user_name
  */
 public class User implements model {
+	public String error = null;
 	
 	public int user_id;
 	public String date_created;
@@ -63,8 +64,10 @@ public class User implements model {
 	
 	@Override
 	public boolean fetch() {
-
+		this.error = null;
+		
 		if (this.user_name == null) {
+			this.error = "User name was not specified";
 			return false;
 		}
 		
@@ -91,6 +94,7 @@ public class User implements model {
 		rs = null;
 		rs = connector.query(quiz_query);
 		this.quizzes = new ArrayList<Quiz>();
+		
 		try {
 			while(rs.next()) {
 				int quiz_id = rs.getInt("quiz_id");
@@ -103,7 +107,6 @@ public class User implements model {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		
 		// Populate Friends ID list
 		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' ORDER BY date_created";

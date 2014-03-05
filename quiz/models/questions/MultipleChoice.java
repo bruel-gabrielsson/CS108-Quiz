@@ -7,6 +7,8 @@ import database.DBConnector;
 import models.Question;
 
 public class MultipleChoice extends Question {
+	public String error = null;
+	
 	public static final String this_type = "question_multiple_choice";
 	
 	public int mc_question_id = -1;
@@ -39,7 +41,10 @@ public class MultipleChoice extends Question {
 
 	@Override
 	public boolean fetch() {
+		this.error = null;
+		
 		if (mc_question_id == -1) {
+			this.error = "Question id not specified";
 			return false;
 		}
 		

@@ -6,8 +6,9 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%
- App app = (App)session.getAttribute("app");
-	
+	App app = (App)session.getAttribute("app");
+	String username = app.current_user.user_name;
+	String loginStatus = app.current_user.user_name;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -15,7 +16,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css"/>
+	<link rel="stylesheet" type="text/css" href="media/home.css"/>
 	<title>Welcome to Quizz!</title>
 </head>
 <body>
@@ -27,10 +28,6 @@
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
 
-		<!-- Grab username and loginStatus (if they exist) from the session  -->
-		<%	String username = (String)session.getAttribute("username");
-			String loginStatus = (String)session.getAttribute("loginStatus"); 
-			App app = (App)session.getAttribute("app"); %>
 		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
@@ -62,18 +59,18 @@
 		<div class="largeHeader">Most Popular</div>
 		<ul>
 			<!--TODO: Auto-generate quiz items based on below template-->
-			<%	for (int i=0; i<3; i++) {%>
+			<%	for (Quiz quiz : app.popular_quizzes) { %>
 				<li>
 					<div class="quizWidget">
 						<div class="imgDiv">
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="quiz.jsp">Trivia on crabs</a><br/>
-							Created by <a href="profile.jsp">Jikyu Choi</a>
+							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							Created by <a href="profile.jsp"><%= quiz.creator_id %></a>
 						</div>
 						<div class="dateDiv">
-							February 4th, 2014
+							<%= quiz.date_created %>
 						</div>
 					</div>
 				</li>	
@@ -85,18 +82,18 @@
 		<div class="largeHeader">Recently Created</div>
 		<ul>
 			<!--TODO: Auto-generate quiz items based on below template-->
-			<%	for (int i=0; i<2; i++) {%>
+			<%	for (Quiz quiz : app.recent_quizzes) { %>
 				<li>
 					<div class="quizWidget">
 						<div class="imgDiv">
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="quiz.jsp">Trivia on lobsters</a><br/>
-							Created by <a href="profile.jsp">Jikyu Choi</a>
+							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							Created by <a href="profile.jsp"><%= quiz.creator_id %></a>
 						</div>
 						<div class="dateDiv">
-							February 4th, 2014
+							<%= quiz.date_created %>
 						</div>
 					</div>
 				</li>	
@@ -106,7 +103,7 @@
 	</div>
 
 <!--RIGHT SECTION, ONLY DISPLAYED IF USER IS LOGGED IN-->
-	<%	if (username != null && !username.isEmpty() && app != null) { %>
+	<%	if (username != null) { %>
 		<% 	User user = app.current_user; %>
 		<div id="sidebar">
 			<div id="announcements">
@@ -118,7 +115,7 @@
 			<div class="smallHeader">YOUR QUIZZES</div>
 			<ul>
 				<%	for (Quiz quiz : user.quizzes) { %>
-					<li><a href="quiz.jsp?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a> <%= quiz.date_created %></li>	
+					<li><a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a> <%= quiz.date_created %></li>	
 				<% } %>
 			</ul>
 			

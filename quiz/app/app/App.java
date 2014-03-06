@@ -1,11 +1,14 @@
 package app;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import questions.FreeResponse;
 
 import com.mysql.jdbc.Connection;
 
+import database.DBConnector;
 import models.Question;
 import models.User;
 import models.Quiz;
@@ -21,6 +24,10 @@ import models.Quiz;
  * Create a new app for every visit?
  */
 public class App {
+	public String error = null;
+	
+	public DBConnector connector = null;
+	
 	public int number_users;
 	public int number_quizzes;
 	
@@ -28,43 +35,91 @@ public class App {
 	
 	//public ArrayList<Announcement> announcements = null;
 	public ArrayList<Quiz> popular_quizzes = null;
-	public ArrayList<Quiz> recently_quizzes = null;
+	public ArrayList<Quiz> recent_quizzes = null;
 	
 	public User current_user = null;
 	
 	public void initialize() {
 		// Fetch all the overall information for the app, top scores, etc
 		
-		app = new App();
 		
-		app.number_users = 1;
-		app.number_quizzes = 1;
+		number_users = 1;
+		number_quizzes = 1;
 		
 		current_user = new User();
 		
 		/// TESTING
 		
-		this.current_user.user_name = "Tyler";
-		if (this.current_user.fetch()) {
+		current_user.user_name = "Tyler";
+		if (current_user.fetch()) {
 			System.out.println("success");
-			String s = this.current_user.challenge_received + this.current_user.date_created.toString() + this.current_user.user_name + Integer.toString(this.current_user.user_id) + this.current_user.quizzes.toString();
-			System.out.println(s);
-			
-			FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
-			System.out.println(fr.question_text);
-			System.out.println(fr.name);
-			System.out.println(fr.type);
-			
-			for (Question q : this.current_user.quizzes.get(0).questions) {
-				if (q.type == "question_free_response") {
-					FreeResponse nq = (FreeResponse) q;
-					String s1 = nq.name + nq.answer + nq.question_text;
-					System.out.println(s1);
-					
-				}
-			}
 			
 		}
+		
+		if(fetchPopularQuizzes()) {
+			// fetching popular quizzes
+		}
+		
+		if(fetchRecentQuizzes()) {
+			// fetching recent quizzess
+		}
+		
+		
+	}
+	
+	public App() {
+		connector = new DBConnector();
+		
+	}
+	
+	private boolean fetchPopularQuizzes() {
+		this.error = null;
+		
+		connector.openConnection();
+		String quizQuery = "SELECT * FROM quiz ORDER BY times_taken LIMIT 5";
+		ResultSet rs = connector.query(quizQuery);
+		
+		this.popular_quizzes = new ArrayList<Quiz>();	
+		try {
+			while(rs.next()) {
+				int quiz_id = rs.getInt("quiz_id");
+				Quiz temp_quiz = new Quiz();
+				temp_quiz.quiz_id = quiz_id;
+				if (temp_quiz.fetch()) {
+					this.popular_quizzes.add(temp_quiz);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		connector.closeConnection();
+		return true;
+	}
+	
+	private boolean fetchRecentQuizzes() {
+		this.error = null;
+		
+		connector.openConnection();
+		String quizQuery = "SELECT * FROM quiz ORDER BY date_created LIMIT 5";
+		ResultSet rs = connector.query(quizQuery);
+		
+		this.recent_quizzes = new ArrayList<Quiz>();	
+		try {
+			while(rs.next()) {
+				int quiz_id = rs.getInt("quiz_id");
+				Quiz temp_quiz = new Quiz();
+				temp_quiz.quiz_id = quiz_id;
+				if (temp_quiz.fetch()) {
+					this.recent_quizzes.add(temp_quiz);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		connector.closeConnection();
+		return true;
 	}
 	
 	public boolean signIn(String user_name, String password) {

@@ -31,7 +31,7 @@
 			
 			<h2>Messages</h2>
 			<ul>
-				<% 	user.fetchMessages();
+				<%
 					for (Message msg : user.messages) { %>
 						<li>
 							Date: <%= msg.time_sent %> 

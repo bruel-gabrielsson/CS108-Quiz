@@ -140,6 +140,10 @@ public class User implements model {
 			}
 		}
 		
+		if(fetchMessages()) {
+			// fetches the messages automatically for now
+		}
+		
 		connector.closeConnection();
 		return true;
 	}
@@ -158,7 +162,7 @@ public class User implements model {
 		return true;
 	}
 	
-	public boolean fetchMessages() {
+	private boolean fetchMessages() {
 		
 		connector.openConnection();
 		

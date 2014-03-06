@@ -30,7 +30,7 @@
 		<!-- Grab username and loginStatus (if they exist) from the session  -->
 		<%	String username = (String)session.getAttribute("username");
 			String loginStatus = (String)session.getAttribute("loginStatus"); 
-			App app = (App)session.getAttribute("app"); %>
+			app = (App)session.getAttribute("app"); %>
 		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->

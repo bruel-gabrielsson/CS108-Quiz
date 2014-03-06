@@ -50,6 +50,13 @@ public class App {
 			String s = this.current_user.challenge_received + this.current_user.date_created.toString() + this.current_user.user_name + Integer.toString(this.current_user.user_id) + this.current_user.quizzes.toString();
 			System.out.println(s);
 			
+			// TEW: test user.save for update 
+			this.current_user.am_challenges_sent = 100;
+			if(this.current_user.save()) {
+				System.out.println("Successful update");
+			}
+			
+			
 			FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
 			System.out.println(fr.question_text);
 			System.out.println(fr.name);

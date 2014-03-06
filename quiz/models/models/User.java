@@ -20,17 +20,25 @@ import app.App;
 public class User implements model {
 	public String error = null;
 	
-	public int user_id;
+	public int user_id = -1; // TEW: initialize to -1 for SAVE method
 	public String date_created;
 	public String user_name = null;
 	public int message_received;
 	public int challenge_received;
+	public int am_created_quizzes;
+	public int am_taken_quizzes;
+	public int am_challenges_sent;
+	public int am_messages_sent;
+	public int am_number_friends;
 	
 	public ArrayList<Quiz> quizzes = null;
 	public ArrayList<String> friends = null;
 	public ArrayList<Message> messages = null;
 	
-	private boolean is_admin = false;
+//	private boolean is_admin = false;
+	private int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
+	private String password = null; // TEW: added because password cannot be null when creating a new user
+	private String salt = null; // TEW: added because salt cannot be null when creating a new user
 	
 	private DBConnector connector = null;
 	
@@ -51,15 +59,54 @@ public class User implements model {
 	}
 	
 	// Checks if user is an admin 
-	public boolean isAdming() {
-		
-		return true;
+	public boolean isAdmin() {
+		if(is_admin == 1) return true;
+		return false;	
 	}
 	
+	// TEW: implemented save function (needs testing). I wrote some tests in app, but am having trouble getting the project to run tonight.
 	@Override
 	public boolean save() {
-		// Write to database
-		return true;
+		connector.openConnection();	
+		// If the user_id is populated, the we want to try and update the user table
+		if(user_id >= 0){
+			String[] updateStmt = new String[1];
+			updateStmt[0] = "UPDATE user SET user_name = \"" + user_name+ "\", " +
+					"password = \"" + password + "\", " + 
+					"salt = \"" + salt + "\", " + 
+					"message_received = " + message_received + ", " +
+					"challenge_received = " + challenge_received + ", " +
+					"is_admin = " + is_admin + ", " +
+					"am_created_quizzes = " + am_created_quizzes + ", " +
+					"am_taken_quizzes = " + am_taken_quizzes + ", " +
+					"am_challenges_sent = " + am_challenges_sent + ", " +
+					"am_messages_sent = " + am_messages_sent + ", " +
+					"WHERE user_id = " + user_id;
+			System.out.println("user update: " + updateStmt[0]);
+			int result = connector.updateOrInsert(updateStmt);
+			if(result < 0){
+				System.err.println("There was an error in the UPDATE call to the USER table");
+				connector.closeConnection();
+				return false;
+			}
+			connector.closeConnection();
+			return true;
+		} else {
+			// We don't have a user_id, so we are trying to create a new user
+			// All fields besides the ones we are inserting into will be automatically set
+			String[] insertStmt = new String[1];
+			insertStmt[0] = "INSERT INTO user(date_created, user_name, password, salt, is_admin) VALUES( NOW(), " +
+			"\"" + user_name + "\", \"" + password + "\", \"" + salt + "\", " + is_admin +")";
+			System.out.println("user insert: " + insertStmt[0]);
+			int result = connector.updateOrInsert(insertStmt);
+			if(result < 0){
+				System.err.println("There was an error in the INSERT call to the USER table");
+				connector.closeConnection();
+				return false;
+			}
+			connector.closeConnection();
+			return true;
+		}
 	}
 	
 	@Override
@@ -81,9 +128,11 @@ public class User implements model {
 				this.user_id = rs.getInt("user_id");
 				this.date_created = rs.getString("date_created");
 				this.user_name = rs.getString("user_name");
-				this.message_received = rs.getInt("message_recived"); // SPELLING ERROR!!!!
+				this.password = rs.getString("password");
+				this.salt = rs.getString("salt");
+				this.message_received = rs.getInt("message_received"); 
 				this.challenge_received = rs.getInt("challenge_received");
-				this.is_admin = rs.getInt("is_admin") == 1;
+				this.is_admin = rs.getInt("is_admin");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

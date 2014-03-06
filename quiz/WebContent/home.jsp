@@ -28,7 +28,6 @@
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
 
-		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 

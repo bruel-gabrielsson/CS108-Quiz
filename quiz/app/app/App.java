@@ -64,6 +64,26 @@ public class App {
 			// fetching recent quizzess
 		}
 		
+		// TEW: test user.save for update 
+		this.current_user.am_challenges_sent = 100;
+		if(this.current_user.save()) {
+			System.out.println("Successful update");
+		}
+								
+		FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
+		System.out.println(fr.question_text);
+		System.out.println(fr.name);
+		System.out.println(fr.type);
+					
+		for (Question q : this.current_user.quizzes.get(0).questions) {
+			if (q.type == "question_free_response") {
+				FreeResponse nq = (FreeResponse) q;
+				String s1 = nq.name + nq.answer + nq.question_text;
+				System.out.println(s1);
+
+			}
+		}
+		
 		
 	}
 	

@@ -1,61 +1,58 @@
 @CHARSET "UTF-8";
 
-body, html {
-	margin:0;
-	padding:0;
-	color:#000;
+body,html {
+	margin: 0;
+	padding: 0;
+	color: #000;
 	background: white;
 	font-family: "Myriad Pro", "Helvetica", "Arial", serif;
 }
 
 ul {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 /* HEADER -------------------------------------------------------------- */
-
 #header {
 	background: #8AC7ED;
 	color: #4E81A1;
 	overflow: hidden;
-
 }
 
 #header-title {
 	font-size: 36px;
 	font-weight: bold;
 	padding: 12px 0px 8px 15px;
-	float:left;
+	float: left;
 }
 
 #header-form {
-	float:right;
+	float: right;
 	padding: 20px 8px 8px 10px;
 }
 
 #header-profile {
-	float:right;
-	padding: 23px 8px 8px 10px;	
+	float: right;
+	padding: 23px 8px 8px 10px;
 }
 
 input[type=submit] {
 	margin-left: 10px;
-	padding:2px 25px 2px 25px; 
-	background:#CC6633; 
-	border:1px solid #CC9999;
-	cursor:pointer;
+	padding: 2px 25px 2px 25px;
+	background: #CC6633;
+	border: 1px solid #CC9999;
+	cursor: pointer;
 	color: white;
 }
 
-input[type=submit]:hover{
-	background:#CC9966; 
+input[type=submit]:hover {
+	background: #CC9966;
 }
 
 /* MAIN ---------------------------------------------------------------- */
-
 #main {
-	float:left;
-	width:68%;
+	float: left;
+	width: 68%;
 }
 
 div.largeHeader {
@@ -83,25 +80,23 @@ div.quizWidget {
 }
 
 div.quizWidget .imgDiv {
-	float:left;
+	float: left;
 }
 
 div.quizWidget .contentDiv {
 	margin-left: 10px;
-	float:left;
+	float: left;
 }
 
 div.quizWidget .dateDiv {
-	float:right;
+	float: right;
 	margin-right: 100px;
 }
 
-
 /* SIDEBAR ------------------------------------------------------------ */
-
 #sidebar {
-	float:left;
-	width:28%;
+	float: left;
+	width: 28%;
 }
 
 #announcements {
@@ -120,5 +115,3 @@ div.quizWidget .dateDiv {
 	background: #C4DCE8;
 	padding: 10px 12px 26px 12px;
 }
-
-

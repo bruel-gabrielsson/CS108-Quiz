@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="quiz">
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/models"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/controllers"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/database"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/listeners"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/app"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/servlets"/>
-        <property name="context-root" value="quiz"/>
-        <property name="java-output-path" value="/quiz/build/classes"/>
-    </wb-module>
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+	<wb-module deploy-name="quiz">
+		<wb-resource deploy-path="/" source-path="/WebContent"
+			tag="defaultRootSource" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/models" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/controllers" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/database" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/listeners" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/app" />
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/servlets" />
+		<property name="context-root" value="quiz" />
+		<property name="java-output-path" value="/quiz/build/classes" />
+	</wb-module>
 </project-modules>

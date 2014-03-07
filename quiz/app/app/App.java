@@ -40,6 +40,7 @@ public class App {
 	public User current_user = null;
 	
 	public void initialize() {
+		System.out.println("Starting APP!");
 		// Fetch all the overall information for the app, top scores, etc
 		
 		

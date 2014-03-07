@@ -244,7 +244,21 @@ public class User implements model {
 			return false;
 		}	
 		
-		return true;
+		String query = "SELECT password, salt FROM user WHERE user_name = '" + this.user_name + "'";
+		ResultSet rs = connector.query(query);
+		try {
+			if (rs.next()) {
+				String stored_password = rs.getString("password");
+				String salt = rs.getString("salt");
+				
+				String hashed = hashPassword(password, salt);
+				if (hashed.equals(stored_password)) return this.fetch();
+			}
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return false;
 	}
 	
 	/**

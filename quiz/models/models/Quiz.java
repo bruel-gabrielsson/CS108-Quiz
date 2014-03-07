@@ -32,7 +32,8 @@ public class Quiz implements model {
 	public long quiz_timer;
 	
 	/** Mapping back to User */
-	public int creator_id;
+	public int creator_id = -1;
+	private User creator = null;
 	
 	private DBConnector connector = null;
 	
@@ -56,6 +57,27 @@ public class Quiz implements model {
 		// Must generate id if not already existing, can that be checked in database?
 		
 		return true;
+	}
+	
+	/**
+	 * When mapping back, its a function
+	 * @return
+	 */
+	public User creator() {
+		
+		// Fetches creator if associated
+		if(this.creator_id != -1 && this.creator == null) {
+			User temp_user = new User();
+			temp_user.user_id = this.creator_id;
+			if(temp_user.fetch()) {
+				System.out.println("success quiz user");
+				this.creator = temp_user;
+			} else {
+				System.out.println(temp_user.error);
+			}
+		}
+		
+		return creator;
 	}
 	
 	/* ???
@@ -87,14 +109,17 @@ public class Quiz implements model {
 			this.error = "Quiz id was not specified";
 			return false;
 		}
-		
-		connector.openConnection();
+				
 		String quizQuery = "SELECT * FROM quiz WHERE quiz_id = '" + this.quiz_id + "'";
 		ResultSet rs = connector.query(quizQuery);
 		
+		if(rs == null) {
+			this.error = "Database connection failed";
+			return false;
+		}
+		
 		this.populate(rs);
 		
-		connector.closeConnection();
 		return true;
 	}
 	
@@ -103,6 +128,9 @@ public class Quiz implements model {
 			while(rs.next()) {
 				this.quiz_name = rs.getString("quiz_name");
 				this.date_created = rs.getString("date_created");
+				if (this.creator_id == -1) {
+					this.creator_id = rs.getInt("creator_id");
+				}
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();

@@ -3,31 +3,42 @@ package database;
 import java.sql.*; 
 
 public class DBConnector {
+
+	/*
+	public static final String MYSQL_USERNAME = "ccs108rgabriel";
+	public static final String MYSQL_PASSWORD = "ohfooghu";
+	public static final String MYSQL_DATABASE_SERVER = "mysql-user.stanford.edu";
+	public static final String MYSQL_DATABASE_NAME = "c_cs108_rgabriel";
+	*/
 	
 	public static final String MYSQL_USERNAME = "ccs108twhittle";
 	public static final String MYSQL_PASSWORD = "meimahae";
 	public static final String MYSQL_DATABASE_SERVER = "mysql-user.stanford.edu";
 	public static final String MYSQL_DATABASE_NAME = "c_cs108_twhittle";
 	
-	private Connection connection = null;
+	private static Connection connection = null;
 	
 	public DBConnector() {
-		
+		openConnection();
 	}
 
-	public boolean openConnection() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver"); 
-			connection = DriverManager.getConnection 
-					( "jdbc:mysql://" + MYSQL_DATABASE_SERVER, MYSQL_USERNAME, MYSQL_PASSWORD);
-		} catch (SQLException e) {
-			return false;
-			//e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+	private boolean openConnection() {
 		
+		if (connection == null) {
+			System.out.println("opening connection");
+			try {
+				Class.forName("com.mysql.jdbc.Driver"); 
+				connection = DriverManager.getConnection 
+						( "jdbc:mysql://" + MYSQL_DATABASE_SERVER, MYSQL_USERNAME, MYSQL_PASSWORD);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+				
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				return false;
+			} 
+		}
 		return true;
 	}
 	
@@ -35,13 +46,18 @@ public class DBConnector {
 		ResultSet rs = null;
 		
 		Statement stmt;
-		try {
-			stmt = connection.createStatement();
-			stmt.executeQuery("USE " + MYSQL_DATABASE_NAME);
-			rs = stmt.executeQuery(query); 
-		} catch (SQLException e) {
-			//e.printStackTrace();
-		} 
+		
+		if (connection != null) {
+			try {
+				stmt = connection.createStatement();
+				stmt.executeQuery("USE " + MYSQL_DATABASE_NAME);
+				rs = stmt.executeQuery(query); 
+			} catch (SQLException e) {
+				//e.printStackTrace();
+			} 
+		} else {
+			System.out.println("conneciton is null");
+		}
 		
 		return rs;
 	}

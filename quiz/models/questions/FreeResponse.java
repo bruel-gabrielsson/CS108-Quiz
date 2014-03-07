@@ -36,8 +36,7 @@ public class FreeResponse extends Question {
 			this.error = "Question id not specified";
 			return false;
 		}
-		
-		connector.openConnection();
+				
 		String query = "SELECT * FROM question_free_response WHERE fr_question_id = '" + this.fr_question_id + "'";
 		ResultSet rs = connector.query(query);
 		
@@ -54,7 +53,6 @@ public class FreeResponse extends Question {
 			return false;
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 

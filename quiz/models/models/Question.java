@@ -23,6 +23,7 @@ public abstract class Question implements model {
 	/** Mapping back to Quiz */
 	public int quiz_id = -1;
 	
+	
 
 	/**
 	 * 

@@ -32,9 +32,7 @@ public class Challenge implements model {
 		if (this.challenge_id == -1) {
 			return false;
 		}
-		
-		connector.openConnection();
-		
+				
 		String query;
 		ResultSet rs;
 		
@@ -78,8 +76,6 @@ public class Challenge implements model {
 			return false;
 		}
 		
-		
-		connector.closeConnection();
 		return true;
 	}
 

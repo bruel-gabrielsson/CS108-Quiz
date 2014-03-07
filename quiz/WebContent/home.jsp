@@ -66,8 +66,15 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br />
-							Created by <a href="profile.jsp"><%= quiz.creator_id %></a>
+							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							Created by <a href="profile.jsp">
+							<% if (quiz.creator() != null) { %>
+								<%= quiz.creator().user_name %>	
+							<% } else { %>
+								Anonymous <%= quiz.creator_id %>
+							<% } %>
+							</a>
+
 						</div>
 						<div class="dateDiv">
 							<%= quiz.date_created %>
@@ -89,8 +96,14 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br />
-							Created by <a href="profile.jsp"><%= quiz.creator_id %></a>
+							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							Created by <a href="profile.jsp">
+							<% if (quiz.creator() != null) { %>
+								<%= quiz.creator().user_name %>	
+							<% } else { %>
+								Anonymous <%= quiz.creator_id %>
+							<% } %>
+							</a>
 						</div>
 						<div class="dateDiv">
 							<%= quiz.date_created %>

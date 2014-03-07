@@ -38,11 +38,10 @@ public class Message implements model {
 			this.error = "id was not specified";
 			return false;
 		}
-		
-		connector.openConnection();
-		
+				
 		String msgQuery = "SELECT * FROM message WHERE message_id = '" + this.message_id + "'";
 		ResultSet rs = connector.query(msgQuery);
+		
 		try {
 			while(rs.next()) {
 				this.to_user_id = rs.getInt("to_user_id");
@@ -55,7 +54,6 @@ public class Message implements model {
 			e1.printStackTrace();
 			//return false;
 		}		
-		
 		
 		System.out.println("Obtaining info for user " + this.from_user_id);
 		
@@ -70,9 +68,7 @@ public class Message implements model {
 			e1.printStackTrace();
 			return false;
 		}	
-		
-		connector.closeConnection();
-		
+				
 		return true;
 	}
 	

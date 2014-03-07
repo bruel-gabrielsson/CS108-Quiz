@@ -48,7 +48,6 @@ public class MultipleChoice extends Question {
 			return false;
 		}
 		
-		connector.openConnection();
 		String query = "SELECT * FROM question_multiple_choice WHERE mc_question_id = '" + this.mc_question_id + "'";
 		ResultSet rs = connector.query(query);
 		
@@ -76,7 +75,6 @@ public class MultipleChoice extends Question {
 			return false;
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 

@@ -67,7 +67,6 @@ public class User implements model {
 	// TEW: implemented save function (needs testing). I wrote some tests in app, but am having trouble getting the project to run tonight.
 	@Override
 	public boolean save() {
-		connector.openConnection();	
 		// If the user_id is populated, the we want to try and update the user table
 		if(user_id >= 0){
 			String[] updateStmt = new String[1];
@@ -80,16 +79,14 @@ public class User implements model {
 					"am_created_quizzes = " + am_created_quizzes + ", " +
 					"am_taken_quizzes = " + am_taken_quizzes + ", " +
 					"am_challenges_sent = " + am_challenges_sent + ", " +
-					"am_messages_sent = " + am_messages_sent + ", " +
+					"am_messages_sent = " + am_messages_sent + " " +
 					"WHERE user_id = " + user_id;
 			System.out.println("user update: " + updateStmt[0]);
 			int result = connector.updateOrInsert(updateStmt);
 			if(result < 0){
 				System.err.println("There was an error in the UPDATE call to the USER table");
-				connector.closeConnection();
 				return false;
 			}
-			connector.closeConnection();
 			return true;
 		} else {
 			// We don't have a user_id, so we are trying to create a new user
@@ -101,10 +98,8 @@ public class User implements model {
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
 				System.err.println("There was an error in the INSERT call to the USER table");
-				connector.closeConnection();
 				return false;
 			}
-			connector.closeConnection();
 			return true;
 		}
 	}
@@ -113,16 +108,26 @@ public class User implements model {
 	public boolean fetch() {
 		this.error = null;
 		
-		if (this.user_name == null) {
-			this.error = "User name was not specified";
+		if (this.user_name == null && this.user_id == -1) {
+			this.error = "Username (and user_id) was not specified";
 			return false;
 		}
-		
-		connector.openConnection();
+				
+		ResultSet rs = null;
 		
 		// populate all the fields
-		String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
-		ResultSet rs = connector.query(query);
+		if (this.user_name != null) {
+			String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
+			rs = connector.query(query);
+			System.out.println(this.user_name);
+		} else if (this.user_id != -1) {
+			String query = "SELECT * FROM user WHERE user_id = '"+ this.user_id +"'";
+			rs = connector.query(query);
+			System.out.println(this.user_id);
+		}
+		
+		System.out.println(rs);
+		
 		try {
 			if (rs.next()) {
 				this.user_id = rs.getInt("user_id");
@@ -148,7 +153,9 @@ public class User implements model {
 			while(rs.next()) {
 				int quiz_id = rs.getInt("quiz_id");
 				Quiz temp_quiz = new Quiz();
+				
 				temp_quiz.quiz_id = quiz_id;
+				temp_quiz.creator_id = this.user_id; // Mapping back
 				if (temp_quiz.fetch()) {
 					this.quizzes.add(temp_quiz);
 				}
@@ -193,7 +200,6 @@ public class User implements model {
 			// fetches the messages automatically for now
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 	
@@ -212,9 +218,7 @@ public class User implements model {
 	}
 	
 	private boolean fetchMessages() {
-		
-		connector.openConnection();
-		
+				
 		// Populate Messages list
 		String message_id_query = "SELECT * FROM message WHERE to_user_id = '" + this.user_id + "' ORDER BY time_sent";
 		ResultSet rs = connector.query(message_id_query);
@@ -232,7 +236,6 @@ public class User implements model {
 			e.printStackTrace();
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 	

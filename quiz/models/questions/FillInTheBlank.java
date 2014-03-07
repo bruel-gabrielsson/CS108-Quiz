@@ -35,7 +35,6 @@ public class FillInTheBlank extends Question {
 		// If we have a positive question id, then we are just trying to update
 		// We will force a question to keep both its type and quiz, thus the only things than can be updated are done so below
 		if(fib_question_id >= 0){
-			connector.openConnection();
 			String[] updateStmt = new String[2];
 			updateStmt[0] = "UPDATE question_fill_in_blank SET question_number = " + question_number + ", " +
 					"name = \"" + name + "\", " + 
@@ -49,14 +48,11 @@ public class FillInTheBlank extends Question {
 			int result = connector.updateOrInsert(updateStmt);
 			if(result < 0){
 				System.err.println("There was an error in the UPDATE call to the QUESTION_FILL_IN_BLANK table");
-				connector.closeConnection();
 				return false;	
 			}
-			connector.closeConnection();
 			return true;
 		} else {
 			// In this case, we don't have a legit fib_question_id and need to insert rows
-			connector.openConnection();
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), 2, " +
@@ -68,10 +64,8 @@ public class FillInTheBlank extends Question {
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
 				System.err.println("There was an error in the INSERT call to the QUESTION_FILL_IN_BLANK table");
-				connector.closeConnection();
 				return false;	
 			}
-			connector.closeConnection();
 			return true;		
 		}
 	}
@@ -86,7 +80,6 @@ public class FillInTheBlank extends Question {
 			return false;
 		}
 		
-		connector.openConnection();
 		String query = "SELECT * FROM question_fill_in_blank WHERE fib_question_id = '" + this.fib_question_id + "'";
 		ResultSet rs = connector.query(query);
 		
@@ -106,7 +99,6 @@ public class FillInTheBlank extends Question {
 			return false;
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 

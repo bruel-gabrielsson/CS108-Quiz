@@ -24,18 +24,23 @@ public class SessionLifetimeListener implements HttpSessionListener {
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent arg0) {
-    	System.out.println("APP CREATED");
-    	App app = new App();
-    	app.initialize();
-    	
-    	arg0.getSession().setAttribute("app", app);
+    	if (arg0.getSession().getAttribute("app") == null) {
+	    	System.out.println("APP CREATED IN SESSION");
+	    	App app = new App();
+	    	app.initialize();
+	    	
+	    	arg0.getSession().setAttribute("app", app);
+    	}
     }
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent arg0) {
-        // TODO Auto-generated method stub
+    	//CLosing connection
+    	App app = (App) arg0.getSession().getAttribute("app");
+    	app.connector.closeConnection();
+    	System.out.println("CONNECTION CLOSED IN SESSION");
     }
 	
 }

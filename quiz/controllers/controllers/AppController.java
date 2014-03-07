@@ -35,7 +35,7 @@ public class AppController extends HttpServlet {
 		
 		// CREATING THE APP FOR THE SESSION
 		if (request.getSession().getAttribute("app") == null) {
-			System.out.println("APP CREATED");
+			System.out.println("APP CREATED IN APP");
 	    	App app = new App();
 	    	app.initialize();
 	    	

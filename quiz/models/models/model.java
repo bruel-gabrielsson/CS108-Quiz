@@ -1,5 +1,7 @@
 package models;
 
+import database.DBConnector;
+
 /**
  * 
  * @author rickardbruelgabrielsson

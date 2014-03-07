@@ -42,7 +42,6 @@ public class App {
 	public void initialize() {
 		// Fetch all the overall information for the app, top scores, etc
 		
-		
 		number_users = 1;
 		number_quizzes = 1;
 		
@@ -83,19 +82,18 @@ public class App {
 
 			}
 		}
+	
 		
 		
 	}
 	
 	public App() {
 		connector = new DBConnector();
-		
 	}
 	
 	private boolean fetchPopularQuizzes() {
 		this.error = null;
 		
-		connector.openConnection();
 		String quizQuery = "SELECT * FROM quiz ORDER BY times_taken LIMIT 5";
 		ResultSet rs = connector.query(quizQuery);
 		
@@ -113,14 +111,12 @@ public class App {
 			e.printStackTrace();
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 	
 	private boolean fetchRecentQuizzes() {
 		this.error = null;
 		
-		connector.openConnection();
 		String quizQuery = "SELECT * FROM quiz ORDER BY date_created LIMIT 5";
 		ResultSet rs = connector.query(quizQuery);
 		
@@ -138,7 +134,6 @@ public class App {
 			e.printStackTrace();
 		}
 		
-		connector.closeConnection();
 		return true;
 	}
 	

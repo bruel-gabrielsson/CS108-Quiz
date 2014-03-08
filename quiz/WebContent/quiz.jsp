@@ -65,6 +65,8 @@
 		<h1>Quiz <%= quiz.quiz_name %></h1>
 		<h1>Trivia on crabs and lobsters</h1>
 		
+		<form href="QuizController" method="post">
+		
 		<ol>
 			<% for (Question q : quiz.questions) { %>
 				<li>
@@ -77,10 +79,8 @@
 					%> 
 					
 					<%= fr.question_text %>
-					<form>
 						<input type="text" name="<%= fr.question_number %>">
 						<br>
-					</form>
 					
 					<%
 						break;
@@ -89,11 +89,9 @@
 						FillInTheBlank fib = (FillInTheBlank) q;
 					%>
 					
-					<form>
 						<%= fib.question_text_before %>
 						<input type="text" name="<%= fib.question_number %>">
 						<%= fib.question_text_after %>
-					</form>
 					
 					<br/>
 					
@@ -106,18 +104,36 @@
 					
 					<%= mc.question_text %>
 					<br></br>
-					<p><%= mc.choice_a %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_a %>"></input><br/>
-					<%= mc.choice_b %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_b %>"></input><br/>
-					<%= mc.choice_c %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_c %>"></input><br/>
-					<%= mc.choice_d %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_d %>"></input><br/>
-					<%= mc.choice_e %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_e %>"></input><br/>
-					<%= mc.choice_f %>
-					<input type="radio" name="q2choice1" value="<%= mc.choice_f %>"></input><br/>
+					<p>
+					<% if (mc.choice_a != null) { %>
+						<%= mc.choice_a %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_a %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_b != null) { %>
+						<%= mc.choice_b %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_b %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_c != null) { %>
+						<%= mc.choice_c %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_c %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_d != null) { %>
+						<%= mc.choice_d %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_d %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_e != null) { %>
+						<%= mc.choice_e %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_e %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_f != null) { %>
+						<%= mc.choice_f %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_f %>"></input><br/>
+					<% } %>
+					<% if (mc.choice_g != null) { %>
+						<%= mc.choice_g %>
+						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_g %>"></input><br/>
+					<% } %>
+					
 					</p>
 					<%
 						break;
@@ -131,18 +147,10 @@
 				</li>
 			<% } %>
 		<% } %>
-			
-			
-			<!--  
-			<li>
-				How long do they live?
-				<form>
-					<input type="radio" name="q2choice1" value="5years">5 years<br>
-					<input type="radio" name="q2choice2" value="10years">10 years<br>
-				</form>
-			</li>
-			-->
 		</ol>
+		
+		<button type="submit" >Submit Answers</button>
+		</form>
 	</div>
 
 </div>

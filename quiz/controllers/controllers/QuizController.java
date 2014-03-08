@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,7 +61,16 @@ public class QuizController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		Map<String, String[]> params = request.getParameterMap();
+		for (String key : params.keySet()) {
+			System.out.println(params.get(key));
+			for (String s : params.get(key)) {
+				System.out.println(s);
+			}
+			
+		}
+	
 	}
 
 }

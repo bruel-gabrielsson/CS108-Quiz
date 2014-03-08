@@ -39,6 +39,9 @@ public class App {
 	
 	public User current_user = null;
 	
+	public Quiz current_quiz = null;
+	public Question current_question = null;
+	
 	public void initialize() {
 		// Fetch all the overall information for the app, top scores, etc
 		

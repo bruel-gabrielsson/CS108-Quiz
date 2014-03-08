@@ -139,17 +139,6 @@ public class App {
 		
 		return true;
 	}
-	
-	public boolean signIn(String user_name, String password) {
-		this.current_user.user_name = user_name;
-		if (this.current_user.signIn(password)) {
-			return this.current_user.fetch();
-		} else {
-			this.current_user.user_name = null;
-			return false;
-		}
-	}
-	
-	
+		
 	// How are quizzes created???
 }

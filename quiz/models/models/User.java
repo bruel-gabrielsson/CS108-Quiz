@@ -323,4 +323,25 @@ public class User implements model {
 		}
 		return false;
 	}
+	
+	public static ArrayList<User> getAllUsers() {
+		ArrayList<User> users = new ArrayList<User>();
+		DBConnector connector = new DBConnector();
+		
+		// Populate Messages list
+		String user_query = "SELECT * FROM user ORDER BY user_id";
+		ResultSet rs = connector.query(user_query);
+		try {
+			while(rs.next()) {
+				User user = new User();
+				user.user_name = rs.getString("user_name");
+				user.date_created = rs.getString("date_created");
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
 }

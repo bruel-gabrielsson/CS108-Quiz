@@ -26,6 +26,22 @@
 <!--HEADER BAR-->
 	<%@ include file="header.jspf" %>
 
-
+	<div id="content-users">
+		<% ArrayList<User> users = User.getAllUsers(); %>
+		<ol>
+			<% for (User u : users) { %>
+				<li> <%= u.user_name %> <%= u.date_created %> <a href="DeleteServlet?user=">DELETE</a></li>
+			<% } %>
+		</ol>
+	</div>
+	
+	<div id="content-quizzes">
+		
+	</div>
+	
+	<div id="content-statistics">
+		
+	</div>
+	
 </body>
 </html>

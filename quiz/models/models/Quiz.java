@@ -247,5 +247,25 @@ public class Quiz implements model {
 	public boolean destroy() {
 		return true;
 	}
+	
+	public static ArrayList<Quiz> getAllQuizzes() {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+		DBConnector connector = new DBConnector();
 		
+		// Populate quizzes list
+		String quiz_query = "SELECT * FROM quiz ORDER BY quiz_id";
+		ResultSet rs = connector.query(quiz_query);
+		try {
+			while(rs.next()) {
+				Quiz quiz = new Quiz();
+				quiz.quiz_name = rs.getString("quiz_name");
+				quiz.date_created = rs.getString("date_created");
+				quizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quizzes;
+	}
 }

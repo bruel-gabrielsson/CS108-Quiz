@@ -84,6 +84,7 @@ public class Quiz implements model {
 	
 	public HashMap<String, String> correctMap(HashMap<String, String> answers) {
 		HashMap<String, String> feedback = new HashMap<String, String>();
+		int score = 0;
 		
 		for (Question q : this.questions) {
 			if (answers.containsKey("question" + q.question_number)) {
@@ -92,6 +93,7 @@ public class Quiz implements model {
 				String answer = answers.get("question" + q.question_number);
 				if (answer.equals(q.answer)) {
 					feedback.put("question" + q.question_number, "Correct");
+					score ++;
 				} else {
 					feedback.put("question" + q.question_number, "Incorrect");
 				}
@@ -114,6 +116,8 @@ public class Quiz implements model {
 				feedback.put("question" + q.question_number, "No answer provided");
 			}
 		}
+		
+		feedback.put("score", Integer.toString(score));
 		
 		return feedback;
 	}

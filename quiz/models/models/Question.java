@@ -33,6 +33,5 @@ public abstract class Question implements model {
 		
 		
 	}
-	
-	
+		
 }

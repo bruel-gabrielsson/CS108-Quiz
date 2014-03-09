@@ -13,8 +13,11 @@
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> 
 	<link rel="stylesheet" type="text/css" href="./resources/css/quiz.css"/>
+	
+	<!-- JAVASCRIPT -->
+	<script type="text/javascript" src="quiz.js"></script>
 	<title>Quiz</title>
 </head>
 <body>
@@ -68,14 +71,11 @@
 		<form href="QuizController" method="post">
 		
 		<ol>
-			<% for (Question q : quiz.questions) { %>
+			<% for (Question q : app.current_questions) { %>
 				<li>
 				<div>
-				<% int type = q.question_type_id; %>
-				<%= type %>
-				<% switch (type) {
-				
-					case 1: 
+				<% String type = q.type; %>
+				<% if (type.equals("question_free_response")) {
 						FreeResponse fr = (FreeResponse) q;
 						
 					%> 
@@ -87,10 +87,7 @@
 						<br>
 					
 					<%
-						break;
-					
-					case 2:
-						System.out.println("22222");
+				} else if (type.equals("question_fill_in_blank")) {
 						FillInTheBlank fib = (FillInTheBlank) q;
 					%>
 						<%= fib.question_number %>
@@ -101,9 +98,7 @@
 						<br/>
 					
 					<%
-						break;
-					
-					case 3:
+				} else { // "question_multiple_choice"
 						MultipleChoice mc = (MultipleChoice) q;
 					%>
 					
@@ -143,10 +138,6 @@
 					</p>
 					<hr></hr>
 					<%
-						break;
-					
-					default:
-						break;
 					}
 				%>
 				</div>
@@ -162,4 +153,16 @@
 </div>
 
 </body>
+
+<script>
+
+window.onload = function () {
+	
+	console.log("QUIZ JS");
+	
+	
+};
+
+</script>
+
 </html>

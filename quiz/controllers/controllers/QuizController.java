@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Question;
 import models.Quiz;
 import app.App;
 
@@ -45,19 +46,46 @@ public class QuizController extends HttpServlet {
 		App app = (App) request.getSession().getAttribute("app");
 		if (app != null && quiz_id != -1) { // Just in case
 			
-			Quiz quiz = new Quiz();
-			quiz.quiz_id = quiz_id;
-			if (quiz.fetch()) {
-				request.setAttribute("quiz", quiz);
-				System.out.println(quiz.quiz_name.toString());
-				
-				app.current_quiz = quiz;
-				RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
-				rd.forward(request, response);
+			System.out.println(request.getParameter("correction"));
+			
+			String correction = request.getParameter("correction");
+			String order = request.getParameter("order");
+			String pages = request.getParameter("pages");
+			
+			if (correction != null && order != null && pages != null) {
+			
+				Quiz quiz = new Quiz();
+				quiz.quiz_id = quiz_id;
+				if (quiz.fetch()) {
+					request.setAttribute("quiz", quiz);
+					System.out.println(quiz.quiz_name.toString());
+					
+					if (request.getParameter("order").equals("ordered")) {
+						app.current_quiz = quiz;
+						app.current_questions = quiz.questions;
+					} else { // random
+						app.current_quiz = quiz;
+						ArrayList<Question> random = new ArrayList<Question>();
+						// copy and randomize
+						for (Question q: quiz.questions) {
+							
+						}
+						
+						app.current_questions = quiz.questions;
+					}
+					
+					RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
+					rd.forward(request, response);
+				} else {
+					System.out.println("ERROR FETCHING QUIZ");
+					// error page
+				}
 			} else {
-				System.out.println("ERROR FETCHING QUIZ");
-				// error page
-			}	
+				
+				RequestDispatcher rd = request.getRequestDispatcher("quiz_options.jsp");
+				rd.forward(request, response);
+				
+			}
 		}
 	}
 

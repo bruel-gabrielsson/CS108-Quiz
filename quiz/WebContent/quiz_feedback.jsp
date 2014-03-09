@@ -16,12 +16,15 @@
 <title>Feedback</title>
 </head>
 <body>
-	<ol>
+	<ul>
 	<% for (String key : feedback.keySet()) { %>
-		<li>
+		<% if (!key.equals("score")) { %>
+		<li>		
 			<%= key + ": " + feedback.get(key) %>
 		</li>
+		<% } %>
 	<% } %>
-	</ol>
+	</ul>
+	<h3>Total Score: <%= feedback.get("score") %></h3>
 </body>
 </html>

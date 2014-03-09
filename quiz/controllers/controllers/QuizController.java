@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -48,6 +50,8 @@ public class QuizController extends HttpServlet {
 			if (quiz.fetch()) {
 				request.setAttribute("quiz", quiz);
 				System.out.println(quiz.quiz_name.toString());
+				
+				app.current_quiz = quiz;
 				RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
 				rd.forward(request, response);
 			} else {
@@ -62,15 +66,27 @@ public class QuizController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		App app = (App) request.getSession().getAttribute("app");
+		
+		HashMap<String, String> answers = new HashMap<String, String>();
+		
 		Map<String, String[]> params = request.getParameterMap();
 		for (String key : params.keySet()) {
-			System.out.println(params.get(key));
 			for (String s : params.get(key)) {
-				System.out.println(s);
+				
+				if (key.contains("question")) {
+					System.out.println(key + " Value:" + s);
+					answers.put(key, s);
+				}
 			}
-			
 		}
+		
+		// Corrects the quiz and returns receives an hashmap of errors or success message
+		HashMap<String, String> feedback = app.current_quiz.correctMap(answers);
+		request.setAttribute("feedback", feedback);
 	
+		RequestDispatcher rd = request.getRequestDispatcher("quiz_feedback.jsp");
+		rd.forward(request, response);
 	}
 
 }

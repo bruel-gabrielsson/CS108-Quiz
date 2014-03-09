@@ -12,7 +12,7 @@ public class FreeResponse extends Question {
 	public static final String this_type = "question_free_response";
 	
 	public String question_text = null;
-	public String answer = null;
+	//public String answer = null;
 	public int fr_question_id = -1;
 	
 	private DBConnector connector;
@@ -42,6 +42,7 @@ public class FreeResponse extends Question {
 		
 		try {
 			if (rs.next()) {
+				question_number = rs.getInt("question_number");
 				question_type_id = rs.getInt("question_type_id");
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");

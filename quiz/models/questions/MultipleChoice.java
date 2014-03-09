@@ -13,7 +13,7 @@ public class MultipleChoice extends Question {
 	
 	public int mc_question_id = -1;
 	public String question_text;
-	public String answer;
+	//public String answer;
 	// Do an array instead??
 	public String choice_a;
 	public String choice_b;
@@ -53,6 +53,7 @@ public class MultipleChoice extends Question {
 		
 		try {
 			if (rs.next()) {
+				question_number = rs.getInt("question_number");
 				question_type_id = rs.getInt("question_type_id");
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");

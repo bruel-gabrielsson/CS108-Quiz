@@ -72,28 +72,33 @@
 				<li>
 				<div>
 				<% int type = q.question_type_id; %>
+				<%= type %>
 				<% switch (type) {
 				
 					case 1: 
 						FreeResponse fr = (FreeResponse) q;
+						
 					%> 
 					
+					<%= fr.question_number %>
 					<%= fr.question_text %>
-						<input type="text" name="<%= fr.question_number %>">
+						<input type="text" name="question<%= fr.question_number %>">
+						<hr></hr>
 						<br>
 					
 					<%
 						break;
 					
 					case 2:
+						System.out.println("22222");
 						FillInTheBlank fib = (FillInTheBlank) q;
 					%>
-					
+						<%= fib.question_number %>
 						<%= fib.question_text_before %>
-						<input type="text" name="<%= fib.question_number %>">
+						<input type="text" name="question<%= fib.question_number %>">
 						<%= fib.question_text_after %>
-					
-					<br/>
+						<hr></hr>
+						<br/>
 					
 					<%
 						break;
@@ -102,44 +107,45 @@
 						MultipleChoice mc = (MultipleChoice) q;
 					%>
 					
+					<%= mc.question_number %>
 					<%= mc.question_text %>
 					<br></br>
 					<p>
 					<% if (mc.choice_a != null) { %>
 						<%= mc.choice_a %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_a %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="A"></input><br/>
 					<% } %>
 					<% if (mc.choice_b != null) { %>
 						<%= mc.choice_b %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_b %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="B"></input><br/>
 					<% } %>
 					<% if (mc.choice_c != null) { %>
 						<%= mc.choice_c %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_c %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="C"></input><br/>
 					<% } %>
 					<% if (mc.choice_d != null) { %>
 						<%= mc.choice_d %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_d %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="D"></input><br/>
 					<% } %>
 					<% if (mc.choice_e != null) { %>
 						<%= mc.choice_e %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_e %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="E"></input><br/>
 					<% } %>
 					<% if (mc.choice_f != null) { %>
 						<%= mc.choice_f %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_f %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="F"></input><br/>
 					<% } %>
 					<% if (mc.choice_g != null) { %>
 						<%= mc.choice_g %>
-						<input type="radio" name="<%= mc.question_number %>" value="<%= mc.choice_g %>"></input><br/>
+						<input type="radio" name="question<%= mc.question_number %>" value="G"></input><br/>
 					<% } %>
 					
 					</p>
+					<hr></hr>
 					<%
 						break;
 					
 					default:
-						// Ignore
 						break;
 					}
 				%>

@@ -24,6 +24,7 @@ public class SessionLifetimeListener implements HttpSessionListener {
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent arg0) {
+    	/*
     	if (arg0.getSession().getAttribute("app") == null) {
 	    	System.out.println("APP CREATED IN SESSION");
 	    	App app = new App();
@@ -31,6 +32,7 @@ public class SessionLifetimeListener implements HttpSessionListener {
 	    	
 	    	arg0.getSession().setAttribute("app", app);
     	}
+    	*/
     }
 
 	/**
@@ -38,9 +40,11 @@ public class SessionLifetimeListener implements HttpSessionListener {
      */
     public void sessionDestroyed(HttpSessionEvent arg0) {
     	//CLosing connection
+    	/*
     	App app = (App) arg0.getSession().getAttribute("app");
     	app.connector.closeConnection();
     	System.out.println("CONNECTION CLOSED IN SESSION");
+    	*/
     }
 	
 }

@@ -18,7 +18,7 @@ public class FillInTheBlank extends Question {
 	public String name = null;
 	public String question_text_before;
 	public String question_text_after;
-	public String answer;
+	//public String answer;
 	
 	
 	private DBConnector connector;

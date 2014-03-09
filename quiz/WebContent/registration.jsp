@@ -12,7 +12,8 @@
 	<form action="RegistrationServlet" method="post">
 		Username: <input type="text" name="username" /><br /> 
 		Password: <input type="text" name="password" /><br />  
-		Confirm Password: <input type="text" name="confirm_password" /><br />  
+		Confirm Password: <input type="text" name="confirm_password" /><br />
+		<input type="checkbox" name="admin" />Administrator<br />
 		<input type="submit" value="Register" />
 	</form>
 

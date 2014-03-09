@@ -44,6 +44,9 @@ public class RegistrationServlet extends HttpServlet {
 		String user_name = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirm_password = request.getParameter("confirm_password");
+		String admin = request.getParameter("admin");
+		
+		System.out.println("admin status of this user is :" + admin);
 		
 		String registrationStatus = "";
 		
@@ -62,6 +65,7 @@ public class RegistrationServlet extends HttpServlet {
 				// Commit new user object
 				newUser.salt = newUser.generateSalt();
 				newUser.password = newUser.hashPassword(password, newUser.salt);
+				newUser.is_admin = admin.equals("on") ? 1 : 0;
 				if(!newUser.save()){
 					registrationStatus = "Failed to create new user in database!";
 				}

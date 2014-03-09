@@ -4,7 +4,11 @@
 		<%	if (user != null && user.user_name != null) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 
-				Welcome <a href="profile.jsp?username=<%= user.user_name %>"><%= user.user_name %></a>! &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
+				Welcome <a href="profile.jsp?username=<%= user.user_name %>"><%= user.user_name %></a>!
+				<% if (user.isAdmin()) { %>
+					&#124; <a href="admin.jsp">ADMIN</a>
+				<% } %>
+				 &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
 			</div>
 			
 		<% } else { %>	

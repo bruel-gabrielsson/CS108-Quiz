@@ -36,7 +36,12 @@
 	</div>
 	
 	<div id="content-quizzes">
-		
+		<% ArrayList<Quiz> quizzes = Quiz.getAllQuizzes(); %>
+		<ol>
+			<% for (Quiz q : quizzes) { %>
+				<li> <%= q.quiz_name %> <%= q.date_created %> <a href="EditQuizServlet?user=">EDIT</a></li>
+			<% } %>
+		</ol>
 	</div>
 	
 	<div id="content-statistics">

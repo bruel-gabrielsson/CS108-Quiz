@@ -15,7 +15,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="stylesheet" type="text/css" href="./media/home.css"/>
+	<%@ include file="media/home_style.jspf" %>
 	<title>Welcome to Quizz!</title>
 </head>
 <body>

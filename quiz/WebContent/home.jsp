@@ -87,8 +87,12 @@
 	<%	if (user != null && user.user_name != null) { %>
 		<div id="sidebar">
 			<div id="announcements">
+			<% 	Announcement current_ann = new Announcement(); 
+				current_ann.fetch();
+			%>
+
 				<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
-				<div id="announcements-body">Welcome to Quizz! This home page should contain an announcement section, list of popular quizzes, etc.</div>
+				<div id="announcements-body"><%= current_ann.announcement %></div>
 			</div>
 		
 			<!-- Arraylist of user's quizzes -->

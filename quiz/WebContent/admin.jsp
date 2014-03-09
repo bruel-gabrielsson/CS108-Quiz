@@ -27,6 +27,7 @@
 	<%@ include file="header.jspf" %>
 
 	<div id="content-users">
+		<h3>Users</h3>
 		<% ArrayList<User> users = User.getAllUsers(); %>
 		<ol>
 			<% for (User u : users) { %>
@@ -36,6 +37,7 @@
 	</div>
 	
 	<div id="content-quizzes">
+		<h3>Quizzes</h3>
 		<% ArrayList<Quiz> quizzes = Quiz.getAllQuizzes(); %>
 		<ol>
 			<% for (Quiz q : quizzes) { %>
@@ -46,6 +48,23 @@
 	
 	<div id="content-statistics">
 		
+	</div>
+	
+	<div id="content-announcements">
+		<h3>Announcements</h3>
+		
+		<h5>Current Announcement:</h5>
+		<% 	Announcement current_ann = new Announcement(); 
+			current_ann.fetch();
+		%>
+		<%= current_ann.announcement %>
+		
+		<h5>Set New Announcement:</h5>
+		<form action="NewAnnouncementServlet" method="post">
+			Title: <input type="text" name="announcement-name" /> <br /> 
+			Announcement: <input type="text" name="announcement" /> <br />
+			<input type="submit" value="SUBMIT" />
+		</form>
 	</div>
 	
 </body>

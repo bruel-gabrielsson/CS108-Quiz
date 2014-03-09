@@ -306,4 +306,20 @@ public class User implements model {
 		return buff.toString();
 	}
 	
+	/*
+	 * Light-weight fetch method to see if user exists
+	 */
+	public Boolean exists() {
+		if (this.user_name != null) {
+			String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
+			ResultSet rs = connector.query(query);
+			try {
+				return rs.next();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 }

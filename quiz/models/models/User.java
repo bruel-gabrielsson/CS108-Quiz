@@ -37,8 +37,9 @@ public class User implements model {
 	
 //	private boolean is_admin = false;
 	public int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
-	private String password = null; // TEW: added because password cannot be null when creating a new user
-	private String salt = null; // TEW: added because salt cannot be null when creating a new user
+
+	public String password = null; // TEW: added because password cannot be null when creating a new user
+	public String salt = null; // TEW: added because salt cannot be null when creating a new user
 	
 	private DBConnector connector = null;
 	
@@ -306,4 +307,20 @@ public class User implements model {
 		return buff.toString();
 	}
 	
+	/*
+	 * Light-weight fetch method to see if user exists
+	 */
+	public Boolean exists() {
+		if (this.user_name != null) {
+			String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
+			ResultSet rs = connector.query(query);
+			try {
+				return rs.next();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 }

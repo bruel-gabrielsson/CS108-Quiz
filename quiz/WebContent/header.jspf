@@ -1,7 +1,7 @@
 	<div id="header">
 		<div id="header-title">QUIZZ</div>
 
-		<%	if (user != null && !user.user_name.isEmpty()) { %>
+		<%	if (user != null && user.user_name != null) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 
 				Welcome <a href="profile.jsp?username=<%= user.user_name %>"><%= user.user_name %></a>! &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
@@ -20,6 +20,12 @@
 					password <input type="text" name="password" />
 					<input type="submit" value="LOGIN" />
 				</form>	
+				
+
+			</div>
+			
+			<div>
+				&#124; &nbsp;<a href="registration.jsp">Register!</a>
 			</div>
 		
 		<% } %>

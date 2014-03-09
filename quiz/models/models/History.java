@@ -24,7 +24,33 @@ public class History implements model {
 	
 	@Override
 	public boolean save() {
-		return true;
+		if (history_id >= 0) {
+			String[] updateStmt = new String[1];
+			updateStmt[0] = "UPDATE history SET quiz_id = " + quiz_id + ", " +
+					"user_id = " + user_id + ", " + 
+					"total_score = " + total_score + ", " + 
+					"percent_score = " + percent_score + ", " +
+					"quiz_time" + quiz_time + ", " +
+					"WHERE history_id = " + history_id;
+			System.out.println("history update: " + updateStmt[0]);
+			int result = connector.updateOrInsert(updateStmt);
+			if(result < 0){
+				System.err.println("There was an error in the UPDATE call to the HISTORY table");
+				return false;
+			}
+			return true;
+		} else {
+			String[] insertStmt = new String[1];
+			insertStmt[0] = "INSERT INTO history(quiz_id, user_id, total_score, percent_score, quiz_time) VALUES(" +
+			quiz_id + ", " + user_id + ", " + total_score + ", " + percent_score + ", " + quiz_time + ")";
+			System.out.println("history insert: " + insertStmt[0]);
+			int result = connector.updateOrInsert(insertStmt);
+			if(result < 0){
+				System.err.println("There was an error in the INSERT call to the HISTORY table");
+				return false;
+			}
+			return true;
+		}
 	}
 	
 	@Override

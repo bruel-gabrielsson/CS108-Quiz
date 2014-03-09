@@ -23,8 +23,33 @@ public class Challenge implements model {
 
 	@Override
 	public boolean save() {
-		// TODO Auto-generated method stub
-		return false;
+		if (challenge_id >= 0) {
+			String[] updateStmt = new String[1];
+			updateStmt[0] = "UPDATE challenge SET to_user_id = " + to_user_id + ", " +
+					"from_user_id = " + from_user_id + ", " + 
+					"quiz_id = " + quiz_id + ", " + 
+					"challenge_status = " + challenge_status + ", " +
+					"time_sent = \"" + time_sent + "\", " +
+					"WHERE challenge_id = " + challenge_id;
+			System.out.println("challenge update: " + updateStmt[0]);
+			int result = connector.updateOrInsert(updateStmt);
+			if(result < 0){
+				System.err.println("There was an error in the UPDATE call to the CHALLENGE table");
+				return false;
+			}
+			return true;
+		} else {
+			String[] insertStmt = new String[1];
+			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, challenge_status, time_sent;) VALUES(" +
+			to_user_id + ", " + from_user_id + ", " + quiz_id + ", " + challenge_status + ", NOW())";
+			System.out.println("challenge insert: " + insertStmt[0]);
+			int result = connector.updateOrInsert(insertStmt);
+			if(result < 0){
+				System.err.println("There was an error in the INSERT call to the CHALLENGE table");
+				return false;
+			}
+			return true;
+		}
 	}
 
 	@Override

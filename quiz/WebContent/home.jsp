@@ -6,7 +6,7 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%
-	App app = (App)session.getAttribute("app");
+	App app = (App) session.getAttribute("app");
 	User user = app.current_user;
 %>
 
@@ -24,7 +24,7 @@
 <div id="wrap">
 	
 <!--HEADER BAR-->
-	<%@ include file="header.jspf" %>
+	<!-- <//%@ include file="header.jspf" %> -->
 
 <!--MAIN, LEFT SECTION-->
 	<div id="main">

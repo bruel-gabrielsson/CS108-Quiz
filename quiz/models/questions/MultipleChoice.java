@@ -33,6 +33,29 @@ public class MultipleChoice extends Question {
 		type = this_type;
 		connector = new DBConnector();
 	}
+	
+	/**
+	 * Returns a clone of this question, for deep copying
+	 * NOTE: Does not provide id, so there are no real duplicates
+	 */
+	@Override
+	public Question clone() {
+		MultipleChoice clone = new MultipleChoice();
+		clone.question_number = this.question_number;
+		clone.question_type_id = this.question_type_id;
+		clone.quiz_id = this.quiz_id;
+		clone.name = this.name;
+		clone.question_text = this.question_text;
+		clone.answer = this.answer;
+		clone.date_created = this.date_created;
+		clone.type = this.type;
+		clone.choice_a = this.choice_a; clone.choice_b = this.choice_b; clone.choice_c = this.choice_c;
+		clone.choice_d = this.choice_d; clone.choice_e = this.choice_e; clone.choice_f = this.choice_f;
+		clone.choice_g = this.choice_g; clone.choice_h = this.choice_h; clone.choice_i = this.choice_i;
+		clone.choice_j = this.choice_j;
+		
+		return clone;
+	}
 
 	@Override
 	public boolean save() {

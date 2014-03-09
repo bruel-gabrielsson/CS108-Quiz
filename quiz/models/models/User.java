@@ -36,7 +36,7 @@ public class User implements model {
 	public ArrayList<Message> messages = null;
 	
 //	private boolean is_admin = false;
-	private int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
+	public int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
 	private String password = null; // TEW: added because password cannot be null when creating a new user
 	private String salt = null; // TEW: added because salt cannot be null when creating a new user
 	

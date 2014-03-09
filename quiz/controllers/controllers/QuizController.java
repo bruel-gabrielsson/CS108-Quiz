@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,10 +69,10 @@ public class QuizController extends HttpServlet {
 						ArrayList<Question> random = new ArrayList<Question>();
 						// copy and randomize
 						for (Question q: quiz.questions) {
-							
+							random.add(q.clone());
 						}
-						
-						app.current_questions = quiz.questions;
+						Collections.shuffle(random);
+						app.current_questions = random;
 					}
 					
 					RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");

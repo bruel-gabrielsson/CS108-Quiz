@@ -33,5 +33,6 @@ public abstract class Question implements model {
 		
 		
 	}
-		
+	
+	public abstract Question clone();
 }

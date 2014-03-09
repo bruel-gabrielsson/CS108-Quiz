@@ -31,7 +31,6 @@
 		}
 		
 		.multiple_pages_next {
-			display: none;
 		}
 		
 	</style>
@@ -88,8 +87,8 @@
 		
 		<ol>
 			<% for (Question q : app.current_questions) { %>
-				<li>
-				<div class="question_multiple_pages">
+				<li class="question_multiple_pages">
+				<div >
 				<% String type = q.type; %>
 				<% if (type.equals("question_free_response")) {
 						FreeResponse fr = (FreeResponse) q;
@@ -178,6 +177,33 @@ window.onload = function () {
 	
 	console.log("QUIZ JS");
 	
+	var questions = document.getElementsByClassName("question_multiple_pages");
+	var i = questions.length - 1;
+	console.log(i);
+	
+	questions[i].style.display = "inline-block";
+	var first = questions[i];
+	i = i - 1;
+	console.log(i);
+	
+	var next = document.getElementsByClassName("multiple_pages_next")[0];
+	next.addEventListener("click", function(e) {
+		//e.target.removeEventListener(e.type, arguments.callee);
+		if (i > 0) {
+			var previous = i + 1;
+			
+			//
+			questions[i].style.display = "inline-block";
+			i = i-1;
+			console.log(previous);
+			questions[parseInt(previous)].style.display = "none";
+		} else {
+			var submit = document.getElementsByClassName("multiple_pages_submit")[0];
+			submit.style.display = "inline-block";
+			e.target.style.display = "none";
+		}
+		
+	});
 	
 };
 

@@ -75,8 +75,15 @@ public class QuizController extends HttpServlet {
 						app.current_questions = random;
 					}
 					
-					RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
-					rd.forward(request, response);
+					if (request.getParameter("pages").equals("one")) {
+						RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
+						rd.forward(request, response);
+					} else { //multiple pages
+						RequestDispatcher rd = request.getRequestDispatcher("quiz_multiple_pages.jsp");
+						rd.forward(request, response);
+					}
+					
+					
 				} else {
 					System.out.println("ERROR FETCHING QUIZ");
 					// error page

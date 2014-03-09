@@ -7,8 +7,7 @@
 
 <%
 	App app = (App)session.getAttribute("app");
-	String username = app.current_user.user_name;
-	String loginStatus = app.current_user.user_name;
+	User user = app.current_user;
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,7 +15,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link rel="stylesheet" type="text/css" href="media/home.css"/>
+	<link rel="stylesheet" type="text/css" href="./media/home.css"/>
 	<title>Welcome to Quizz!</title>
 </head>
 <body>
@@ -89,8 +88,7 @@
 	</div>
 
 <!--RIGHT SECTION, ONLY DISPLAYED IF USER IS LOGGED IN-->
-	<%	if (username != null) { %>
-		<% 	User user = app.current_user; %>
+	<%	if (user != null && user.user_name != null) { %>
 		<div id="sidebar">
 			<div id="announcements">
 				<div id="announcements-header">LATEST ANNOUNCEMENTS</div>

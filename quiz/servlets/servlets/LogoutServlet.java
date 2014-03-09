@@ -35,9 +35,11 @@ public class LogoutServlet extends HttpServlet {
 		
 		App app = (App)request.getSession().getAttribute("app");
 		
-		// TODO reset user info here
+		app.initialize();
+		
 		request.getSession().setAttribute("username", null);
 		request.getSession().setAttribute("loginStatus", null);
+		request.getSession().setAttribute("app", app);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("home.jsp");
 		dispatch.forward(request, response);	

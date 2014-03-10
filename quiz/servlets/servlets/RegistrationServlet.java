@@ -45,6 +45,7 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String confirm_password = request.getParameter("confirm_password");
 		String admin = request.getParameter("admin");
+		if(admin == null) admin = "off";
 		
 		System.out.println("admin status of this user is :" + admin);
 		

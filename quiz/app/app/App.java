@@ -52,6 +52,7 @@ public class App {
 		
 		current_user = new User();
 		
+
 		/// TESTING
 		
 		current_user.user_name = "Tyler";
@@ -60,6 +61,7 @@ public class App {
 			
 		}
 		
+
 		if(fetchPopularQuizzes()) {
 			// fetching popular quizzes
 		}
@@ -67,6 +69,14 @@ public class App {
 		if(fetchRecentQuizzes()) {
 			// fetching recent quizzess
 		}
+		
+//
+//		/// TESTING		
+//		current_user.user_name = "Tyler";
+//		if (current_user.fetch()) {
+//			System.out.println("success");
+//			
+//		}
 		
 //		// TEW: test user.save for update 
 //		this.current_user.am_challenges_sent = 100;
@@ -92,19 +102,20 @@ public class App {
 //		System.out.println(fr.question_text);
 //		System.out.println(fr.name);
 //		System.out.println(fr.type);
-//		
-		if(this.current_user.quizzes != null){
-			for (Question q : this.current_user.quizzes.get(0).questions) {
-				if (q.type == "question_free_response") {
-					FreeResponse nq = (FreeResponse) q;
-					String s1 = nq.name + nq.answer + nq.question_text;
-					System.out.println(s1);
+
+//	
+//		if(this.current_user.quizzes != null){
+//			for (Question q : this.current_user.quizzes.get(0).questions) {
+//				if (q.type == "question_free_response") {
+//					FreeResponse nq = (FreeResponse) q;
+//					String s1 = nq.name + nq.answer + nq.question_text;
+//					System.out.println(s1);
+//	
+//				}
+//			}
+//		}
 	
-				}
-			}
-		}
 	
-		
 		
 	}
 	

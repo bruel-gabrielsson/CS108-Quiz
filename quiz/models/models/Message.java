@@ -25,7 +25,15 @@ public class Message implements model {
 	
 	@Override
 	public boolean save() {
-		// Must generate id if not already existing, can that be checked in database?
+		String[] insertStmt = new String[1];
+		insertStmt[0] = "INSERT INTO message(time_sent, to_user_id, from_user_id,  title, body) VALUES( NOW(), " +
+		"\"" + to_user_id + "\", \"" + from_user_id + "\", \"" + title + "\", \"" + body +"\")";
+		System.out.println("message insert: " + insertStmt[0]);
+		int result = connector.updateOrInsert(insertStmt);
+		if(result < 0){
+			System.err.println("There was an error in the INSERT call to the MESSAGE table");
+			return false;
+		}
 		return true;
 	}
 	

@@ -204,9 +204,11 @@ public class User implements model {
 			// fetches the messages automatically for now
 		}
 		
+		/*
 		if (fetchNotifications()) {
 			// fetches notifications automatically for now
 		}
+		*/
 		
 		return true;
 	}
@@ -296,7 +298,7 @@ public class User implements model {
 	
 	private boolean fetchNotifications() {
 		
-		String notif_query = "SELECT * FROM notifications WHERE to_user_id = '" + this.user_id + "'";
+		String notif_query = "SELECT * FROM notification WHERE to_user_id = '" + this.user_id + "'";
 		ResultSet rs = connector.query(notif_query);
 		this.messages = new ArrayList<Message>();
 		try {

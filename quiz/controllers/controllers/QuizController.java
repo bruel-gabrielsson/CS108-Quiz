@@ -57,7 +57,7 @@ public class QuizController extends HttpServlet {
 			
 				Quiz quiz = new Quiz();
 				quiz.quiz_id = quiz_id;
-				if (quiz.fetch()) {
+				if (quiz.fetch() && quiz.fetchQuestions()) {
 					request.setAttribute("quiz", quiz);
 					System.out.println(quiz.quiz_name.toString());
 					

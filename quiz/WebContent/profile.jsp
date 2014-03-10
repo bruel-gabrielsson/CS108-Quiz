@@ -41,8 +41,8 @@
 			
 			<% if (!user.user_name.equals(profile_username)) { %>
 				
-				<a href="MessageController?recipient=<%= profile_username %>">Send a friend request</a><br />
-				<a href="send_message.jsp">Send a message</a>
+				<a href="send_message.jsp">Send a Friend Request</a><br />
+				<a href="MessageController?recipient=<%= profile_username %>">Send a message</a>
 				
 			<% } %>
 			

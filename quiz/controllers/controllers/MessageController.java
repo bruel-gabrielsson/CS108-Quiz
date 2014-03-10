@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import app.App;
 import models.Message;
 import models.User;
 
@@ -46,6 +47,8 @@ public class MessageController extends HttpServlet {
 		
 		String messageStatus = "";
 		
+		App app = (App)request.getSession().getAttribute("app");
+		
 		if (title == null) title = "No title";
 		if (body == null) body = "Empty message";
 		
@@ -54,14 +57,21 @@ public class MessageController extends HttpServlet {
 		} else {
 			User recUser = new User();
 			recUser.user_name = recipient;
-			if (recUser.exists()){
+			if (recUser.fetch()){
 				Message msg = new Message();
 				msg.title = title;
 				msg.body = body;
+				msg.to_user_id = recUser.user_id;
+				msg.from_user_id = app.current_user.user_id;
+				if(msg.save()){
+					messageStatus = "Successfully sent message to " + recUser.user_name;
+				} else {
+					messageStatus = "Failed to send message!";
+				}
+				
 			} else {
 				messageStatus = "You must specify an existing recipient!";
 			}
-			
 		}
 		
 		request.getSession().setAttribute("messageStatus", messageStatus);

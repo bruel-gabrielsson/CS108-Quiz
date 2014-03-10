@@ -37,6 +37,11 @@
 		Message: <input type="text" name="body" /><br />
 		<input type="submit" value="Send" />
 	</form>
+	
+	<% String messageStatus = (String)session.getAttribute("messageStatus"); %>
+	<% if (messageStatus != null) { %>
+		<%= messageStatus %>
+	<% } %>
 
 </body>
 </html>

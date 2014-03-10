@@ -34,6 +34,7 @@ public class User implements model {
 	public ArrayList<Quiz> quizzes = null;
 	public ArrayList<String> friends = null;
 	public ArrayList<Message> messages = null;
+	public ArrayList<Notification> notifications = null;
 	
 //	private boolean is_admin = false;
 
@@ -199,8 +200,12 @@ public class User implements model {
 			}
 		}
 		
-		if(fetchMessages()) {
+		if (fetchMessages()) {
 			// fetches the messages automatically for now
+		}
+		
+		if (fetchNotifications()) {
+			// fetches notifications automatically for now
 		}
 		
 		return true;
@@ -281,6 +286,26 @@ public class User implements model {
 				if (new_msg.fetch()) {
 					this.messages.add(new_msg);
 				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	private boolean fetchNotifications() {
+		
+		String notif_query = "SELECT * FROM notifications WHERE to_user_id = '" + this.user_id + "'";
+		ResultSet rs = connector.query(notif_query);
+		this.messages = new ArrayList<Message>();
+		try {
+			while(rs.next()) {
+				Notification notif = new Notification();
+				notif.user_id = rs.getInt("user_id");
+				notif.notification_type_id = rs.getInt("notification_type_id");
+				notif.relationship_id = rs.getInt("relationship_id");
+				notif.notification_text = rs.getString("notification_text");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

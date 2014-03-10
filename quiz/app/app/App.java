@@ -68,11 +68,11 @@ public class App {
 			// fetching recent quizzess
 		}
 		
-		// TEW: test user.save for update 
-		this.current_user.am_challenges_sent = 100;
-		if(this.current_user.save()) {
-			System.out.println("Successful update");
-		}
+//		// TEW: test user.save for update 
+//		this.current_user.am_challenges_sent = 100;
+//		if(this.current_user.save()) {
+//			System.out.println("Successful update");
+//		}
 		
 //		// TEW: test user.save for a new user
 //		this.current_user = new User();
@@ -83,10 +83,10 @@ public class App {
 //			System.out.println("Successfully created new user");
 //		}
 		
-		// TEW: test user.destroy
-		if(this.current_user.destroy()){
-			System.out.println("Successfully deleted user");
-		}
+//		// TEW: test user.destroy
+//		if(this.current_user.destroy()){
+//			System.out.println("Successfully deleted user");
+//		}
 								
 //		FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
 //		System.out.println(fr.question_text);

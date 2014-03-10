@@ -6,7 +6,7 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%
-	App app = (App) session.getAttribute("app");
+	App app = (App)session.getAttribute("app");
 	User user = app.current_user;
 %>
 

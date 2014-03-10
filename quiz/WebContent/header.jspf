@@ -1,6 +1,6 @@
 	<div id="header">
 		<div><a href="home.jsp" id="header-title">QUIZZ</a></div>
-
+		
 		<%	if (user != null && user.user_name != null) { %>
 			<!-- User is logged in  -->
 			<div id="header-profile"> 
@@ -9,8 +9,9 @@
 					&#124; <a href="admin.jsp">ADMIN</a>
 				<% } %>
 				 &#124; <a href="/quiz/LogoutServlet">LOGOUT</a>
-			</div>
+			</div> 
 			
+
 		<% } else { %>	
 			<!-- User isn't logged in. Also display login form / login message if login failed-->
 			<div id="header-form">
@@ -24,7 +25,7 @@
 					password <input type="text" name="password" />
 					<input type="submit" value="LOGIN" />
 					&nbsp; &#124; &nbsp;<a href="registration.jsp">Register!</a>
-				</form>	
+				</form>	 
 				
 
 			</div>

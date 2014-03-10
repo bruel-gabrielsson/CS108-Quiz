@@ -52,20 +52,22 @@ public class App {
 		
 		current_user = new User();
 		
-		/// TESTING
-		
-		current_user.user_name = "Kerry";
-		if (current_user.fetch()) {
-			System.out.println("success");
-			
-		}
-		
+
+
 		if(fetchPopularQuizzes()) {
 			// fetching popular quizzes
 		}
 		
 		if(fetchRecentQuizzes()) {
 			// fetching recent quizzess
+		}
+		
+	/*
+		/// TESTING		
+		current_user.user_name = "Kerry";
+		if (current_user.fetch()) {
+			System.out.println("success");
+			
 		}
 		
 		// TEW: test user.save for update 
@@ -104,7 +106,7 @@ public class App {
 			}
 		}
 	
-		
+		*/
 		
 	}
 	

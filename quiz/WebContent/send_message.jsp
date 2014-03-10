@@ -41,6 +41,7 @@
 	<% String messageStatus = (String)session.getAttribute("messageStatus"); %>
 	<% if (messageStatus != null) { %>
 		<%= messageStatus %>
+		<% request.getSession().setAttribute("messageStatus", null); %>
 	<% } %>
 
 </body>

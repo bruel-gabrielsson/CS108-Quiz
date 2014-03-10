@@ -16,6 +16,12 @@
 		<input type="checkbox" name="admin" />Administrator<br />
 		<input type="submit" value="Register" />
 	</form>
+	
+	<% String registrationStatus = (String)session.getAttribute("registrationStatus"); %>
+	<% if (registrationStatus != null) { %>
+		<%= registrationStatus %>
+		<% request.getSession().setAttribute("registrationStatus", null); %>
+	<% } %>
 
 </body>
 </html>

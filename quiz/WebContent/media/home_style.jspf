@@ -136,14 +136,12 @@ div.quizWidget .dateDiv {
   	border: 0;
   	border-bottom: 2px solid #da751c;
   	cursor: pointer;
-  	-webkit-box-shadow: inset 0 -2px #da751c;
   	box-shadow: inset 0 -2px #da751c;
 }
 
 #new-quiz-button:active {
   	top: 1px;
   	outline: none;
-  	-webkit-box-shadow: none;
   	box-shadow: none;
 }
 

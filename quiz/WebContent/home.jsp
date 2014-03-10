@@ -86,14 +86,16 @@
 <!--RIGHT SECTION, ONLY DISPLAYED IF USER IS LOGGED IN-->
 	<%	if (user != null && user.user_name != null) { %>
 		<div id="sidebar">
+				
+			<button type="button" id="new-quiz-button" onclick="location.href='quiz_create.jsp'">+ Create a new quiz!</button>
 			<div id="announcements">
-			<% 	Announcement current_ann = new Announcement(); 
-				current_ann.fetch();
-			%>
-
+				<% 	Announcement current_ann = new Announcement(); 
+					current_ann.fetch();
+				%>
 				<div id="announcements-header">LATEST ANNOUNCEMENTS</div>
 				<div id="announcements-body"><%= current_ann.announcement %></div>
 			</div>
+
 		
 			<!-- Arraylist of user's quizzes -->
 			<div class="smallHeader">YOUR QUIZZES</div>

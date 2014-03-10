@@ -300,6 +300,10 @@ public class User implements model {
 		this.notifications = new ArrayList<Notification>();
 		try {
 			while(rs.next()) {
+				
+				// Only add unviewed / active notifications
+				if (rs.getInt("is_viewed") == 1) continue;
+				
 				Notification notif = new Notification();
 				notif.notification_id = rs.getInt("notification_id");
 				notif.user_id = rs.getInt("user_id");
@@ -309,8 +313,6 @@ public class User implements model {
 				notif.relationship_id = rs.getInt("relationship_id");
 				notif.is_viewed = rs.getInt("is_viewed");
 				notif.notification_text = rs.getString("notification_text");
-				
-				
 				
 				this.notifications.add(notif);
 			}

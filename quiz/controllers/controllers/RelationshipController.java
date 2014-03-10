@@ -60,9 +60,10 @@ public class RelationshipController extends HttpServlet {
 		if (notification_id != null && !notification_id.isEmpty()) {
 			Notification notify = new Notification();
 			notify.notification_id = Integer.parseInt(notification_id);
-			notify.fetch();
-			notify.is_viewed = 1;
-			notify.save();
+			if (notify.fetch()) {
+				notify.is_viewed = 1;
+				if (!notify.save()) System.out.println("Failed to update notificaiton " + notify.notification_id);
+			}
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("home.jsp");

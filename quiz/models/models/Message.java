@@ -80,9 +80,25 @@ public class Message implements model {
 	
 	@Override
 	public boolean destroy() {
-		// Destroy the column from the database
+		if(message_id == -1) {
+			//Set error message
+			return false;
+		}
+		String[] deleteMessage = new String[2];
 		
-		// Set all the quizzes user_id to null or something similar to indicate that user has been destroyed
+		// Delete from notification
+		deleteMessage[0] = "DELETE FROM notification WHERE message_id = " + message_id;
+		
+		// Delete from message
+		deleteMessage[1] = "DELETE FROM message WHERE message_id = " + message_id;
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteMessage);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a message");
+			// Set error message on message
+			return false;
+		}
 		return true;
 	}
 	

@@ -1,5 +1,6 @@
 package app;
 
+
 import static org.junit.Assert.*;
 import models.User;
 
@@ -29,8 +30,9 @@ public class AppTest {
 			app.current_user.am_challenges_sent = 100;
 			if(app.current_user.save()) {
 				System.out.println("Successful update");
+			}else {
+				fail("Not yet implemented");
 			}
-		fail("Not yet implemented");
 		}
 	}
 }

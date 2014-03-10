@@ -37,8 +37,9 @@ public class User implements model {
 	
 //	private boolean is_admin = false;
 	private int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
-	private String password = null; // TEW: added because password cannot be null when creating a new user
-	private String salt = null; // TEW: added because salt cannot be null when creating a new user
+	public String password = null; // TEW: added because password cannot be null when creating a new user
+	public String salt = null; // TEW: added because salt cannot be null when creating a new user
+	private static final int superuser_id = 1;
 	
 	private DBConnector connector = null;
 	
@@ -64,7 +65,7 @@ public class User implements model {
 		return false;	
 	}
 	
-	// TEW: implemented save function (needs testing). I wrote some tests in app, but am having trouble getting the project to run tonight.
+	// TEW: implemented save function.
 	@Override
 	public boolean save() {
 		// If the user_id is populated, the we want to try and update the user table
@@ -165,7 +166,7 @@ public class User implements model {
 		}
 		
 		// Populate Friends ID list
-		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' ORDER BY date_created";
+		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' AND request_status = 1 ORDER BY date_created";
 		rs = null;
 		rs = connector.query(friends_id_query);
 		ArrayList<Integer> friendIDs = new ArrayList<Integer>();
@@ -209,11 +210,58 @@ public class User implements model {
 		return true;
 	}
 	
+	// TEW: Implemented destroy method
 	@Override
 	public boolean destroy() {
-		// Destroy the column from the database
+		// TEW: If no user is logged in return false and set the error message field? (will we be making an error message field?)
+		if(user_id == -1) return false;
+		String[] deleteUser = new String[10];
 		
-		// Set all the quizzes user_id to null or something similar to indicate that user has been destroyed
+			// Delete from Notification for any notifications received
+			deleteUser[0] = "DELETE FROM notification WHERE user_id = " + user_id;
+			
+			// Delete from Notification for friend requests sent
+			deleteUser[1] = "DELETE FROM notification where relationship_id IN(" +
+								" SELECT relationship_id FROM relationship" +
+								" WHERE friend_id = " + user_id + 
+								" OR user_id = " + user_id + ")";
+			
+			// Delete from Notification for challenges sent
+			deleteUser[2] = "DELETE FROM notification where challenge_id IN(" +
+								" SELECT challenge_id FROM challenge " +
+								" WHERE to_user_id = " + user_id +
+								" OR from_user_id = " + user_id + ")";
+			
+			// Delete from Notification for messages sent
+			deleteUser[3] = "DELETE FROM notification WHERE message_id IN(" +
+								" SELECT message_id FROM message" +
+								" WHERE to_user_id = " + user_id +
+								" OR from_user_id = " + user_id + ")";
+			
+			// Delete from relationships
+			deleteUser[4] = "DELETE FROM relationship WHERE user_id = " + user_id + " OR " + "friend_id = " + user_id;
+					
+			// Delete from messages
+			deleteUser[5] = "DELETE FROM message WHERE to_user_id = " + user_id + " OR from_user_id = " + user_id;
+			
+			// Delete from challenge
+			deleteUser[6] = "DELETE FROM challenge WHERE to_user_id = " + user_id + " OR " + "from_user_id = " + user_id;
+		
+			// Delete from history
+			deleteUser[7] = "DELETE FROM history WHERE user_id = " + user_id;
+			
+			// Update any quizzes they wrote to have the superuser's user_id of 1
+			deleteUser[8] = "UPDATE quiz SET creator_id = " + superuser_id + " WHERE creator_id = " + user_id;
+			
+			// Delete from the user table
+			deleteUser[9] = "DELETE FROM user WHERE user_id = " + user_id;
+	
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteUser);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a user_id");
+			return false;
+		}
 		return true;
 	}
 	
@@ -244,7 +292,21 @@ public class User implements model {
 			return false;
 		}	
 		
-		return true;
+		String query = "SELECT password, salt FROM user WHERE user_name = '" + this.user_name + "'";
+		ResultSet rs = connector.query(query);
+		try {
+			if (rs.next()) {
+				String stored_password = rs.getString("password");
+				String salt = rs.getString("salt");
+				
+				String hashed = hashPassword(password, salt);
+				if (hashed.equals(stored_password)) return this.fetch();
+			}
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return false;
 	}
 	
 	/**

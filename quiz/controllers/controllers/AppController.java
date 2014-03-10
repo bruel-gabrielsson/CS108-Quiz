@@ -34,6 +34,8 @@ public class AppController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("appcontroller");
+		
 		// CREATING THE APP FOR THE SESSION
 		if (request.getSession().getAttribute("app") == null) {
 			System.out.println("APP CREATED IN APP");
@@ -42,7 +44,8 @@ public class AppController extends HttpServlet {
 	    	
 	    	request.getSession().setAttribute("app", app);
 		}
-			
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 		rd.forward(request, response);
 	}

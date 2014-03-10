@@ -39,6 +39,9 @@ public class App {
 	
 	public User current_user = null;
 	
+	public Quiz current_quiz = null;
+	public Question current_question = null;
+	
 	public void initialize() {
 		System.out.println("Starting APP!");
 		// Fetch all the overall information for the app, top scores, etc
@@ -50,7 +53,7 @@ public class App {
 		
 		/// TESTING
 		
-		current_user.user_name = "Tyler";
+		current_user.user_name = "Kerry";
 		if (current_user.fetch()) {
 			System.out.println("success");
 			
@@ -69,18 +72,34 @@ public class App {
 		if(this.current_user.save()) {
 			System.out.println("Successful update");
 		}
+		
+//		// TEW: test user.save for a new user
+//		this.current_user = new User();
+//		this.current_user.user_name = "Kerry";
+//		this.current_user.password = "abc";
+//		this.current_user.salt = "1234567";
+//		if(this.current_user.save()) {
+//			System.out.println("Successfully created new user");
+//		}
+		
+		// TEW: test user.destroy
+		if(this.current_user.destroy()){
+			System.out.println("Successfully deleted user");
+		}
 								
-		FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
-		System.out.println(fr.question_text);
-		System.out.println(fr.name);
-		System.out.println(fr.type);
-					
-		for (Question q : this.current_user.quizzes.get(0).questions) {
-			if (q.type == "question_free_response") {
-				FreeResponse nq = (FreeResponse) q;
-				String s1 = nq.name + nq.answer + nq.question_text;
-				System.out.println(s1);
-
+//		FreeResponse fr = (FreeResponse) this.current_user.quizzes.get(0).questions.get(0);
+//		System.out.println(fr.question_text);
+//		System.out.println(fr.name);
+//		System.out.println(fr.type);
+//		
+		if(this.current_user.quizzes != null){
+			for (Question q : this.current_user.quizzes.get(0).questions) {
+				if (q.type == "question_free_response") {
+					FreeResponse nq = (FreeResponse) q;
+					String s1 = nq.name + nq.answer + nq.question_text;
+					System.out.println(s1);
+	
+				}
 			}
 		}
 	
@@ -137,17 +156,6 @@ public class App {
 		
 		return true;
 	}
-	
-	public boolean signIn(String user_name, String password) {
-		this.current_user.user_name = user_name;
-		if (this.current_user.signIn(password)) {
-			return this.current_user.fetch();
-		} else {
-			this.current_user.user_name = null;
-			return false;
-		}
-	}
-	
-	
+		
 	// How are quizzes created???
 }

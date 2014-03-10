@@ -203,6 +203,57 @@ public class Quiz implements model {
 	
 	@Override
 	public boolean destroy() {
+		// Check and see if we have a quiz
+		if(quiz_id == -1) {
+			// Set error message
+			return false;
+		}
+		String[] deleteQuiz = new String[7];
+		
+			// Delete from quiz_question_number
+			deleteQuiz[0] = "DELETE FROM quiz_question_number WHERE quiz_id = " + quiz_id;
+			
+			// Delete from question_free_response
+			deleteQuiz[1] = "DELETE FROM question_free_response WHERE quiz_id = " + quiz_id;
+			
+			// Delete from question_fill_in_blank
+			deleteQuiz[2] = "DELETE FROM question_fill_in_blank WHERE quiz_id = " + quiz_id;
+			
+			// Delete from question_multiple_choice
+			deleteQuiz[3] = "DELETE FROM question_multiple_choice WHERE quiz_id = " + quiz_id;
+			
+			// Delete from question_picture_response
+			deleteQuiz[4] = "DELETE FROM question_picture_response WHERE quiz_id = " + quiz_id;
+			
+			// Delete from challenge
+				// Get all the challenges and call destroy (this allows notifications to be deleted too)
+				try{
+					String quizChallenges = "SELECT challenge_id FROM challenge WHERE quiz_id = "+ quiz_id;
+					ResultSet rs = connector.query(quizChallenges);
+					rs.beforeFirst();
+					Challenge challenge = new Challenge();
+					while(rs.next()){
+						int challenge_id = rs.getInt("challenge_id");
+						challenge.challenge_id = challenge_id;
+						challenge.destroy();
+					}
+				} catch(SQLException e){
+					e.printStackTrace();
+				}
+			
+			// Update history table to show the quiz was deleted
+			deleteQuiz[5] = "DELETE FROM history WHERE quiz_id = " + quiz_id;
+			
+			// Delete from quiz
+			deleteQuiz[6] = "DELETE FROM quiz WHERE quiz_id = " + quiz_id;
+			
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteQuiz);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a user_id");
+			// Set error message on quiz
+			return false;
+		}
 		return true;
 	}
 		

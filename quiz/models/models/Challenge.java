@@ -1,9 +1,11 @@
 package models;
 
 import java.sql.*;
+
 import database.DBConnector;
 
 public class Challenge implements model {
+	public String error = null;
 	
 	public int challenge_id = -1;
 	public int to_user_id;
@@ -87,7 +89,26 @@ public class Challenge implements model {
 
 	@Override
 	public boolean destroy() {
-		return false;
+		if(challenge_id == -1) {
+			error = "No challenge_id to delete";
+			return false;
+		}
+		String[] deleteChallenge = new String[2];
+		
+		// Delete from notification
+		deleteChallenge[0] = "DELETE FROM notification WHERE challenge_id = " + challenge_id;
+		
+		// Delete from message
+		deleteChallenge[1] = "DELETE FROM challenge WHERE challenge_id = " + challenge_id;
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteChallenge);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a challenge");
+			error = "There was an error in the DELETE call on a challenge";
+			return false;
+		}
+		return true;
 	}
 
 }

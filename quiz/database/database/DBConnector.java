@@ -79,6 +79,7 @@ public class DBConnector {
 			stmt = connection.createStatement();
 			stmt.executeQuery("USE " + MYSQL_DATABASE_NAME);
 			for(int i = 0; i < statement.length; i++){
+				System.out.println(statement[i]);
 				result = stmt.executeUpdate(statement[i]);
 			}
 			// If we make it to here then we have successfully executed the entire transaction

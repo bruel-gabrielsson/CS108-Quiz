@@ -19,7 +19,7 @@ public class Relationship implements model {
 	
 	private DBConnector connector;
 
-	Relationship() {
+	public Relationship() {
 		connector = new DBConnector();
 	}
 	

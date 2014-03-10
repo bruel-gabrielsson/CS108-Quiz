@@ -292,7 +292,7 @@ public class User implements model {
 	
 	public boolean fetchNotifications() {
 		
-		String notif_query = "SELECT * FROM notification WHERE user_id = '" + this.user_id + "'";
+		String notif_query = "SELECT * FROM notification WHERE user_id = '" + this.user_id + "' LIMIT 5";
 		ResultSet rs = connector.query(notif_query);
 		this.notifications = new ArrayList<Notification>();
 		try {

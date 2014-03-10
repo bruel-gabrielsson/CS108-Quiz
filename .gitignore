@@ -29,3 +29,8 @@ Servers*
 /.metadata/.plugins/org.eclipse.ui.workbench/dialog_settings.xml
 
 .DS_Store
+
+/quiz/.settings/org.eclipse.wst.ws.service.policy.prefs
+/quiz/.settings/org.eclipse.wst.common.project.facet.core.xml
+/quiz/.settings/org.eclipse.ltk.core.refactoring.prefs
+/quiz/.classpath

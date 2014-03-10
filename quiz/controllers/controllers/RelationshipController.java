@@ -42,14 +42,18 @@ public class RelationshipController extends HttpServlet {
 			Relationship rel = new Relationship();	
 			rel.relationship_id = Integer.parseInt(relationship_id);
 			
-			// User wishes to accept relationship
-			if (action.equals("Accept")) {
-				if (!rel.isAccepted()) System.out.println("Failed to accept relationship ID" + relationship_id);
-			}
-			
-			// User wishes to decline relationship
-			if (action.equals("Decline")) {
-				if (!rel.isRejected()) System.out.println("Failed to decline relationship ID" + relationship_id);
+			if (rel.fetch()) {
+				// User wishes to accept relationship
+				if (action.equals("Accept")) {
+					if (!rel.isAccepted()) System.out.println("Failed to accept relationship ID" + relationship_id);
+				}
+				
+				// User wishes to decline relationship
+				if (action.equals("Decline")) {
+					if (!rel.isRejected()) System.out.println("Failed to decline relationship ID" + relationship_id);
+				}
+			} else {
+				System.out.println("Failed to fetch relationship ID: " + relationship_id);
 			}
 		}
 		

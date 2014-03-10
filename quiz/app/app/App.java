@@ -54,13 +54,13 @@ public class App {
 		
 
 		/// TESTING
-		
+		/*
 		current_user.user_name = "Tyler";
 		if (current_user.fetch()) {
 			System.out.println("success");
 			
 		}
-		
+		*/
 
 		if(fetchPopularQuizzes()) {
 			// fetching popular quizzes

@@ -52,8 +52,6 @@
 					</div>
 				</li>	
 			<% } %>
-			
-			
 		</ul>
 		
 		<div class="largeHeader">Recently Created</div>
@@ -119,11 +117,16 @@
 							
 							<!--  Friend request -->
 							<% } else if (n.notification_type_id == 3) { %>
-								<li> Relationship ID: <%= n.relationship_id %> </li>	
-							<% } %>
-							
-							<li> <%= n.notification_text %></li>
-							
+								<li> 
+									<%= n.notification_text %>
+									<form action="RelationshipController" method="get">
+										<input type="hidden" name="relationship_id" value="<%= n.relationship_id %>" />	
+										<input type="hidden" name="notification_id" value="<%= n.notification_id %>" />
+									    <input type="submit" name="action" value="Accept" />
+									    <input type="submit" name="action" value="Decline" />
+									</form>
+								</li>
+							<% } %>							
 						<% } %>
 					</ul>
 				<% } %>

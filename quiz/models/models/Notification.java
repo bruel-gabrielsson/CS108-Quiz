@@ -4,6 +4,7 @@ import database.DBConnector;
 
 public class Notification implements model {
 
+	public int notification_id = -1;
 	public int user_id = -1;
 	public int notification_type_id = -1;
 	public int message_id = -1;

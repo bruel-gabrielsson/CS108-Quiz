@@ -298,6 +298,7 @@ public class User implements model {
 		try {
 			while(rs.next()) {
 				Notification notif = new Notification();
+				notif.notification_id = rs.getInt("notification_id");
 				notif.user_id = rs.getInt("user_id");
 				notif.notification_type_id = rs.getInt("notification_type_id");
 				notif.message_id = rs.getInt("message_id");

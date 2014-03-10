@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Notification;
 import models.Relationship;
 import models.User;
 import app.App;
@@ -32,14 +33,43 @@ public class RelationshipController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("RelationshipController: Received GET request to update existing relationship");
+		String relationship_id = request.getParameter("relationship_id");
+		String notification_id = request.getParameter("notification_id");
+		String action = request.getParameter("action");
+		
+		if (relationship_id != null && !relationship_id.isEmpty() && action != null && !action.isEmpty()) {
+			Relationship rel = new Relationship();	
+			rel.relationship_id = Integer.parseInt(relationship_id);
+			
+			// User wishes to accept relationship
+			if (action.equals("Accept")) {
+				if (!rel.isAccepted()) System.out.println("Failed to accept relationship ID" + relationship_id);
+			}
+			
+			// User wishes to decline relationship
+			if (action.equals("Decline")) {
+				if (!rel.isRejected()) System.out.println("Failed to decline relationship ID" + relationship_id);
+			}
+		}
+		
+		if (notification_id != null && !notification_id.isEmpty()) {
+			Notification notify = new Notification();
+			notify.notification_id = Integer.parseInt(notification_id);
+			notify.fetch();
+			notify.is_viewed = 1;
+			notify.save();
+		}
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("home.jsp");
+		dispatch.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("RelationshipController: Received POST request");
+		System.out.println("RelationshipController: Received POST request to add new relationship");
 		
 		App app = (App)request.getSession().getAttribute("app");
 		User fromUser = app.current_user;

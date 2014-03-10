@@ -88,6 +88,8 @@
 		<div id="sidebar">
 				
 			<button type="button" id="new-quiz-button" onclick="location.href='quiz_create.jsp'">+ Create a new quiz!</button>
+			
+			<!-- Global announcement -->
 			<div id="announcements">
 				<% 	Announcement current_ann = new Announcement(); 
 					current_ann.fetch();
@@ -96,7 +98,36 @@
 				<div id="announcements-body"><%= current_ann.announcement %></div>
 			</div>
 
-		
+			<!-- User's notifications -->
+			<div class="smallHeader">YOUR NOTIFICATIONS</div>
+				<% if (user.notifications == null) user.fetchNotifications(); %>
+				
+			 	<% if (user.notifications.size() == 0) { %>
+			 		You have no notifications at this time!
+			 	<% } else { %>
+			 		You have <%= user.notifications.size() %> notifications!
+					<ul>
+						<% for (Notification n : user.notifications) { %>
+							
+							<!-- Message -->
+							<% if (n.notification_type_id == 1) {  %>
+								<li> Message ID: <%= n.message_id %> </li>
+							
+							<!-- challenge -->
+							<% } else if (n.notification_type_id == 2) { %>
+								<li> Challenge ID: <%= n.challenge_id %> </li>				
+							
+							<!--  Friend request -->
+							<% } else if (n.notification_type_id == 3) { %>
+								<li> Relationship ID: <%= n.relationship_id %> </li>	
+							<% } %>
+							
+							<li> <%= n.notification_text %></li>
+							
+						<% } %>
+					</ul>
+				<% } %>
+				
 			<!-- Arraylist of user's quizzes -->
 			<div class="smallHeader">YOUR QUIZZES</div>
 			<ul>

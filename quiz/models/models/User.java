@@ -203,13 +203,7 @@ public class User implements model {
 		if (fetchMessages()) {
 			// fetches the messages automatically for now
 		}
-		
-		/*
-		if (fetchNotifications()) {
-			// fetches notifications automatically for now
-		}
-		*/
-		
+			
 		return true;
 	}
 	
@@ -296,18 +290,22 @@ public class User implements model {
 		return true;
 	}
 	
-	private boolean fetchNotifications() {
+	public boolean fetchNotifications() {
 		
-		String notif_query = "SELECT * FROM notification WHERE to_user_id = '" + this.user_id + "'";
+		String notif_query = "SELECT * FROM notification WHERE user_id = '" + this.user_id + "'";
 		ResultSet rs = connector.query(notif_query);
-		this.messages = new ArrayList<Message>();
+		this.notifications = new ArrayList<Notification>();
 		try {
 			while(rs.next()) {
 				Notification notif = new Notification();
 				notif.user_id = rs.getInt("user_id");
 				notif.notification_type_id = rs.getInt("notification_type_id");
+				notif.message_id = rs.getInt("message_id");
+				notif.challenge_id = rs.getInt("challenge_id");
 				notif.relationship_id = rs.getInt("relationship_id");
+				notif.is_viewed = rs.getInt("is_viewed");
 				notif.notification_text = rs.getString("notification_text");
+				this.notifications.add(notif);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

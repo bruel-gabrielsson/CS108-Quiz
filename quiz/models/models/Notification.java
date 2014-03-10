@@ -6,7 +6,10 @@ public class Notification implements model {
 
 	public int user_id = -1;
 	public int notification_type_id = -1;
+	public int message_id = -1;
+	public int challenge_id = -1;
 	public int relationship_id = -1;
+	public int is_viewed = 0;
 	public String notification_text = null;
 	
 	private DBConnector connector;

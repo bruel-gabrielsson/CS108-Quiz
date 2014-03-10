@@ -98,7 +98,7 @@
 
 			<!-- User's notifications -->
 			<div class="smallHeader">YOUR NOTIFICATIONS</div>
-				<% if (user.notifications == null) user.fetchNotifications(); %>
+				<% user.fetchNotifications(); %>
 				
 			 	<% if (user.notifications.size() == 0) { %>
 			 		You have no notifications at this time!
@@ -142,6 +142,7 @@
 			<!-- Arraylist of user's friends -->
 			<!--  TODO For now it's simply friends list, but needs to be history of friend's activities -->
 			<div class="smallHeader">YOUR FRIENDS</div>
+			<% user.fetchFriends(); %>
 			User has <%= user.friends.size() %> friends
 			<ul>
 				<%	for (String friend : user.friends) { %>

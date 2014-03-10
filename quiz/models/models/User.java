@@ -168,38 +168,6 @@ public class User implements model {
 			e.printStackTrace();
 		}
 		
-		// Populate Friends ID list
-		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' AND request_status = 1 ORDER BY date_created";
-		rs = null;
-		rs = connector.query(friends_id_query);
-		ArrayList<Integer> friendIDs = new ArrayList<Integer>();
-		try {
-			while(rs.next()) {
-				int friend_id = rs.getInt("friend_id");
-				friendIDs.add(friend_id);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		// Translate friends ID list to friends username
-		this.friends = new ArrayList<String>();
-		for (Integer friend_id : friendIDs) {
-		
-			String friends_query = "SELECT * FROM user WHERE user_id = '" + friend_id + "'";
-			rs = null;
-			rs = connector.query(friends_query);
-			try {
-				while(rs.next()) {
-					String friend_name = rs.getString("user_name");
-					this.friends.add(friend_name);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		if (fetchMessages()) {
 			// fetches the messages automatically for now
 		}
@@ -268,7 +236,42 @@ public class User implements model {
 		return true;
 	}
 	
-	private boolean fetchMessages() {
+	public boolean fetchFriends() {
+		// Populate Friends ID list
+		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' AND request_status = 1 ORDER BY date_created";
+		ResultSet rs = connector.query(friends_id_query);
+		ArrayList<Integer> friendIDs = new ArrayList<Integer>();
+		try {
+			while(rs.next()) {
+				int friend_id = rs.getInt("friend_id");
+				friendIDs.add(friend_id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		// Translate friends ID list to friends username
+		this.friends = new ArrayList<String>();
+		for (Integer friend_id : friendIDs) {
+		
+			String friends_query = "SELECT * FROM user WHERE user_id = '" + friend_id + "'";
+			rs = null;
+			rs = connector.query(friends_query);
+			try {
+				while(rs.next()) {
+					String friend_name = rs.getString("user_name");
+					this.friends.add(friend_name);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return true;
+	}
+	
+	public boolean fetchMessages() {
 				
 		// Populate Messages list
 		String message_id_query = "SELECT * FROM message WHERE to_user_id = '" + this.user_id + "' ORDER BY time_sent";
@@ -306,6 +309,9 @@ public class User implements model {
 				notif.relationship_id = rs.getInt("relationship_id");
 				notif.is_viewed = rs.getInt("is_viewed");
 				notif.notification_text = rs.getString("notification_text");
+				
+				
+				
 				this.notifications.add(notif);
 			}
 		} catch (SQLException e) {

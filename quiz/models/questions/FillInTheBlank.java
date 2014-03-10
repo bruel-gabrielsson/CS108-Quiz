@@ -18,7 +18,7 @@ public class FillInTheBlank extends Question {
 	public String name = null;
 	public String question_text_before;
 	public String question_text_after;
-	public String answer;
+	//public String answer;
 	
 	
 	private DBConnector connector;
@@ -27,6 +27,26 @@ public class FillInTheBlank extends Question {
 		super();
 		type = this_type;
 		connector = new DBConnector();
+	}
+	
+	/**
+	 * Returns a clone of this question, for deep copying
+	 * NOTE: Does not provide id, so there are no real duplicates
+	 */
+	@Override
+	public Question clone() {
+		FillInTheBlank clone = new FillInTheBlank();
+		clone.question_number = this.question_number;
+		clone.question_type_id = this.question_type_id;
+		clone.quiz_id = this.quiz_id;
+		clone.name = this.name;
+		clone.question_text_after = this.question_text_after;
+		clone.question_text_before = this.question_text_before;
+		clone.answer = this.answer;
+		clone.date_created = this.date_created;
+		clone.type = this.type;
+		
+		return clone;
 	}
 	
 	// TEW: implemented save function (needs testing!)

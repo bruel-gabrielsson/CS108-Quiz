@@ -3,6 +3,8 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import database.DBConnector;
 import questions.FillInTheBlank;
@@ -78,6 +80,46 @@ public class Quiz implements model {
 		}
 		
 		return creator;
+	}
+	
+	public HashMap<String, String> correctMap(HashMap<String, String> answers) {
+		HashMap<String, String> feedback = new HashMap<String, String>();
+		int score = 0;
+		
+		for (Question q : this.questions) {
+			if (answers.containsKey("question" + q.question_number)) {
+				System.out.println(q.answer);
+				
+				String answer = answers.get("question" + q.question_number);
+				if (answer.equals(q.answer)) {
+					feedback.put("question" + q.question_number, "Correct");
+					score ++;
+				} else {
+					feedback.put("question" + q.question_number, "Incorrect");
+				}
+				
+				/*
+				if (q.type.equals("question_fill_in_blank") ) {
+					FillInTheBlank fb = (FillInTheBlank) q;
+					String solution = fb.answer;
+					
+				} else if (q.type.equals("question_free_response")) {
+					FreeResponse fr = (FreeResponse) q;
+					String solution = fr.answer;
+					
+				} else { // "question_multiple_choice"
+					MultipleChoice ch = (MultipleChoice) q;
+				}
+				*/
+			
+			} else {
+				feedback.put("question" + q.question_number, "No answer provided");
+			}
+		}
+		
+		feedback.put("score", Integer.toString(score));
+		
+		return feedback;
 	}
 	
 	/* ???
@@ -256,5 +298,25 @@ public class Quiz implements model {
 		}
 		return true;
 	}
+	
+	public static ArrayList<Quiz> getAllQuizzes() {
+		ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+		DBConnector connector = new DBConnector();
 		
+		// Populate quizzes list
+		String quiz_query = "SELECT * FROM quiz ORDER BY quiz_id";
+		ResultSet rs = connector.query(quiz_query);
+		try {
+			while(rs.next()) {
+				Quiz quiz = new Quiz();
+				quiz.quiz_name = rs.getString("quiz_name");
+				quiz.date_created = rs.getString("date_created");
+				quizzes.add(quiz);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return quizzes;
+	}
 }

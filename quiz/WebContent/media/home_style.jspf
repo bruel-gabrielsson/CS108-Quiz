@@ -1,0 +1,152 @@
+<STYLE type="text/css">
+body, html {
+	margin:0;
+	padding:0;
+	color:#000;
+	background: white;
+	font-family: "Myriad Pro", "Helvetica", "Arial", serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* HEADER -------------------------------------------------------------- */
+
+#header {
+	background: #8AC7ED;
+	color: #4E81A1;
+	overflow: hidden;
+}
+
+#header-title {
+	font-size: 36px;
+	font-weight: bold;
+	padding: 12px 0px 8px 15px;
+	float:left;
+	text-decoration: none;
+	color:inherit;
+}
+
+#header-form {
+	float:right;
+	padding: 20px 8px 8px 10px;
+}
+
+#header-profile {
+	float:right;
+	padding: 23px 8px 8px 10px;	
+}
+
+input[type=submit] {
+	margin-left: 10px;
+	padding:2px 25px 2px 25px; 
+	background:#CC6633; 
+	border:1px solid #CC9999;
+	cursor:pointer;
+	color: white;
+}
+
+input[type=submit]:hover{
+	background:#CC9966; 
+}
+
+/* MAIN ---------------------------------------------------------------- */
+
+#main {
+	float:left;
+	width:68%;
+}
+
+div.largeHeader {
+	font-size: 26px;
+	font-weight: bold;
+	color: #303336;
+	border-bottom: solid #8AC7ED;
+	border-bottom-width: 1px;
+	width: 90%;
+	margin: 20px 10px 0px 26px;
+	padding-bottom: 9px;
+}
+
+div.smallHeader {
+	font-size: 18px;
+	font-weight: bold;
+	color: #303336;
+	border-bottom: solid #8AC7ED;
+	border-bottom-width: 1px;
+	padding: 2px;
+}
+
+div.quizWidget {
+	overflow: hidden;
+}
+
+div.quizWidget .imgDiv {
+	float:left;
+}
+
+div.quizWidget .contentDiv {
+	margin-left: 10px;
+	float:left;
+}
+
+div.quizWidget .dateDiv {
+	float:right;
+	margin-right: 100px;
+}
+
+
+/* SIDEBAR ------------------------------------------------------------ */
+
+#sidebar {
+	float:left;
+	width:28%;
+}
+
+#announcements {
+	margin: 20px 0px 20px 0px;
+}
+
+#announcements-header {
+	color: #C4DCE8;
+	background: #4E81A1;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#announcements-body {
+	color: #39647A;
+	background: #C4DCE8;
+	padding: 10px 12px 26px 12px;
+}
+
+#new-quiz-button {
+	margin: 25px 0px 5px 0px;
+	position: relative;
+	vertical-align: top;
+  	width: 100%;
+  	height: 40px;
+  	padding-top: 3px;
+  	font-size: 18px;
+  	color: white;
+  	text-align: center;
+  	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  	background: #e67e22;
+  	border: 0;
+  	border-bottom: 2px solid #da751c;
+  	cursor: pointer;
+  	box-shadow: inset 0 -2px #da751c;
+}
+
+#new-quiz-button:active {
+  	top: 1px;
+  	outline: none;
+  	box-shadow: none;
+}
+
+#new-quiz-button:hover {
+  	background: #e67e22;
+}
+
+</STYLE>

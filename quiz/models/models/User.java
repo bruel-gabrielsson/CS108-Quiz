@@ -36,10 +36,12 @@ public class User implements model {
 	public ArrayList<Message> messages = null;
 	
 //	private boolean is_admin = false;
-	private int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
+
+	public int is_admin =  0; // TEW: changed is_admin to int because it has to be an INT in SQL (a bool in SQL is just a tinyint that can be 0 or 1)
 	public String password = null; // TEW: added because password cannot be null when creating a new user
 	public String salt = null; // TEW: added because salt cannot be null when creating a new user
 	private static final int superuser_id = 1;
+	
 	
 	private DBConnector connector = null;
 	
@@ -354,4 +356,41 @@ public class User implements model {
 		return buff.toString();
 	}
 	
+	/*
+	 * Light-weight fetch method to see if user exists
+	 */
+	public Boolean exists() {
+		if (this.user_name != null) {
+			String query = "SELECT * FROM user WHERE user_name = '"+ this.user_name +"'";
+			ResultSet rs = connector.query(query);
+			try {
+				return rs.next();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	public static ArrayList<User> getAllUsers() {
+		ArrayList<User> users = new ArrayList<User>();
+		DBConnector connector = new DBConnector();
+		
+		// Populate Messages list
+		String user_query = "SELECT * FROM user ORDER BY user_id";
+		ResultSet rs = connector.query(user_query);
+		try {
+			while(rs.next()) {
+				User user = new User();
+				user.user_name = rs.getString("user_name");
+				user.date_created = rs.getString("date_created");
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return users;
+	}
 }

@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import app.App;
+import models.Announcement;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class NewAnnouncementServlet
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/NewAnnouncementServlet")
+public class NewAnnouncementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public NewAnnouncementServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +30,30 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("LogoutServlet: Obtained GET request to logout!");
-		
-		App app = (App)request.getSession().getAttribute("app");
-		
-		app.initialize();
-		
-		request.getSession().setAttribute("username", null);
-		request.getSession().setAttribute("loginStatus", null);
-		request.getSession().setAttribute("app", app);
-		
-		RequestDispatcher dispatch = request.getRequestDispatcher("home.jsp");
-		dispatch.forward(request, response);	
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		String announcement_name = request.getParameter("announcement-name");
+		String announcement = request.getParameter("announcement");
+		
+		if(!announcement_name.isEmpty() && !announcement.isEmpty()){
+			Announcement new_ann = new Announcement();
+			new_ann.announcement_name = announcement_name;
+			new_ann.announcement = announcement;
+			if (new_ann.save()) {
+				System.out.println("Successfully created a new announcement!");
+			} else {
+				System.out.println("Failed to create a new announcement!");
+			}
+		}
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher("admin.jsp");
+		dispatch.forward(request, response);	
 	}
 
 }

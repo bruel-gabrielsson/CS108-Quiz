@@ -8,6 +8,11 @@ public class PictureResponse extends Question {
 	// NOT IMPLEMENTED IN THE DATABASE YET
 	
 	@Override
+	public Question clone() {
+		return this;
+	}
+	
+	@Override
 	public boolean save() {
 		return true;
 	}

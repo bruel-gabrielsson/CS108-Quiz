@@ -12,7 +12,7 @@ public class FreeResponse extends Question {
 	public static final String this_type = "question_free_response";
 	
 	public String question_text = null;
-	public String answer = null;
+	//public String answer = null;
 	public int fr_question_id = -1;
 	
 	private DBConnector connector;
@@ -21,6 +21,25 @@ public class FreeResponse extends Question {
 		super();
 		type = this_type;
 		connector = new DBConnector();
+	}
+	
+	/**
+	 * Returns a clone of this question, for deep copying
+	 * NOTE: Does not provide id, so there are no real duplicates
+	 */
+	@Override
+	public Question clone() {
+		FreeResponse clone = new FreeResponse();
+		clone.question_number = this.question_number;
+		clone.question_type_id = this.question_type_id;
+		clone.quiz_id = this.quiz_id;
+		clone.name = this.name;
+		clone.question_text = this.question_text;
+		clone.answer = this.answer;
+		clone.date_created = this.date_created;
+		clone.type = this.type;
+		
+		return clone;
 	}
 
 	@Override
@@ -42,6 +61,7 @@ public class FreeResponse extends Question {
 		
 		try {
 			if (rs.next()) {
+				question_number = rs.getInt("question_number");
 				question_type_id = rs.getInt("question_type_id");
 				question_text = rs.getString("question_text");
 				answer = rs.getString("answer");

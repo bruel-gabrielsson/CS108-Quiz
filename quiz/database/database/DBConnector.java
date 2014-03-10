@@ -4,17 +4,19 @@ import java.sql.*;
 
 public class DBConnector {
 
-	/*
+
 	public static final String MYSQL_USERNAME = "ccs108rgabriel";
 	public static final String MYSQL_PASSWORD = "ohfooghu";
 	public static final String MYSQL_DATABASE_SERVER = "mysql-user.stanford.edu";
 	public static final String MYSQL_DATABASE_NAME = "c_cs108_rgabriel";
-	*/
+
 	
+	/*
 	public static final String MYSQL_USERNAME = "ccs108twhittle";
 	public static final String MYSQL_PASSWORD = "meimahae";
 	public static final String MYSQL_DATABASE_SERVER = "mysql-user.stanford.edu";
 	public static final String MYSQL_DATABASE_NAME = "c_cs108_twhittle";
+	*/
 	
 	private static Connection connection = null;
 	

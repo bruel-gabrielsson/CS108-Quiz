@@ -41,6 +41,7 @@ public class App {
 	
 	public Quiz current_quiz = null;
 	public Question current_question = null;
+	public ArrayList<Question> current_questions = null;
 	
 	public void initialize() {
 		System.out.println("Starting APP!");

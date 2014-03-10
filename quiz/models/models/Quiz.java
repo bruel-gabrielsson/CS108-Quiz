@@ -160,12 +160,6 @@ public class Quiz implements model {
 			return false;
 		}
 		
-		this.populate(rs);
-		
-		return true;
-	}
-	
-	private boolean populate(ResultSet rs) {
 		try {
 			while(rs.next()) {
 				this.quiz_name = rs.getString("quiz_name");
@@ -178,10 +172,16 @@ public class Quiz implements model {
 			e1.printStackTrace();
 		}
 		
+		// fetchQuestions();
+		
+		return true;
+	}
+	
+	public boolean fetchQuestions() {
+
 		// Populate questions, find the questions TYPE, to know what questions to create
 		String query = "SELECT * FROM quiz_question_number WHERE quiz_id = '" + this.quiz_id + "' ORDER BY question_number";
-		rs = null;
-		rs = connector.query(query);
+		ResultSet rs = connector.query(query);
 		
 		// Creating instance of questions
 		this.questions = new ArrayList<Question>();

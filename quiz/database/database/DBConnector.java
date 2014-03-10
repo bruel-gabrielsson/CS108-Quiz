@@ -49,17 +49,21 @@ public class DBConnector {
 		
 		Statement stmt;
 		
+		System.out.println("Executing DB query: " + query);
+		
 		if (connection != null) {
 			try {
 				stmt = connection.createStatement();
 				stmt.executeQuery("USE " + MYSQL_DATABASE_NAME);
 				rs = stmt.executeQuery(query); 
 			} catch (SQLException e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 			} 
 		} else {
 			System.out.println("conneciton is null");
 		}
+		
+		System.out.println("Finished executing DB query");
 		
 		return rs;
 	}

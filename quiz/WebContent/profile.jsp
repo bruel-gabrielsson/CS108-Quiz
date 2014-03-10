@@ -72,6 +72,29 @@
 					
 			</ul>
 			
+			<h2>Friends</h2>
+			<ul>
+				<%
+					for (Message msg : profile_user.messages) { %>
+						<li>
+							Date: <%= msg.time_sent %> 
+							From: <a href="profile.jsp?username=<%=msg.from_user_name%>"><%= msg.from_user_name %></a>
+							Title: <%= msg.title %>
+							
+							<!-- This is really fucking hacky way of showing messages, figure out a better, faster way -->
+							<% String focusedmessage = request.getParameter("focusedmessage"); %>
+							<% if (focusedmessage != null && !focusedmessage.isEmpty() && focusedmessage.equals(Integer.toString(msg.message_id))) {%>
+								<a href="profile.jsp?username=<%=profile_username%>">HIDE</a>
+								<div><%= msg.body %></div>
+							<% } else { %>
+								<a href="profile.jsp?username=<%=profile_username%>&focusedmessage=<%=msg.message_id%>">SHOW</a>
+							<% } %>
+						
+						</li>
+				<% } %>
+					
+			</ul>
+			
 		<% } else { %>
 			<h1>Profile for <%= profile_username %> not found!</h1> <br/>
 		<% } %>

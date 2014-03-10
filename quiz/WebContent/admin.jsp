@@ -31,7 +31,7 @@
 		<% ArrayList<User> users = User.getAllUsers(); %>
 		<ol>
 			<% for (User u : users) { %>
-				<li> <%= u.user_name %> <%= u.date_created %> <a href="DeleteServlet?user=">DELETE</a></li>
+				<li> <%= u.user_name %> <%= u.date_created %> <a href="DeleteServlet?username=<%= u.user_name %>">DELETE</a></li>
 			<% } %>
 		</ol>
 	</div>

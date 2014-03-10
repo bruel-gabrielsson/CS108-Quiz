@@ -427,4 +427,23 @@ public class User implements model {
 		
 		return users;
 	}
+	
+	public boolean isFriendWith(int friend_id) {
+		boolean isFriend = false;
+		
+		String friends_id_query = "SELECT * FROM relationship WHERE user_id = '" + this.user_id + "' AND request_status = 1 ORDER BY date_created";
+		ResultSet rs = connector.query(friends_id_query);
+		try {
+			while(rs.next()) {
+				if (friend_id == rs.getInt("friend_id")) {
+					isFriend = true;
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return isFriend;
+	}
 }

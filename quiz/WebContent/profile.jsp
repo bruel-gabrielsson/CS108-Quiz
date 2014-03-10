@@ -28,6 +28,7 @@
 	<% String profile_username = request.getParameter("username"); %>
 	<% if (profile_username != null && !profile_username.isEmpty()) {%>	
 
+		<!--  TODO: DON"T FUCKING DO THIS!!! Put profile_user as a session object that gets passed in -->
 		<% 	User profile_user = new User(); 
 			profile_user.user_name = profile_username;  %>
 	
@@ -41,17 +42,20 @@
 			
 			<% if (!user.user_name.equals(profile_username)) { %>
 				
-				<% String friendRequestStatus = (String)request.getSession().getAttribute("friendRequestStatus"); %>
-				
-				<% if (friendRequestStatus != null) { %>
-					<%= friendRequestStatus %>
-					<% request.getSession().setAttribute("friendRequestStatus", null); %>
-				<% } else { %>
-					<form action="RelationshipController" method="post">
-						<input type="hidden" name="recipient" value="<%= profile_username %>"/> 
-						<input type="submit" value="Add Friend" />
-					</form>
+				<!-- Check if user is friends with profile_user -->
+				<% if (!user.isFriendWith(profile_user.user_id)) {  %>
+					<% String friendRequestStatus = (String)request.getSession().getAttribute("friendRequestStatus"); %>
+					<% if (friendRequestStatus != null) { %>
+						<%= friendRequestStatus %>
+						<% request.getSession().setAttribute("friendRequestStatus", null); %>
+					<% } else { %>
+						<form action="RelationshipController" method="post">
+							<input type="hidden" name="recipient" value="<%= profile_username %>"/> 
+							<input type="submit" value="Add Friend" />
+						</form>
+					<% } %>
 				<% } %>
+				
 				
 				<a href="MessageController?recipient=<%= profile_username %>">Send a message</a>
 				

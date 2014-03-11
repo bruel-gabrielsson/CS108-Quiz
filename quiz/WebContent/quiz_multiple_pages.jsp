@@ -6,7 +6,7 @@
     
 <%
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
-	
+	String correction_value = (String) request.getParameter("correction");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -37,7 +37,7 @@
 </head>
 <body>
 
-
+<div id="correction_div" correction_value="<%= correction_value %>" ></div>
 <div id="wrap">
 	
 <!--HEADER BAR-->
@@ -89,6 +89,8 @@
 			<% for (Question q : app.current_questions) { %>
 				<li class="question_multiple_pages">
 				<div >
+					<div class="question_feedback"></div>
+				
 				<% String type = q.type; %>
 				<% if (type.equals("question_free_response")) {
 						FreeResponse fr = (FreeResponse) q;
@@ -100,7 +102,8 @@
 						<input type="text" name="question<%= fr.question_number %>">
 						<hr></hr>
 						<br>
-					
+						
+						<div style="hidden" class="answer" answer="<%= fr.answer %>" ></div>
 					<%
 				} else if (type.equals("question_fill_in_blank")) {
 						FillInTheBlank fib = (FillInTheBlank) q;
@@ -111,6 +114,7 @@
 						<%= fib.question_text_after %>
 						<hr></hr>
 						<br/>
+						<div style="hidden" class="answer" answer="<%= fib.answer %>" ></div>
 					
 					<%
 				} else { // "question_multiple_choice"
@@ -120,7 +124,7 @@
 					<%= mc.question_number %>
 					<%= mc.question_text %>
 					<br></br>
-					<p>
+					<div>
 					<% if (mc.choice_a != null) { %>
 						<%= mc.choice_a %>
 						<input type="radio" name="question<%= mc.question_number %>" value="A"></input><br/>
@@ -150,8 +154,11 @@
 						<input type="radio" name="question<%= mc.question_number %>" value="G"></input><br/>
 					<% } %>
 					
-					</p>
+					</div>
+					
 					<hr></hr>
+					
+					<div style="hidden" class="answer" answer="<%= mc.answer %>" ></div>
 					<%
 					}
 				%>
@@ -174,9 +181,80 @@
 <script>
 
 window.onload = function () {
+	console.log("QUIZ MULTIPLE JS");
 	
-	console.log("QUIZ JS");
 	
+	var correction = document.getElementById("correction_div").getAttribute("correction_value");
+	console.log(correction);
+	
+	if (correction === "immediate") {
+		
+		console.log(correction + "asdasd!!!");
+		var form = document.getElementsByTagName("OL")[0];
+		var list = form.getElementsByTagName("LI");
+		var length = list.length;
+		console.log("LENGTH" + length);
+		for(var i = 0; i < length; i ++) {
+			var test = list[i].getElementsByTagName("INPUT");
+			console.log(test[0]);
+			if(test[0]) {
+				if(test[0].getAttribute("type") === "text") {
+					
+					test[0].addEventListener('change', function(e) {
+						
+						console.log("input:" + e.target.value);
+						var value = e.target.value;
+						var answer = e.target.parentNode.getElementsByClassName("answer")[0].getAttribute("answer");
+						console.log("answer" + answer);
+						
+						if (answer === value) {
+							var content = "Answer Correct!";
+							var feedback = e.target.parentNode.getElementsByClassName("question_feedback")[0];
+							feedback.innerHTML = content;
+							feedback.style.color = "green";
+						} else {
+							var content = "Answer Incorret";
+							var feedback = e.target.parentNode.getElementsByClassName("question_feedback")[0];
+							feedback.innerHTML = content;
+							feedback.style.color = "red";
+						}
+						
+						
+					}, false);
+				} else if (test[0].getAttribute("type") === "radio") {
+					for ( var n = 0; n < test.length; n++ ) 
+					{ 
+						test[n].onclick = function(e) {
+							console.log("CLICKED" + e.target.value);
+							
+							var value = e.target.value;
+							var answer = e.target.parentNode.parentNode.getElementsByClassName("answer")[0].getAttribute("answer");
+							console.log("answer" + answer);
+							
+							if (answer === value) {
+								var content = "Answer Correct!";
+								var feedback = e.target.parentNode.parentNode.getElementsByClassName("question_feedback")[0];
+								feedback.innerHTML = content;
+								feedback.style.color = "green";
+							} else {
+								var content = "Answer Incorret";
+								var feedback = e.target.parentNode.parentNode.getElementsByClassName("question_feedback")[0];
+								feedback.innerHTML = content;
+								feedback.style.color = "red";
+							}
+							
+						};
+
+					}
+					
+				}
+			}
+		}
+		
+	} else { // later
+		
+	}
+
 	var questions = document.getElementsByClassName("question_multiple_pages");
 	var i = questions.length - 1;
 	console.log(i);

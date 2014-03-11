@@ -37,6 +37,7 @@ public class QuizController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Take the quiz, must give id
+		
 		int quiz_id = -1;
 		try {
 			quiz_id = Integer.parseInt(request.getParameter("quiz_id"));

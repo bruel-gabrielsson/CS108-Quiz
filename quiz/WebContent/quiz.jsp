@@ -18,6 +18,8 @@
 	
 	<!-- JAVASCRIPT -->
 	<script type="text/javascript" src="quiz.js"></script>
+	
+	<%@ include file="media/quiz_js.jspf" %>
 	<title>Quiz</title>
 </head>
 <body>
@@ -154,12 +156,15 @@
 
 </body>
 
+<!-- JAVASCRIPT -->
+	<script type="text/javascript" src="/WEB-INF/javascript/quiz.js"></script>
+	<%@ include file="media/quiz_js.jspf" %>
+
 <script>
 
 window.onload = function () {
 	
 	console.log("QUIZ JS");
-	
 	
 };
 

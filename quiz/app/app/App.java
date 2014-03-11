@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import questions.FreeResponse;
 
-import com.mysql.jdbc.Connection;
-
 import database.DBConnector;
 import models.Question;
 import models.User;

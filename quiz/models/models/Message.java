@@ -25,10 +25,18 @@ public class Message implements model {
 	
 	@Override
 	public boolean save() {
-		String[] insertStmt = new String[1];
+		String[] insertStmt = new String[2];
+		
+		// Insert new message
 		insertStmt[0] = "INSERT INTO message(time_sent, to_user_id, from_user_id,  title, body) VALUES( NOW(), " +
 		"\"" + to_user_id + "\", \"" + from_user_id + "\", \"" + title + "\", \"" + body +"\")";
 		System.out.println("message insert: " + insertStmt[0]);
+		
+		// Insert notification for message
+		insertStmt[1] = "INSERT INTO notification(user_id, notification_type_id, message_id, "
+				+ "notification_text) VALUES(" +  to_user_id + ", " + 1 + ", " 
+				+ " LAST_INSERT_ID(), " + "'" + from_user_name + " has sent you a message!')";
+		
 		int result = connector.updateOrInsert(insertStmt);
 		if(result < 0){
 			System.err.println("There was an error in the INSERT call to the MESSAGE table");

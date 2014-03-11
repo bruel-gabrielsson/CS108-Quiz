@@ -99,17 +99,22 @@
 			<!-- User's notifications -->
 			<div class="smallHeader">YOUR NOTIFICATIONS</div>
 				<% user.fetchNotifications(); %>
-				
 			 	<% if (user.notifications.size() == 0) { %>
 			 		You have no notifications at this time!
 			 	<% } else { %>
-			 		You have <%= user.notifications.size() %> notifications!
 					<ul>
 						<% for (Notification n : user.notifications) { %>
 							
 							<!-- Message -->
 							<% if (n.notification_type_id == 1) {  %>
-								<li> Message ID: <%= n.message_id %> </li>
+								<li> 
+									<%= n.notification_text %>
+									<form action="MessageController" method="get">
+										<input type="hidden" name="message_id" value="<%= n.message_id %>" />	
+										<input type="hidden" name="notification_id" value="<%= n.notification_id %>" />
+									    <input type="submit" name="action" value="Read" />
+									</form>
+								</li>
 							
 							<!-- challenge -->
 							<% } else if (n.notification_type_id == 2) { %>
@@ -126,7 +131,8 @@
 									    <input type="submit" name="action" value="Decline" />
 									</form>
 								</li>
-							<% } %>							
+							<% } %>	
+											
 						<% } %>
 					</ul>
 				<% } %>

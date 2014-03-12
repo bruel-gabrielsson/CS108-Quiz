@@ -129,6 +129,25 @@ public class FillInTheBlank extends Question {
 
 	@Override
 	public boolean destroy() {
+		if(fib_question_id == -1) {
+			error = "No fib_question_id to delete";
+			return false;
+		}
+		String[] deleteFibQuestion = new String[2];
+		
+		// Delete from quiz_question_number
+		deleteFibQuestion[0] = "DELETE FROM quiz_question_number WHERE fib_question_id = " + fib_question_id;
+		
+		// Delete from question_fill_in_blank
+		deleteFibQuestion[1] = "DELETE FROM question_fill_in_blank WHERE fib_question_id = " + fib_question_id;
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteFibQuestion);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a fib_question");
+			error = "There was an error in the DELETE call on a fib_question";
+			return false;
+		}
 		return true;
 	}
 	

@@ -1,6 +1,4 @@
-<script>
-
-	window.onload = function () {
+window.onload = function () {
 		
 		console.log("quiz javascript");
 		
@@ -109,6 +107,4 @@
 				
 			});
 		}
-	}
-
-</script>
+}

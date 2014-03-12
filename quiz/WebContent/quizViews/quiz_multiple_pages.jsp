@@ -14,15 +14,30 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> 
+	<link rel="stylesheet" type="text/css" href="./resources/css/quiz.css"/>
 	
 	<!-- JAVASCRIPT -->
-	<%@ include file="media/quiz_js.jspf" %>
+	<script type="text/javascript" src="javascript/quiz.js" ></script>
 	<title>Quiz</title>
+	
+	<!-- CSS TEMPORARY SOLUTION!!!! -->
+	<style type="text/css">
+		.question_multiple_pages {
+			display: none;
+		}
+		
+		.multiple_pages_submit {
+			display: none;
+		}
+		
+		.multiple_pages_next {
+		}
+		
+	</style>
 </head>
 <body>
 
 <div id="correction_div" correction_value="<%= correction_value %>" ></div>
-	
 <div id="wrap">
 	
 <!--HEADER BAR-->
@@ -72,9 +87,10 @@
 		
 		<ul>
 			<% for (Question q : app.current_questions) { %>
-				<li>
-				<div>
+				<li class="question_multiple_pages">
+				<div >
 					<div class="question_feedback"></div>
+				
 				<% String type = q.type; %>
 				<% if (type.equals("question_free_response")) {
 						FreeResponse fr = (FreeResponse) q;
@@ -88,7 +104,6 @@
 						<br>
 						
 						<div style="hidden" class="answer" answer="<%= fr.answer %>" ></div>
-					
 					<%
 				} else if (type.equals("question_fill_in_blank")) {
 						FillInTheBlank fib = (FillInTheBlank) q;
@@ -99,7 +114,6 @@
 						<%= fib.question_text_after %>
 						<hr></hr>
 						<br/>
-						
 						<div style="hidden" class="answer" answer="<%= fib.answer %>" ></div>
 					
 					<%
@@ -141,10 +155,10 @@
 					<% } %>
 					
 					</div>
+					
 					<hr></hr>
 					
 					<div style="hidden" class="answer" answer="<%= mc.answer %>" ></div>
-					
 					<%
 					}
 				%>
@@ -154,9 +168,11 @@
 		<% } %>
 		</ul>
 		
-		<button type="submit" >Submit Answers</button>
+		<button type="submit" class="multiple_pages_submit">Submit Answers</button>
 		</form>
 	</div>
+	
+	<button class="multiple_pages_next">Next</button>
 
 </div>
 

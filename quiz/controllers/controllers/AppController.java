@@ -17,7 +17,7 @@ import app.App;
  */
 // @WebServlet("/AppController")
 // HOME:
-@WebServlet("/")
+@WebServlet("/App")
 public class AppController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

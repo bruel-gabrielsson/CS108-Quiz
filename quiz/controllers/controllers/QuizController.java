@@ -77,10 +77,10 @@ public class QuizController extends HttpServlet {
 					}
 					
 					if (request.getParameter("pages").equals("one")) {
-						RequestDispatcher rd = request.getRequestDispatcher("quiz.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("quizViews/quiz.jsp");
 						rd.forward(request, response);
 					} else { //multiple pages
-						RequestDispatcher rd = request.getRequestDispatcher("quiz_multiple_pages.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("quizViews/quiz_multiple_pages.jsp");
 						rd.forward(request, response);
 					}
 					

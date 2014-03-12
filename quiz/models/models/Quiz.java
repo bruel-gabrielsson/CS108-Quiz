@@ -92,10 +92,10 @@ public class Quiz implements model {
 				
 				String answer = answers.get("question" + q.question_number);
 				if (answer.equals(q.answer)) {
-					feedback.put("question" + q.question_number, "Correct");
+					feedback.put("question" + q.question_number, q.name + ": Correct");
 					score ++;
 				} else {
-					feedback.put("question" + q.question_number, "Incorrect");
+					feedback.put("question" + q.question_number, q.name + ": Incorrect");
 				}
 				
 				/*
@@ -113,7 +113,7 @@ public class Quiz implements model {
 				*/
 			
 			} else {
-				feedback.put("question" + q.question_number, "No answer provided");
+				feedback.put("question" + q.question_number, q.name + ": No answer provided");
 			}
 		}
 		

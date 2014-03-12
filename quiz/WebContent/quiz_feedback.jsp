@@ -20,7 +20,7 @@
 	<% for (String key : feedback.keySet()) { %>
 		<% if (!key.equals("score")) { %>
 		<li>		
-			<%= key + ": " + feedback.get(key) %>
+			<%= feedback.get(key) %>
 		</li>
 		<% } %>
 	<% } %>

@@ -16,6 +16,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<%@ include file="media/home_style.jspf" %>
+	<%@ include file="media/home_js.jspf" %>
 	<title>Welcome to Quizz!</title>
 </head>
 <body>

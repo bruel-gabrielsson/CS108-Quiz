@@ -1,0 +1,10 @@
+<script>
+
+window.onload = function () {
+	
+	console.log("home javascript");
+	
+	
+};
+
+</script>

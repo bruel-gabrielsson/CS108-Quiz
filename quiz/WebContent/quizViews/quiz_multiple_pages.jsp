@@ -21,6 +21,7 @@
 	<title>Quiz</title>
 	
 	<!-- CSS TEMPORARY SOLUTION!!!! -->
+	<link rel="stylesheet" type="text/css" href="media/home.css">
 	<style type="text/css">
 		.question_multiple_pages {
 			display: none;
@@ -34,6 +35,10 @@
 		}
 		
 	</style>
+	<!-- library -->
+	<link rel="stylesheet" type="text/css" href="css/library/foundation.min.css">
+	<link rel="stylesheet" type="text/css" href="css/library/normalize.css">
+	
 </head>
 <body>
 

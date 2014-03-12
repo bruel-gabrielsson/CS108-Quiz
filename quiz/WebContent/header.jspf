@@ -1,4 +1,4 @@
-	<div id="header">
+	<div id="header" >
 		<div><a href="home.jsp" id="header-title">QUIZZ</a></div>
 		
 		<%	if (user != null && user.user_name != null) { %>

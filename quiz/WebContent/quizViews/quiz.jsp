@@ -18,7 +18,9 @@
 	<!-- JAVASCRIPT -->
 	<script type="text/javascript" src="javascript/quiz.js" ></script>
 	
-	
+	<!-- library -->
+	<link rel="stylesheet" type="text/css" href="css/library/foundation.min.css">
+	<link rel="stylesheet" type="text/css" href="css/library/normalize.css">
 	<title>Quiz</title>
 </head>
 <body>

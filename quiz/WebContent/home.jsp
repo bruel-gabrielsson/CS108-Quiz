@@ -17,6 +17,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="media/home.css">
+	
+	<!-- library -->
+	<link rel="stylesheet" type="text/css" href="css/library/foundation.min.css">
+	<link rel="stylesheet" type="text/css" href="css/library/normalize.css">
+	
 	<title>Welcome to Quizz!</title>
 </head>
 <body>

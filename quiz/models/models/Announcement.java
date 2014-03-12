@@ -1,4 +1,4 @@
-package quiz;
+package models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import database.DBConnector;
 
 public class Announcement implements model {
+	
+	public String error = null;
 
 	public int app_id = -1;
 	public String announcement_name;
 	public String announcement;
+	public int announcement_id = -1;
 
 	private DBConnector connector;
 
@@ -103,7 +106,7 @@ public class Announcement implements model {
 				Announcement ann = new Announcement();
 				ann.announcement_name = rs.getString("announcement_name");
 				ann.announcement = rs.getString("announcement");
-				ann.announcement = rs.getInt("app_id");
+				ann.announcement_id = rs.getInt("app_id");
 				announcements.add(ann);
 			}
 		} catch (SQLException e) {

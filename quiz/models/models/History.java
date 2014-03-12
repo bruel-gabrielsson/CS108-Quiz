@@ -117,8 +117,9 @@ public class History implements model {
 	
 	@Override
 	public boolean destroy() {
+		
 		if(history_id == -1) {
-			error = "No challenge_id to delete";
+			error = "No history_id to delete";
 			return false;
 		}
 		String[] deleteHistory = new String[1];

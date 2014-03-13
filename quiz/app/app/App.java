@@ -37,6 +37,7 @@ public class App {
 	
 	public User current_user = null;
 	
+	public Quiz new_quiz = null;
 	public Quiz current_quiz = null;
 	public Question current_question = null;
 	public ArrayList<Question> current_questions = null;

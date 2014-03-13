@@ -31,6 +31,12 @@ public class QuizController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    // PUT, creating new quiz
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("RECEIVED");
+    }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

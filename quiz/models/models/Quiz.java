@@ -29,9 +29,12 @@ public class Quiz implements model {
 	
 	public int quiz_id = -1;
 	public String quiz_name;
+	public String quiz_description;
 	public String date_created;
+	public int random_yn;
 	public int times_taken;
 	public long quiz_timer;
+	public String category_name;
 	
 	/** Mapping back to User */
 	public int creator_id = -1;
@@ -55,10 +58,41 @@ public class Quiz implements model {
 	}
 	
 	@Override
-	public boolean save() {
-		// Must generate id if not already existing, can that be checked in database?
+	public boolean save() {		
+		if (quiz_id >= 0) {
+
+			String[] updateStmt = new String[1];
+			updateStmt[0] = "UPDATE quiz SET quiz_name = \"" + quiz_name + "\", " +
+					"quiz_description = \"" + quiz_description + "\", " +
+					"creator_id = " + creator_id + ", " +
+					"random_yn = " + random_yn + ", " +
+					"times_taken = " + times_taken + ", " +
+					"quiz_timer = " + quiz_timer + ", " +
+					"category_name = \"" + category_name + "\" " +
+					"WHERE quiz_id = " + quiz_id;
+			System.out.println("quiz update: " + updateStmt[0]);
+			int result = connector.updateOrInsert(updateStmt);
+			if (result < 0) {
+				System.err.println("There was an error in the UPDATE call to the QUIZ table");
+				return false;
+			}
+			return true;
+
+		} else {
 		
-		return true;
+
+			String[] insertStmt = new String[1];
+			insertStmt[0] =  "INSERT INTO quiz(quiz_name, quiz_description, creator_id, date_created, random_yn, times_taken, " + 
+					"quiz_timer, category_name) VALUES ( \"" + quiz_name + "\", \"" + quiz_description + "\", " + creator_id + ", NOW(), " + random_yn + ", " +
+					times_taken + ", " + quiz_timer + ", \"" + category_name + "\")";
+			System.out.println("Quiz insert: " + insertStmt[0]);
+			int result = connector.updateOrInsert(insertStmt);
+			if(result < 0){
+				System.err.println("There was an error in the INSERT call to the QUIZ table");
+				return false;	
+			}
+			return true;
+		}
 	}
 	
 	/**

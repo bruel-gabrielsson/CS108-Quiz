@@ -5,6 +5,7 @@ import java.sql.*;
 import database.DBConnector;
 
 public class History implements model {
+	public String error = null;
 	
 	public int history_id = -1;
 	public int quiz_id;
@@ -25,13 +26,14 @@ public class History implements model {
 	@Override
 	public boolean save() {
 		if (history_id >= 0) {
+			
 			String[] updateStmt = new String[1];
 			updateStmt[0] = "UPDATE history SET quiz_id = " + quiz_id + ", " +
 					"user_id = " + user_id + ", " + 
 					"total_score = " + total_score + ", " + 
 					"percent_score = " + percent_score + ", " +
-					"quiz_time" + quiz_time + ", " +
-					"WHERE history_id = " + history_id;
+					"quiz_time = " + quiz_time +
+					" WHERE history_id = " + history_id;
 			System.out.println("history update: " + updateStmt[0]);
 			int result = connector.updateOrInsert(updateStmt);
 			if(result < 0){
@@ -39,7 +41,9 @@ public class History implements model {
 				return false;
 			}
 			return true;
+			
 		} else {
+			
 			String[] insertStmt = new String[1];
 			insertStmt[0] = "INSERT INTO history(quiz_id, user_id, total_score, percent_score, quiz_time) VALUES(" +
 			quiz_id + ", " + user_id + ", " + total_score + ", " + percent_score + ", " + quiz_time + ")";
@@ -50,6 +54,7 @@ public class History implements model {
 				return false;
 			}
 			return true;
+			
 		}
 	}
 	
@@ -112,6 +117,25 @@ public class History implements model {
 	
 	@Override
 	public boolean destroy() {
+		
+		if(history_id == -1) {
+			error = "No history_id to delete";
+			return false;
+		}
+		String[] deleteHistory = new String[1];
+		
+		// Delete from history
+		deleteHistory[0] = "DELETE FROM history WHERE history_id = " + history_id;
+		
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteHistory);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a hisotry");
+			error = "There was an error in the DELETE call on a history";
+			return false;
+		}
 		return true;
 	}
+	
 }

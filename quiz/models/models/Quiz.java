@@ -80,7 +80,6 @@ public class Quiz implements model {
 
 		} else {
 		
-
 			String[] insertStmt = new String[1];
 			insertStmt[0] =  "INSERT INTO quiz(quiz_name, quiz_description, creator_id, date_created, random_yn, times_taken, " + 
 					"quiz_timer, category_name) VALUES ( \"" + quiz_name + "\", \"" + quiz_description + "\", " + creator_id + ", NOW(), " + random_yn + ", " +
@@ -353,4 +352,5 @@ public class Quiz implements model {
 		
 		return quizzes;
 	}
+	
 }

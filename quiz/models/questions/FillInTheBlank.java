@@ -62,7 +62,8 @@ public class FillInTheBlank extends Question {
 					"question_text_after = \"" + question_text_after + "\", " +
 					"answer = \"" + answer + "\" " + 
 					"WHERE fib_question_id = " + fib_question_id;
-			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number;
+			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
+					"WHERE fib_question_id = " + fib_question_id;
 			System.out.println("Fill In The Blank update: " + updateStmt[0]);
 			System.out.println(updateStmt[1]);
 			int result = connector.updateOrInsert(updateStmt);
@@ -71,15 +72,16 @@ public class FillInTheBlank extends Question {
 				return false;	
 			}
 			return true;
+			
 		} else {
 			// In this case, we don't have a legit fib_question_id and need to insert rows
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), 2, " +
-					question_number + ", " + quiz_id + ", " + name + ", " + question_text_before + ", " + 
-					question_text_after + ", " + answer + ")";
+					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text_before + "\", \"" + 
+					question_text_after + "\", \"" + answer + "\")";
 			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, fib_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID, " + question_number + ", 2)";
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 2)";
 			System.out.println("Fill In Blank insert: " + insertStmt[0] + "\n" + insertStmt[1]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
@@ -129,6 +131,25 @@ public class FillInTheBlank extends Question {
 
 	@Override
 	public boolean destroy() {
+		if(fib_question_id == -1) {
+			error = "No fib_question_id to delete";
+			return false;
+		}
+		String[] deleteFibQuestion = new String[2];
+		
+		// Delete from quiz_question_number
+		deleteFibQuestion[0] = "DELETE FROM quiz_question_number WHERE fib_question_id = " + fib_question_id;
+		
+		// Delete from question_fill_in_blank
+		deleteFibQuestion[1] = "DELETE FROM question_fill_in_blank WHERE fib_question_id = " + fib_question_id;
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteFibQuestion);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a fib_question");
+			error = "There was an error in the DELETE call on a fib_question";
+			return false;
+		}
 		return true;
 	}
 	

@@ -59,7 +59,57 @@ public class MultipleChoice extends Question {
 
 	@Override
 	public boolean save() {
-		return true;
+		if(mc_question_id >= 0) {
+
+			String[] updateStmt = new String[2];
+			updateStmt[0] = "UPDATE question_multiple_choice SET question_number = " + question_number + ", " +
+					"name = \"" + name + "\", " + 
+					"question_text = \"" + question_text + "\", " +
+					"answer = \"" + answer + "\", " + 
+					"choice_a = \"" + choice_a + "\", " +
+					"choice_b = \"" + choice_b + "\", " +
+					"choice_c = \"" + choice_c + "\", " +
+					"choice_d = \"" + choice_d + "\", " +
+					"choice_e = \"" + choice_e + "\", " +
+					"choice_f = \"" + choice_f + "\", " +
+					"choice_g = \"" + choice_g + "\", " +
+					"choice_h = \"" + choice_h + "\", " +
+					"choice_i = \"" + choice_i + "\", " +
+					"choice_j = \"" + choice_j + "\" " +
+					"WHERE mc_question_id = " + mc_question_id;
+			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
+					"WHERE mc_question_id = " + mc_question_id;
+			System.out.println("Multiple Choice update: " + updateStmt[0]);
+			System.out.println(updateStmt[1]);
+			int result = connector.updateOrInsert(updateStmt);
+			if(result < 0){
+				System.err.println("There was an error in the UPDATE call to the QUESTION_MULTIPLE_CHOICE table");
+				return false;	
+			}
+			return true;
+			
+		} else {
+			
+			// In this case, we don't have a legit fib_question_id and need to insert rows
+			String[] insertStmt = new String[2];
+			insertStmt[0] = "INSERT INTO question_multiple_choice (date_created, question_type_id, question_number," + 
+					" quiz_id, name, question_text, answer, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, " +
+					"choice_g, choice_h, choice_i, choice_j) VALUES ( NOW(), 3, " + question_number + ", " + quiz_id + ", \"" + 
+					name + "\", \"" + question_text +  "\", \"" + answer + "\", \"" + 
+					choice_a + "\", \"" + choice_b + "\", \"" + choice_c + "\", \"" + 
+					choice_d + "\", \"" + choice_e + "\", \"" + choice_f + "\", \"" + 
+					choice_g + "\", \""+ choice_h + "\", \"" + choice_i + "\", \"" + choice_j +"\")";
+			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, mc_question_id, question_number, "
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 3)";
+			System.out.println("Multiple Choice insert: " + insertStmt[0] + "\n" + insertStmt[1]);
+			int result = connector.updateOrInsert(insertStmt);
+			if(result < 0){
+				System.err.println("There was an error in the INSERT call to the QUESTION_MULTIPLE_CHOICE table");
+				return false;	
+			}
+			return true;
+			
+		}
 	}
 
 	@Override
@@ -109,8 +159,26 @@ public class MultipleChoice extends Question {
 
 	@Override
 	public boolean destroy() {
+		if(mc_question_id == -1) {
+			error = "No mc_question_id to delete";
+			return false;
+		}
+		String[] deleteMcQuestion = new String[2];
+		
+		// Delete from quiz_question_number
+		deleteMcQuestion[0] = "DELETE FROM quiz_question_number WHERE mc_question_id = " + mc_question_id;
+		
+		// Delete from question_free_response
+		deleteMcQuestion[1] = "DELETE FROM question_multiple_choice WHERE mc_question_id = " + mc_question_id;
+		
+		// Delete from the database
+		int result = connector.updateOrInsert(deleteMcQuestion);
+		if(result < 0){
+			System.err.println("There was an error in the DELETE call on a mc_question");
+			error = "There was an error in the DELETE call on a mc_question";
+			return false;
+		}
 		return true;
 	}
-	
 	
 }

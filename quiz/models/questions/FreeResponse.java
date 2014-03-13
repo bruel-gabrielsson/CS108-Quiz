@@ -69,9 +69,9 @@ public class FreeResponse extends Question {
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_free_response(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text, answer) VALUES ( NOW(), 1, " +
-					question_number + ", " + quiz_id + ", " + name + ", " + question_text +  ", " + answer + ")";
+					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text +  "\", \"" + answer + "\")";
 			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, fr_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID, " + question_number + ", 1)";
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 1)";
 			System.out.println("Free Response insert: " + insertStmt[0] + "\n" + insertStmt[1]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){

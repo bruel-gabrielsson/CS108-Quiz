@@ -78,10 +78,10 @@ public class FillInTheBlank extends Question {
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), 2, " +
-					question_number + ", " + quiz_id + ", " + name + ", " + question_text_before + ", " + 
-					question_text_after + ", " + answer + ")";
+					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text_before + "\", \"" + 
+					question_text_after + "\", \"" + answer + "\")";
 			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, fib_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID, " + question_number + ", 2)";
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 2)";
 			System.out.println("Fill In Blank insert: " + insertStmt[0] + "\n" + insertStmt[1]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){

@@ -62,7 +62,8 @@ public class FillInTheBlank extends Question {
 					"question_text_after = \"" + question_text_after + "\", " +
 					"answer = \"" + answer + "\" " + 
 					"WHERE fib_question_id = " + fib_question_id;
-			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number;
+			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
+					"WHERE fib_question_id = " + fib_question_id;
 			System.out.println("Fill In The Blank update: " + updateStmt[0]);
 			System.out.println(updateStmt[1]);
 			int result = connector.updateOrInsert(updateStmt);
@@ -71,6 +72,7 @@ public class FillInTheBlank extends Question {
 				return false;	
 			}
 			return true;
+			
 		} else {
 			// In this case, we don't have a legit fib_question_id and need to insert rows
 			String[] insertStmt = new String[2];

@@ -65,7 +65,17 @@ public class MultipleChoice extends Question {
 			updateStmt[0] = "UPDATE question_multiple_choice SET question_number = " + question_number + ", " +
 					"name = \"" + name + "\", " + 
 					"question_text = \"" + question_text + "\", " +
-					"answer = \"" + answer + "\" " + 
+					"answer = \"" + answer + "\", " + 
+					"choice_a = \"" + choice_a + "\", " +
+					"choice_b = \"" + choice_b + "\", " +
+					"choice_c = \"" + choice_c + "\", " +
+					"choice_d = \"" + choice_d + "\", " +
+					"choice_e = \"" + choice_e + "\", " +
+					"choice_f = \"" + choice_f + "\", " +
+					"choice_g = \"" + choice_g + "\", " +
+					"choice_h = \"" + choice_h + "\", " +
+					"choice_i = \"" + choice_i + "\", " +
+					"choice_j = \"" + choice_j + "\" " +
 					"WHERE mc_question_id = " + mc_question_id;
 			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
 					"WHERE mc_question_id = " + mc_question_id;
@@ -83,10 +93,14 @@ public class MultipleChoice extends Question {
 			// In this case, we don't have a legit fib_question_id and need to insert rows
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_multiple_choice (date_created, question_type_id, question_number," + 
-					" quiz_id, name, question_text, answer) VALUES ( NOW(), 3, " +
-					question_number + ", " + quiz_id + ", " + name + ", " + question_text +  ", " + answer + ")";
+					" quiz_id, name, question_text, answer, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, " +
+					"choice_g, choice_h, choice_i, choice_j) VALUES ( NOW(), 3, " + question_number + ", " + quiz_id + ", \"" + 
+					name + "\", \"" + question_text +  "\", \"" + answer + "\", \"" + 
+					choice_a + "\", \"" + choice_b + "\", \"" + choice_c + "\", \"" + 
+					choice_d + "\", \"" + choice_e + "\", \"" + choice_f + "\", \"" + 
+					choice_g + "\", \""+ choice_h + "\", \"" + choice_i + "\", \"" + choice_j +"\")";
 			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, mc_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID, " + question_number + ", 3)";
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 3)";
 			System.out.println("Multiple Choice insert: " + insertStmt[0] + "\n" + insertStmt[1]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){

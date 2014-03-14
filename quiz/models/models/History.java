@@ -12,7 +12,7 @@ public class History implements model {
 	public int user_id;
 	public int total_score;
 	public double percent_score;
-	public int quiz_time;
+	public long quiz_time;
 	
 	public String quiz_name;
 	public String user_name;
@@ -76,7 +76,7 @@ public class History implements model {
 				this.user_id = rs.getInt("user_id");
 				this.total_score = rs.getInt("total_score");
 				this.percent_score = rs.getDouble("percent_score");
-				this.quiz_time = rs.getInt("quiz_time");
+				this.quiz_time = rs.getLong("quiz_time");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

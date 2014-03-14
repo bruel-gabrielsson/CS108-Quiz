@@ -66,86 +66,91 @@
 	<h1>Quiz <%= quiz.quiz_name %></h1>
 	<form href="QuizEditController" method="post">
 		<p>Edit Quiz Information:</p>
-		<p>Quiz Name: <input type="text" name="quiz_name" value="<%= quiz.quiz_name%>" /></p>
-		<p>Quiz Description: <input type="text" name="quiz_description" value="<%= quiz.quiz_description%>" /></p>
-		<% for (Question q: app.current_questions) { 
-				String type = q.type;
-				if (type.equals("question_free_response")) {
-					FreeResponse fr = (FreeResponse) q;
+		Quiz Name: <input type="text" name="quiz_name" value="<%= quiz.quiz_name%>" /><br>
+		Quiz Description: <input type="text" name="quiz_description" value="<%= quiz.quiz_description%>" /><br>
+		<% 
+		for (Question q: app.current_questions) {
 		%>
-					<p>Question Name: </p><input type="text" name="question<%= fr.question_number%>name" value="<%= fr.name%>" />
-					<p>Question Text:</p><input type="text" name="question<%= fr.question_number%>question_text" value="<%= fr.question_text%>" />
-					<p>Question Answer:</p><input type="text" name="question<%= fr.question_number%>answer" value="<%= fr.answer%>" />
+			<p>Edit Question <%=q.question_number %></p>
+			
+			<%
+			String type = q.type;
+			if (type.equals("question_free_response")) {
+				FreeResponse fr = (FreeResponse) q;
+			%>
+				Question Name: <input type="text" name="question<%= fr.question_number%>name" value="<%= fr.name%>" /><br>
+				Question Text:<input type="text" name="question<%= fr.question_number%>question_text" value="<%= fr.question_text%>" /><br>
+				Question Answer:<input type="text" name="question<%= fr.question_number%>answer" value="<%= fr.answer%>" /><br>
+			<%
+			} else if (type.equals("question_fill_in_blank")) {
+				FillInTheBlank fib = (FillInTheBlank) q;
+			%>
+				Question Name: <input type="text" name="question<%= fib.question_number%>name" value="<%= fib.name%>" /><br>
+				Question Text Before:<input type="text" name="question<%= fib.question_number%>question_text_before" value="<%= fib.question_text_before%>" /><br>
+				Question Answer:<input type="text" name="question<%= fib.question_number%>answer" value="<%= fib.answer%>" /><br>
+				Question Text After:<input type="text" name="question<%= fib.question_number%>question_text_after" value="<%= fib.question_text_after%>" /><br>
+			<%
+			} else if (type.equals("question_multiple_choice")) {
+				MultipleChoice mc = (MultipleChoice) q;
+			%>
+				Question Name: <input type="text" name="question<%= mc.question_number%>name" value="<%= mc.name%>" /><br>
+				Question Text:<input type="text" name="question<%= mc.question_number%>question_text" value="<%= mc.question_text%>" /><br>
 				<%
-				} else if (type.equals("question_fill_in_blank")) {
-					FillInTheBlank fib = (FillInTheBlank) q;
+				if (mc.choice_a != null) {
 				%>
-					<p>Question Name: </p><input type="text" name="question<%= fib.question_number%>name" value="<%= fib.name%>" />
-					<p>Question Text Before:</p><input type="text" name="question<%= fib.question_number%>question_text_before" value="<%= fib.question_text_before%>" />
-					<p>Question Answer:</p><input type="text" name="question<%= fib.question_number%>answer" value="<%= fib.answer%>" />
-					<p>Question Text After:</p><input type="text" name="question<%= fib.question_number%>question_text_after" value="<%= fib.question_text_after%>" />
+					Choice A:<input type="text" name="question<%= mc.question_number%>choice_a" value="<%= mc.choice_a%>" /><br>
 				<%
-				} else if (type.equals("question_multiple_choice")) {
-					MultipleChoice mc = (MultipleChoice) q;
-				%>
-					<p>Question Name: </p><input type="text" name="question<%= mc.question_number%>name" value="<%= mc.name%>" />
-					<p>Question Text:</p><input type="text" name="question<%= mc.question_number%>question_text" value="<%= mc.question_text%>" />
-					<%
-					if (mc.choice_a != null) {
-					%>
-						<p>Choice A:</p><input type="text" name="question<%= mc.question_number%>choice_a" value="<%= mc.choice_a%>" />
-					<%
-					}
-					if (mc.choice_b != null) {
-					%>
-						<p>Choice B:</p><input type="text" name="question<%= mc.question_number%>choice_b" value="<%= mc.choice_b%>" />
-					<%
-					}
-					if (mc.choice_c != null) {
-					%>
-						<p>Choice C:</p><input type="text" name="question<%= mc.question_number%>choice_c" value="<%= mc.choice_c%>" />
-					<%
-					}
-					if (mc.choice_d != null) {
-					%>
-						<p>Choice D:</p><input type="text" name="question<%= mc.question_number%>choice_d" value="<%= mc.choice_d%>" />
-					<%
-					}
-					if (mc.choice_e != null) {
-					%>
-						<p>Choice E:</p><input type="text" name="question<%= mc.question_number%>choice_e" value="<%= mc.choice_e%>" />
-					<%
-					}
-					if (mc.choice_f != null) {
-					%>
-						<p>Choice F:</p><input type="text" name="question<%= mc.question_number%>choice_f" value="<%= mc.choice_f%>" />
-					<%
-					}
-					if (mc.choice_g != null) {
-					%>
-						<p>Choice G:</p><input type="text" name="question<%= mc.question_number%>choice_g" value="<%= mc.choice_g%>" />
-					<%
-					}
-					if (mc.choice_h != null) {
-					%>
-						<p>Choice H:</p><input type="text" name="question<%= mc.question_number%>choice_h" value="<%= mc.choice_h%>" />
-					<%
-					}
-					if (mc.choice_i != null) {
-					%>
-						<p>Choice I:</p><input type="text" name="question<%= mc.question_number%>choice_i" value="<%= mc.choice_i%>" />
-					<%
-					}
-					if (mc.choice_j != null) {
-					%>
-						<p>Choice J:</p><input type="text" name="question<%= mc.question_number%>choice_j" value="<%= mc.choice_j%>" />
-					<%
-					}
-					%>
-					<p>Question Answer:</p><input type="text" name="question<%= mc.question_number%>answer" value="<%= mc.answer%>" />
-		<%
 				}
+				if (mc.choice_b != null) {
+				%>
+					Choice B:<input type="text" name="question<%= mc.question_number%>choice_b" value="<%= mc.choice_b%>" /><br>
+				<%
+				}
+				if (mc.choice_c != null) {
+				%>
+					Choice C:<input type="text" name="question<%= mc.question_number%>choice_c" value="<%= mc.choice_c%>" /><br>
+				<%
+				}
+				if (mc.choice_d != null) {
+				%>
+					Choice D:<input type="text" name="question<%= mc.question_number%>choice_d" value="<%= mc.choice_d%>" /><br>
+				<%
+				}
+				if (mc.choice_e != null) {
+				%>
+					Choice E:<input type="text" name="question<%= mc.question_number%>choice_e" value="<%= mc.choice_e%>" /><br>
+				<%
+				}
+				if (mc.choice_f != null) {
+				%>
+					Choice F:<input type="text" name="question<%= mc.question_number%>choice_f" value="<%= mc.choice_f%>" /><br>
+				<%
+				}
+				if (mc.choice_g != null) {
+				%>
+					Choice G:<input type="text" name="question<%= mc.question_number%>choice_g" value="<%= mc.choice_g%>" /><br>
+				<%
+				}
+				if (mc.choice_h != null) {
+				%>
+					Choice H:<input type="text" name="question<%= mc.question_number%>choice_h" value="<%= mc.choice_h%>" /><br>
+				<%
+				}
+				if (mc.choice_i != null) {
+				%>
+					Choice I:<input type="text" name="question<%= mc.question_number%>choice_i" value="<%= mc.choice_i%>" /><br>
+				<%
+				}
+				if (mc.choice_j != null) {
+				%>
+					Choice J:<input type="text" name="question<%= mc.question_number%>choice_j" value="<%= mc.choice_j%>" /><br>
+				<%
+				}
+				%>
+				Question Answer:<input type="text" name="question<%= mc.question_number%>answer" value="<%= mc.answer%>" /><br>
+		<%
 			}
+		}
 		%>
 		
 	

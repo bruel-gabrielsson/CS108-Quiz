@@ -10,11 +10,11 @@ public class MultipleChoice extends Question {
 	public String error = null;
 	
 	public static final String this_type = "question_multiple_choice";
+	public static final int this_question_type_id = 3;
 	
 	public int mc_question_id = -1;
 	public String question_text;
-	//public String answer;
-	// Do an array instead??
+
 	public String choice_a;
 	public String choice_b;
 	public String choice_c;
@@ -31,6 +31,7 @@ public class MultipleChoice extends Question {
 	public MultipleChoice() {
 		super();
 		type = this_type;
+		question_type_id = this_question_type_id;
 		connector = new DBConnector();
 	}
 	
@@ -66,17 +67,77 @@ public class MultipleChoice extends Question {
 					"name = \"" + name + "\", " + 
 					"question_text = \"" + question_text + "\", " +
 					"answer = \"" + answer + "\", " + 
-					"choice_a = \"" + choice_a + "\", " +
-					"choice_b = \"" + choice_b + "\", " +
-					"choice_c = \"" + choice_c + "\", " +
-					"choice_d = \"" + choice_d + "\", " +
-					"choice_e = \"" + choice_e + "\", " +
-					"choice_f = \"" + choice_f + "\", " +
-					"choice_g = \"" + choice_g + "\", " +
-					"choice_h = \"" + choice_h + "\", " +
-					"choice_i = \"" + choice_i + "\", " +
-					"choice_j = \"" + choice_j + "\" " +
-					"WHERE mc_question_id = " + mc_question_id;
+					"choice_a = ";
+			if (choice_a != null) {
+				updateStmt[0] += "\"" + choice_a + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_b = ";
+			if (choice_b != null) {
+				updateStmt[0] += "\"" + choice_b + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_c = ";
+			if (choice_c != null) {
+				updateStmt[0] += "\"" + choice_c + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_d = ";
+			if (choice_d != null) {
+				updateStmt[0] += "\"" + choice_d + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_e = ";	
+			if (choice_e != null) {
+				updateStmt[0] += "\"" + choice_e + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_f = ";
+			if (choice_f != null) {
+				updateStmt[0] += "\"" + choice_f + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_g = ";	
+			if (choice_g != null) {
+				updateStmt[0] += "\"" + choice_g + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_h = ";
+			if (choice_h != null) {
+				updateStmt[0] += "\"" + choice_h + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_i = ";
+			if (choice_i != null) {
+				updateStmt[0] += "\"" + choice_i + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] +="choice_j = ";
+			if (choice_j != null) {
+				updateStmt[0] += "\"" + choice_j + "\" ";
+			} else {
+				updateStmt[0] += "NULL ";
+			}
+			
+			updateStmt[0] += "WHERE mc_question_id = " + mc_question_id;
 			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
 					"WHERE mc_question_id = " + mc_question_id;
 			System.out.println("Multiple Choice update: " + updateStmt[0]);
@@ -94,13 +155,71 @@ public class MultipleChoice extends Question {
 			String[] insertStmt = new String[2];
 			insertStmt[0] = "INSERT INTO question_multiple_choice (date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text, answer, choice_a, choice_b, choice_c, choice_d, choice_e, choice_f, " +
-					"choice_g, choice_h, choice_i, choice_j) VALUES ( NOW(), 3, " + question_number + ", " + quiz_id + ", \"" + 
-					name + "\", \"" + question_text +  "\", \"" + answer + "\", \"" + 
-					choice_a + "\", \"" + choice_b + "\", \"" + choice_c + "\", \"" + 
-					choice_d + "\", \"" + choice_e + "\", \"" + choice_f + "\", \"" + 
-					choice_g + "\", \""+ choice_h + "\", \"" + choice_i + "\", \"" + choice_j +"\")";
+					"choice_g, choice_h, choice_i, choice_j) VALUES ( NOW(), " + question_type_id + ", " + question_number + ", " + quiz_id + ", \"" + 
+					name + "\", \"" + question_text +  "\", \"" + answer + "\", "; 
+			if (choice_a != null) {
+				insertStmt[0] += "\"" + choice_a + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_b != null) {
+				insertStmt[0] += "\"" + choice_b + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_c != null) {
+				insertStmt[0] += "\"" + choice_c + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_d != null) {
+				insertStmt[0] += "\"" + choice_d + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_e != null) {
+				insertStmt[0] += "\"" + choice_e + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_f != null) {
+				insertStmt[0] += "\"" + choice_f + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_g != null) {
+				insertStmt[0] += "\"" + choice_g + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_h != null) {
+				insertStmt[0] += "\"" + choice_h + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_i != null) {
+				insertStmt[0] += "\"" + choice_i + "\", ";
+			} else {
+				insertStmt[0] += "NULL, ";
+			}
+			
+			if (choice_j != null) {
+				insertStmt[0] += "\"" + choice_j + "\" ";
+			} else {
+				insertStmt[0] += "NULL ";
+			}
+			
+			insertStmt[0] += ")";
 			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, mc_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 3)";
+					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", " + question_type_id + ")";
 			System.out.println("Multiple Choice insert: " + insertStmt[0] + "\n" + insertStmt[1]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
@@ -179,6 +298,15 @@ public class MultipleChoice extends Question {
 			return false;
 		}
 		return true;
+	}
+	
+	public static void main(String args[]) {
+		MultipleChoice mc =	new MultipleChoice();
+		mc.mc_question_id = 1;
+		mc.fetch();
+		mc.choice_b = null;
+		mc.save();
+		mc.fetch();
 	}
 	
 }

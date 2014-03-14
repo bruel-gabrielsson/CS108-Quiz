@@ -44,7 +44,11 @@ public class Quiz implements model {
 	private DBConnector connector = null;
 	
 	public ArrayList<Question> questions = null;
+	
 	public ArrayList<History> topScores = null;
+	public ArrayList<History> topScoresToday = null;
+	public ArrayList<History> userScores = null;
+	public ArrayList<History> recentTakers = null;
 	/**
 	 * 
 	 */
@@ -382,7 +386,8 @@ public class Quiz implements model {
 	
 	public boolean fetchTopScores() {
 		
-		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + " ORDER BY total_score DESC, quiz_time LIMIT 5"; 
+		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + 
+				" ORDER BY total_score DESC, quiz_time LIMIT 5"; 
 		ResultSet rs = connector.query(query);
 		
 		topScores = new ArrayList<History>();
@@ -402,6 +407,76 @@ public class Quiz implements model {
 			e.printStackTrace();
 		}
 		
+		query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + 
+				" AND timestamp >= NOW() + INTERVAL 1 DAY ORDER BY total_score DESC, quiz_time LIMIT 5";
+		
+		rs = connector.query(query);
+		
+		topScoresToday = new ArrayList<History>();
+		
+		try {
+			while(rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					topScoresToday.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public boolean fetchUserScores(int user_id) {
+		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + " AND "
+				+ "user_id =" + user_id + " ORDER BY timestamp DESC";
+		
+		ResultSet rs = connector.query(query);
+		
+		userScores  = new ArrayList<History>();
+		
+		try {
+			while(rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					userScores.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public boolean fetchRecentTakers() {
+		String query = "SELECT * FROM history WHERE quiz_id = "+ quiz_id +
+				" ORDER BY timestamp DESC;";
+		
+		ResultSet rs = connector.query(query);
+		
+		recentTakers  = new ArrayList<History>();
+		
+		try {
+			while(rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					recentTakers.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 	
@@ -469,8 +544,33 @@ public class Quiz implements model {
 	/*
 	 * TEW: This will calculate the rating for a quiz. Use it as a model to get the other metrics we need
 	 */
+	
+	public double getAvgScore() {
+		String query = "SELECT avg(total_score) FROM history WHERE quiz_id = " + quiz_id;
+		ResultSet rs = connector.query(query);
+		try {
+			rs.first();
+			return rs.getDouble("avg(total_score)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public double getAvgTime() {
+		String query = "SELECT avg(quiz_time) FROM history WHERE quiz_id = " + quiz_id;
+		ResultSet rs = connector.query(query);
+		try {
+			rs.first();
+			return rs.getDouble("avg(quiz_time)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public double getRating() {
-		String ratingQuery = "SELECT avg(rating) FROM history WHERE quiz_id = " + quiz_id+ " AND rating >= 0";
+		String ratingQuery = "SELECT avg(rating) FROM history WHERE quiz_id = " + quiz_id + " AND rating >= 0";
 		ResultSet rs = connector.query(ratingQuery);
 		try{
 			rs.first();

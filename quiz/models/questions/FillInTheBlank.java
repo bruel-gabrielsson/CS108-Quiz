@@ -10,11 +10,9 @@ public class FillInTheBlank extends Question {
 	public String error = null;
 	
 	public static final String this_type = "question_fill_in_blank";
+	public static final int this_question_type_id = 2;
 	
 	public int fib_question_id = -1;
-	public int question_number;
-	public int question_type_id = 2;
-	public String name = null;
 	public String question_text_before;
 	public String question_text_after;
 	//public String answer;
@@ -25,6 +23,7 @@ public class FillInTheBlank extends Question {
 	public FillInTheBlank() {
 		super();
 		type = this_type;
+		question_type_id = this_question_type_id;
 		connector = new DBConnector();
 	}
 	
@@ -57,9 +56,22 @@ public class FillInTheBlank extends Question {
 			String[] updateStmt = new String[2];
 			updateStmt[0] = "UPDATE question_fill_in_blank SET question_number = " + question_number + ", " +
 					"name = \"" + name + "\", " + 
-					"question_text_before = \"" + question_text_before + "\", " +
-					"question_text_after = \"" + question_text_after + "\", " +
-					"answer = \"" + answer + "\" " + 
+					"question_text_before = ";
+			//NULL handling to avoid the String "null" being stored;
+			if (question_text_before != null) {
+				updateStmt[0] += "\"" + question_text_before + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] += "question_text_after = ";
+			if (question_text_after != null) {
+				updateStmt[0] += "\"" + question_text_after + "\", ";
+			} else {
+				updateStmt[0] += "NULL, ";
+			}
+			
+			updateStmt[0] += "answer = \"" + answer + "\" " + 
 					"WHERE fib_question_id = " + fib_question_id;
 			updateStmt[1] = "UPDATE quiz_question_number SET question_number = " + question_number + " " +
 					"WHERE fib_question_id = " + fib_question_id;
@@ -72,24 +84,36 @@ public class FillInTheBlank extends Question {
 			}
 			return true;
 			
-		} else {
-			// In this case, we don't have a legit fib_question_id and need to insert rows
-			String[] insertStmt = new String[2];
-			System.out.println("quiz_id in FIB model = "+ quiz_id);
-			insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
-					" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), 2, " +
-					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text_before + "\", \"" + 
-					question_text_after + "\", \"" + answer + "\")";
-			insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, fib_question_id, question_number, "
-					+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + ", 2)";
-			System.out.println("Fill In Blank insert: " + insertStmt[0] + "\n" + insertStmt[1]);
-			int result = connector.updateOrInsert(insertStmt);
-			if(result < 0){
-				System.err.println("There was an error in the INSERT call to the QUESTION_FILL_IN_BLANK table");
-				return false;	
+			} else {
+				// In this case, we don't have a legit fib_question_id and need to insert rows
+				String[] insertStmt = new String[2];
+				insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
+						" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), " + question_type_id + ", " +
+						question_number + ", " + quiz_id + ", \"" + name + "\", ";
+				//NULL handling to avoid the String "null" being stored;
+				if (question_text_before != null) {
+					insertStmt[0] += "\"" + question_text_before + "\", ";
+				} else {
+					insertStmt[0] += "NULL, ";
+				}
+				if (question_text_after != null) {
+					insertStmt[0] += "\"" + question_text_after + "\", ";
+				} else {
+					insertStmt[0] += "NULL, ";
+				}
+				insertStmt[0] +=  "\"" + answer + "\")";
+				
+				
+				insertStmt[1] = "INSERT INTO quiz_question_number(quiz_id, fib_question_id, question_number, "
+						+ "question_type_id) VALUES( " + quiz_id + ", LAST_INSERT_ID(), " + question_number + "," + question_type_id +")";
+				System.out.println("Fill In Blank insert: " + insertStmt[0] + "\n" + insertStmt[1]);
+				int result = connector.updateOrInsert(insertStmt);
+				if(result < 0){
+					System.err.println("There was an error in the INSERT call to the QUESTION_FILL_IN_BLANK table");
+					return false;	
+				}
+				return true;		
 			}
-			return true;		
-		}
 	}
 
 	// TEW: updated fetch method to include question_number, quiz_id, name

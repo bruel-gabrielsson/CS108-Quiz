@@ -45,6 +45,7 @@ public class Quiz implements model {
 	
 	public ArrayList<Question> questions = null;
 	public ArrayList<History> topScores = null;
+	public ArrayList<History> topScoresToday = null;
 	/**
 	 * 
 	 */
@@ -382,7 +383,8 @@ public class Quiz implements model {
 	
 	public boolean fetchTopScores() {
 		
-		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + " ORDER BY total_score DESC, quiz_time LIMIT 5"; 
+		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + 
+				" ORDER BY total_score DESC, quiz_time LIMIT 5"; 
 		ResultSet rs = connector.query(query);
 		
 		topScores = new ArrayList<History>();
@@ -393,6 +395,28 @@ public class Quiz implements model {
 				hist.history_id = rs.getInt("history_id");
 				if (hist.fetch()) {
 					topScores.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + 
+				" AND timestamp >= NOW() + INTERVAL 1 DAY ORDER BY total_score DESC, quiz_time LIMIT 5";
+		
+		rs = connector.query(query);
+		
+		topScoresToday = new ArrayList<History>();
+		
+		try {
+			while(rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					topScoresToday.add(hist);
 				} else {
 					System.out.println("Error: History not found");
 				}

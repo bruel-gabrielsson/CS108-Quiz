@@ -309,6 +309,7 @@ public class Quiz implements model {
 			}
 			//TEW: GETS RATING FOR A QUIZ!
 			this.rating = getRating();
+			System.out.println("Quiz: "+ quiz_name +" has rating: " + rating);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -473,7 +474,7 @@ public class Quiz implements model {
 		ResultSet rs = connector.query(ratingQuery);
 		try{
 			rs.first();
-			return rs.getDouble(1);
+			return rs.getDouble("avg(rating)");
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

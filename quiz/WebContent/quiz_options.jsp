@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
     pageEncoding="US-ASCII"%>
+    
+<%
+	String edit_feedback = (String) request.getAttribute("edit_feedback");
+	if (edit_feedback == null) edit_feedback = "";
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,6 +37,9 @@
 			
 		<button type="submit">Start Quiz</button>
 	</form>
+	
+	<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
+	<p><%= edit_feedback%></p>
 
 </body>
 </html>

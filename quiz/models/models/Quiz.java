@@ -1,5 +1,7 @@
 package models;
 
+import Question;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -155,6 +157,92 @@ public class Quiz implements model {
 		return feedback;
 	}
 	
+	public boolean editQuiz(HashMap<String, String> updates) {
+		if (updates.containsKey("quiz_name")) {
+			quiz_name = updates.get("quiz_name");
+		}
+		if (updates.containsKey("quiz_description")) {
+			quiz_description = updates.get("quiz_description");
+		}
+		System.out.println(category_name);
+		return save();
+	}
+	
+	public boolean editQuizQuestions(HashMap<String, String> updates) {
+		for (Question q : this.questions) {
+			String type = q.type;
+			if (type.equals("question_free_response")) {
+				FreeResponse fr = (FreeResponse) q;
+				if (updates.containsKey("question" + fr.question_number + "name")) {
+					fr.name = updates.get("question" + fr.question_number + "name");
+				}
+				if (updates.containsKey("question" + fr.question_number + "question_text")) {
+					fr.question_text = updates.get("question" + fr.question_number + "question_text");
+				}
+				if (updates.containsKey("question" + fr.question_number + "answer")) {
+					fr.answer = updates.get("question" + fr.question_number + "answer");
+				}
+			} else if (type.equals("question_fill_in_blank")) {
+				FillInTheBlank fib = (FillInTheBlank) q;
+				if (updates.containsKey("question" + fib.question_number + "name")) {
+					fib.name = updates.get("question" + fib.question_number + "name");
+				}
+				if (updates.containsKey("question" + fib.question_number + "question_text_before")) {
+					fib.question_text_before = updates.get("question" + fib.question_number + "question_text_before");
+				}
+				if (updates.containsKey("question" + fib.question_number + "answer")) {
+					fib.answer = updates.get("question" + fib.question_number + "answer");
+				}
+				if (updates.containsKey("question" + fib.question_number + "question_text_after")) {
+					fib.question_text_after = updates.get("question" + fib.question_number + "question_text_after");
+				}
+			} else if (type.equals("question_multiple_choice")) {
+				MultipleChoice mc = (MultipleChoice) q;
+				if (updates.containsKey("question" + mc.question_number + "name")) {
+					mc.name = updates.get("question" + mc.question_number + "name");
+				}
+				if (updates.containsKey("question" + mc.question_number + "question_text")) {
+					mc.question_text = updates.get("question" + mc.question_number + "question_text");
+				}
+				if (updates.containsKey("question" + mc.question_number + "answer")) {
+					mc.answer = updates.get("question" + mc.question_number + "answer");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_a")) {
+					mc.choice_a = updates.get("question" + mc.question_number + "choice_a");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_b")) {
+					mc.choice_b = updates.get("question" + mc.question_number + "choice_b");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_c")) {
+					mc.choice_c = updates.get("question" + mc.question_number + "choice_c");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_d")) {
+					mc.choice_d = updates.get("question" + mc.question_number + "choice_d");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_e")) {
+					mc.choice_e = updates.get("question" + mc.question_number + "choice_e");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_f")) {
+					mc.choice_f = updates.get("question" + mc.question_number + "choice_f");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_g")) {
+					mc.choice_g = updates.get("question" + mc.question_number + "choice_g");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_h")) {
+					mc.choice_h = updates.get("question" + mc.question_number + "choice_h");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_i")) {
+					mc.choice_i = updates.get("question" + mc.question_number + "choice_i");
+				}
+				if (updates.containsKey("question" + mc.question_number + "choice_j")) {
+					mc.choice_j = updates.get("question" + mc.question_number + "choice_j");
+				}
+			}
+			if (!q.save()) return false;
+		}
+		return true;
+	}
+	
 	/* ???
 	public ArrayList<Quiz> parse(ResultSet rs) {
 		ArrayList<Quiz> qs = new ArrayList<Quiz>();
@@ -196,6 +284,8 @@ public class Quiz implements model {
 		try {
 			while(rs.next()) {
 				this.quiz_name = rs.getString("quiz_name");
+				this.quiz_description = rs.getString("quiz_description");
+				this.category_name = rs.getString("category_name");
 				this.date_created = rs.getString("date_created");
 				if (this.creator_id == -1) {
 					this.creator_id = rs.getInt("creator_id");

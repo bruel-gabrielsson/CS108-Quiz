@@ -102,6 +102,8 @@ public class MessageController extends HttpServlet {
 				msg.from_user_name = app.current_user.user_name;
 				if(msg.save()){
 					messageStatus = "Successfully sent message to " + recUser.user_name;
+					app.current_user.am_messages_sent++;
+					app.current_user.save();
 				} else {
 					messageStatus = "Failed to send message!";
 				}

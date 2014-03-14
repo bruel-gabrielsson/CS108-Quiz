@@ -46,6 +46,22 @@ public class RelationshipController extends HttpServlet {
 				// User wishes to accept relationship
 				if (action.equals("Accept")) {
 					if (!rel.isAccepted()) System.out.println("Failed to accept relationship ID" + relationship_id);
+					
+					// Update the number of friends the sending user has
+					int fromUserID = rel.user_id;
+					User fromUser = new User();
+					fromUser.user_id = fromUserID;
+					fromUser.fetch();
+					fromUser.am_number_friends++;
+					fromUser.save();
+					
+					// Update the number of friends the accepting user has
+					int toUserID = rel.friend_id;
+					User toUser = new User();
+					toUser.user_id = toUserID;
+					toUser.fetch();
+					toUser.am_number_friends++;
+					toUser.save();
 				}
 				
 				// User wishes to decline relationship

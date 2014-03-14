@@ -65,8 +65,9 @@ public class FreeResponse extends Question {
 			
 		} else {
 			
-			// In this case, we don't have a legit fib_question_id and need to insert rows
+			// In this case, we don't have a legit fr_question_id and need to insert rows
 			String[] insertStmt = new String[2];
+			System.out.println("FREE RESPONSE QUESTION_TEXT: " + question_text);
 			insertStmt[0] = "INSERT INTO question_free_response(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text, answer) VALUES ( NOW(), 1, " +
 					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text +  "\", \"" + answer + "\")";

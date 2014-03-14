@@ -33,7 +33,7 @@ public class Quiz implements model {
 	public String date_created;
 	public int random_yn;
 	public int times_taken = 0;
-	public long quiz_timer;
+	public long quiz_timer = 600000;
 	public String category_name;
 	
 	/** Mapping back to User */

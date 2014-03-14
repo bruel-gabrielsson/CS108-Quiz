@@ -136,7 +136,18 @@ public class QuizController extends HttpServlet {
 		HashMap<String, String> feedback = app.current_quiz.correctMap(answers);
 		request.setAttribute("feedback", feedback);
 	
-		app.current_quiz.times_taken += 1;
+		// TEW: should add error checking?
+		app.current_quiz.times_taken++;
+		if(app.current_quiz.save()) {
+			
+		}
+		
+		// TEW: update user's quizzes taken
+		app.current_user.am_taken_quizzes++;
+		if(app.current_user.save()){
+			
+		}
+		
 		long time = System.currentTimeMillis() - this.start;
 		
 		History hist = new History();
@@ -152,10 +163,9 @@ public class QuizController extends HttpServlet {
 		System.out.println("TIME: " + time);
 		
 		this.start = 0;
-	
-		if(app.current_quiz.save()) {
 		
-		}
+		
+		
 	
 		
 		RequestDispatcher rd = request.getRequestDispatcher("quiz_feedback.jsp");

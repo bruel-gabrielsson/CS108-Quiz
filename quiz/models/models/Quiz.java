@@ -35,6 +35,7 @@ public class Quiz implements model {
 	public int times_taken = 0;
 	public long quiz_timer = 600000;
 	public String category_name;
+	public double rating;
 	
 	/** Mapping back to User */
 	public int creator_id = -1;
@@ -306,11 +307,13 @@ public class Quiz implements model {
 					this.creator_id = rs.getInt("creator_id");
 				}
 			}
+			//TEW: GETS RATING FOR A QUIZ!
+			this.rating = getRating();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		
-		// fetchQuestions();
+		
 		
 		return true;
 	}
@@ -460,6 +463,21 @@ public class Quiz implements model {
 			return false;
 		}
 		return true;
+	}
+	
+	/*
+	 * TEW: This will calculate the rating for a quiz. Use it as a model to get the other metrics we need
+	 */
+	public double getRating() {
+		String ratingQuery = "SELECT avg(rating) FROM history WHERE quiz_id = " + quiz_id+ " AND rating >= 0";
+		ResultSet rs = connector.query(ratingQuery);
+		try{
+			rs.first();
+			return rs.getDouble(1);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public static ArrayList<Quiz> getAllQuizzes() {

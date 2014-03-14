@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.History;
 import models.Question;
 import models.Quiz;
 import app.App;
@@ -137,6 +138,17 @@ public class QuizController extends HttpServlet {
 	
 		app.current_quiz.times_taken += 1;
 		long time = System.currentTimeMillis() - this.start;
+		
+		History hist = new History();
+		hist.quiz_id = app.current_quiz.quiz_id;
+		hist.user_id = app.current_user.user_id;
+		hist.total_score = Integer.parseInt(feedback.get("score"));
+		double num = hist.total_score;
+		double denom = app.current_questions.size();
+		hist.percent_score = num/denom;
+		hist.quiz_time = time;
+		hist.save();
+
 		System.out.println("TIME: " + time);
 		
 		this.start = 0;

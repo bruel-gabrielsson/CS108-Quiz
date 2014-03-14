@@ -19,6 +19,20 @@
 <body>
 	<div class="row">
 		<h3>Create a new quiz!</h3>
+		Name: <input id="quiz_name_form" type="text" name="quiz_name"></input>
+		Description: <input id="quiz_description_form" type="text" name="description"></input>
+		<select name="category" id="category_form" >
+		  <option value="Miscellaneous">Miscellaneous</option>
+		  <option value="Science">Science</option>
+		  <option value="Pop Culture">Pop Culture</option>
+		  <option value="History">History</option>
+		  <option value="Music">Music</option>
+		  <option value="Movies">Movies</option>
+		  <option value="Geography">Geography</option>
+		  <option value="Literature">Literature</option>
+		  <option value="Arts">Arts</option>
+		  <option value="Sports">Sports</option>
+		</select>
 	</div>
 	<div class="row" id="quiz_question_count">
 		Questions: 0

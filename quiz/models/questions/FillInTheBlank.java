@@ -13,7 +13,6 @@ public class FillInTheBlank extends Question {
 	
 	public int fib_question_id = -1;
 	public int question_number;
-	public int quiz_id;
 	public int question_type_id = 2;
 	public String name = null;
 	public String question_text_before;
@@ -76,6 +75,7 @@ public class FillInTheBlank extends Question {
 		} else {
 			// In this case, we don't have a legit fib_question_id and need to insert rows
 			String[] insertStmt = new String[2];
+			System.out.println("quiz_id in FIB model = "+ quiz_id);
 			insertStmt[0] = "INSERT INTO question_fill_in_blank(date_created, question_type_id, question_number," + 
 					" quiz_id, name, question_text_before, question_text_after, answer) VALUES ( NOW(), 2, " +
 					question_number + ", " + quiz_id + ", \"" + name + "\", \"" + question_text_before + "\", \"" + 

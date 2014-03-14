@@ -18,19 +18,28 @@ window.onload = function () {
 	
 	
 	submit.onclick = function() {
+		
+		var name = document.getElementById("quiz_name_form").value;
+		var description = document.getElementById("quiz_description_form").value;
+		var category = document.getElementById("category_form").value;
+		
 		console.log("submitting final form");
-		if (ob.questions_nr > 0) {
+		if (ob.questions_nr > 0 && name != "" && description != "") {
 			$.ajax( {
 				   type: "POST",
 				   url: "CreateQuizServlet",
-				   data: {submit: "true"},
+				   data: {submit: "true", name: name, description: description, category: category},
 				   success: function( response ) {
 					   console.log( response );
 				       console.log("success");
 				   }
 			});
 		} else {
-			form.innerHTML = "<h3 style='color:red'>Cannot submit an empty quiz</h3>";
+			if(ob.questions_nr < 0) {
+				quiz_question_count.innerHTML = "<h3 style='color:red'>Cannot submit an empty quiz</h3>";
+			} else {
+				quiz_question_count.innerHTML = "<h3 style='color:red'>Specify name and description please</h3>";
+			}
 		}
 			
 	}
@@ -103,7 +112,7 @@ window.onload = function () {
 		options.style.display = "none";
 		
 		var html = "<h3>Free Response:</h3>";
-		html += "<input type='hidden' name='type' value='question_fill_in_blank'></input>"
+		html += "<input type='hidden' name='type' value='question_free_response'></input>"
 		html += "Name: <input type='text' name='name' ></input><br/>";
 		html += "Question: <input type='text' name='question' ></input><br/>";
 		html += "Answer: <input type='text' name='answer' ></input><br/>";

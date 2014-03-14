@@ -1,7 +1,5 @@
 package models;
 
-import Question;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class Quiz implements model {
 	public String quiz_description;
 	public String date_created;
 	public int random_yn;
-	public int times_taken;
+	public int times_taken = 0;
 	public long quiz_timer;
 	public String category_name;
 	
@@ -92,6 +90,20 @@ public class Quiz implements model {
 				System.err.println("There was an error in the INSERT call to the QUIZ table");
 				return false;	
 			}
+			
+			String getQuizID = "SELECT LAST_INSERT_ID() FROM dual";
+			ResultSet rs = connector.query(getQuizID);
+			try{
+				rs.first();
+				int temp_id = rs.getInt("LAST_INSERT_ID()");
+				System.out.println("THE QUIZ ID IS: "+ temp_id);
+				this.quiz_id = temp_id;
+			} catch (SQLException e){
+				e.printStackTrace();
+				return false;
+			}
+			
+			
 			return true;
 		}
 	}
@@ -432,6 +444,7 @@ public class Quiz implements model {
 		try {
 			while(rs.next()) {
 				Quiz quiz = new Quiz();
+				quiz.quiz_id = rs.getInt("quiz_id");
 				quiz.quiz_name = rs.getString("quiz_name");
 				quiz.date_created = rs.getString("date_created");
 				quizzes.add(quiz);

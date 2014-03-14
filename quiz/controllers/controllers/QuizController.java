@@ -130,6 +130,12 @@ public class QuizController extends HttpServlet {
 		HashMap<String, String> feedback = app.current_quiz.correctMap(answers);
 		request.setAttribute("feedback", feedback);
 	
+		app.current_quiz.times_taken += 1;
+	
+		if(app.current_quiz.save()) {
+		
+		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher("quiz_feedback.jsp");
 		rd.forward(request, response);
 	}

@@ -28,7 +28,7 @@
 			Random <input type="radio" name="order" value="random"></input>
 		</p>
 			
-		<p><b>Correction:</b><br>
+		<p><b>Correction: (only for multiple pages)</b><br>
 			Immediate <input type="radio" name="correction" value="immediate"></input>
 			Later <input type="radio" name="correction" value="later"></input>
 		</p>

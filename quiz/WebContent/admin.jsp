@@ -45,7 +45,7 @@
 		<% ArrayList<Quiz> quizzes = Quiz.getAllQuizzes(); %>
 		<ol>
 			<% for (Quiz q : quizzes) { %>
-				<li> <%= q.quiz_name %> <%= q.date_created %> <a href="EditQuizServlet?user=">EDIT</a></li>
+				<li> <%= q.quiz_name %> <%= q.date_created %> <a href="QuizEditController?quiz_id=<%= q.quiz_id %>">EDIT</a></li>
 			<% } %>
 		</ol>
 	</div>

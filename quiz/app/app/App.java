@@ -125,7 +125,7 @@ public class App {
 	private boolean fetchPopularQuizzes() {
 		this.error = null;
 		
-		String quizQuery = "SELECT * FROM quiz ORDER BY times_taken LIMIT 5";
+		String quizQuery = "SELECT * FROM quiz ORDER BY times_taken DESC LIMIT 5";
 		ResultSet rs = connector.query(quizQuery);
 		
 		this.popular_quizzes = new ArrayList<Quiz>();	
@@ -148,7 +148,7 @@ public class App {
 	private boolean fetchRecentQuizzes() {
 		this.error = null;
 		
-		String quizQuery = "SELECT * FROM quiz ORDER BY date_created LIMIT 5";
+		String quizQuery = "SELECT * FROM quiz ORDER BY date_created DESC LIMIT 5";
 		ResultSet rs = connector.query(quizQuery);
 		
 		this.recent_quizzes = new ArrayList<Quiz>();	

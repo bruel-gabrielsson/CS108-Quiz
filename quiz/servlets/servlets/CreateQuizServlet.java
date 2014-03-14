@@ -56,18 +56,30 @@ public class CreateQuizServlet extends HttpServlet {
 		if (request.getParameterMap().containsKey("submit") && request.getParameter("submit").equals("true")) {
 			// SUBMITTING
 			
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
+			String cat = request.getParameter("category");
+			
 			System.out.println(app.new_quiz.questions.size());
-			app.new_quiz.category_name = "Pop Culture";
+			app.new_quiz.category_name = cat;
+			app.new_quiz.quiz_name = name;
+			app.new_quiz.quiz_description = description;
 			app.new_quiz.creator_id = app.current_user.user_id;
+			
+			int question_number = 1;
 			if(app.new_quiz.save()) {
 				for (Question q : app.new_quiz.questions) {
+					q.question_number = question_number;
 					q.quiz_id = app.new_quiz.quiz_id;
+					System.out.println("quizid: " + q.quiz_id + "" + app.new_quiz.quiz_id);
 					q.save();
+					question_number += 1;
 				}
 			} else {
 				
 			}
 			
+			app.new_quiz = null;
 			
 			
 		} else {
@@ -83,10 +95,13 @@ public class CreateQuizServlet extends HttpServlet {
 			String type = request.getParameter("type");
 			if (type.equals(FillInTheBlank.this_type)) {
 				FillInTheBlank q = new FillInTheBlank();
+				
 				q.answer = request.getParameter("answer");
 				q.name = request.getParameter("name");
 				q.question_text_after = request.getParameter("question_text_after");
 				q.question_text_before = request.getParameter("question_text_before");
+				
+				System.out.println("CREATING FIB" +  q.answer  + q.name + q.question_text_after);
 				
 				app.new_quiz.questions.add(q);
 			} else if (type.equals(FreeResponse.this_type)) {
@@ -94,6 +109,8 @@ public class CreateQuizServlet extends HttpServlet {
 				q.answer = request.getParameter("answer");
 				q.name = request.getParameter("name");
 				q.question_text = request.getParameter("question_text");
+				
+				System.out.println("CREATING FR" +  q.answer  + q.name + q.question_text);
 				
 				app.new_quiz.questions.add(q);
 			} else { // Multiplechoice
@@ -107,6 +124,8 @@ public class CreateQuizServlet extends HttpServlet {
 				q.choice_d = request.getParameter("choice_d");
 				q.choice_e = request.getParameter("choice_e");
 				q.answer = request.getParameter("answer");
+				
+				System.out.println("CREATING MC" +  q.answer  + q.name + q.question_text);
 				
 				app.new_quiz.questions.add(q);
 			}

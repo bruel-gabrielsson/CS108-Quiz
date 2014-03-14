@@ -72,7 +72,7 @@
 		
 	<div>
 		<h1>Quiz <%= quiz.quiz_name %></h1>
-		<h1>Trivia on crabs and lobsters</h1>
+		<h1><%= quiz.category_name %>, <%= quiz.quiz_description %></h1>
 		
 		<form href="QuizController" method="post">
 		

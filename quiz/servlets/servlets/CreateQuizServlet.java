@@ -62,6 +62,9 @@ public class CreateQuizServlet extends HttpServlet {
 			String description = request.getParameter("description");
 			String cat = request.getParameter("category");
 			String time = request.getParameter("time");
+			
+			System.out.print("****QUIZ_PARAMS:"+ "name: " + name + ", des: " + description + ", cat: " + cat + ", time:" + time);
+			
 			if (time.isEmpty()) {
 				time = "60";
 			}
@@ -82,8 +85,11 @@ public class CreateQuizServlet extends HttpServlet {
 					q.question_number = question_nr;
 					q.quiz_id = app.new_quiz.quiz_id;
 					System.out.println("quizid: " + q.quiz_id + "" + app.new_quiz.quiz_id);
-					q.save();
-					question_nr += 1;
+					if(q.save()) {
+						System.out.println("******Question: " + ", nr:" + q.question_number + ", name: " + q.name + ", answer: " + q.answer);
+						question_nr += 1;
+					}
+					
 				}
 				
 				// Update the number of quizzes the user created
@@ -157,9 +163,8 @@ public class CreateQuizServlet extends HttpServlet {
 				
 				System.out.println("CREATING PR" +  q.answer  + q.name + q.question_text + q.picture_url);
 				
-				
+				app.new_quiz.questions.add(q);
 			}
-		
 		
 		}
 		

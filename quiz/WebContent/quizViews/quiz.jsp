@@ -5,10 +5,17 @@
 <%@ page import="app.*" %>
     
 <%
+	App app = (App) request.getAttribute("app");
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
 	String correction_value = (String) request.getParameter("correction");
 	String practice_value = (String) request.getParameter("practice");
-	String time_value = (String) request.getParameter("time");
+	long time_v  = app.current_quiz.quiz_timer;
+	if (app.current_quiz != null) {
+		System.out.println(quiz.quiz_timer);
+		String time_value = (String) String.valueOf(app.current_quiz.quiz_timer);
+	}
+	String time_value = "240";
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -39,8 +46,7 @@
 
 		<!-- Grab username and loginStatus (if they exist) from the session  -->
 		<%	String username = (String)session.getAttribute("username");
-			String loginStatus = (String)session.getAttribute("loginStatus"); 
-			App app = (App)session.getAttribute("app"); %>
+			String loginStatus = (String)session.getAttribute("loginStatus"); %>
 		
 		<%	if (username != null && !username.isEmpty()) { %>
 			<!-- User is logged in  -->

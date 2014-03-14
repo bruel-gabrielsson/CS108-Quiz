@@ -29,7 +29,7 @@ window.onload = function () {
 		  {
 		     clearInterval(counter);
 		     //counter ended, do something here
-		     submit_correction.submit();
+		     document.getElementsByTagName("form")[0].submit();
 		     return;
 		  }
 		  //Do code for showing the number of seconds here

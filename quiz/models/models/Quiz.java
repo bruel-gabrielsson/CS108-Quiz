@@ -10,6 +10,7 @@ import database.DBConnector;
 import questions.FillInTheBlank;
 import questions.FreeResponse;
 import questions.MultipleChoice;
+import questions.PictureResponse;
 
 /**
  * 
@@ -369,11 +370,24 @@ public class Quiz implements model {
 						if (temp_question.fetch()) {
 							this.questions.add(temp_question);
 						} else {
-							System.out.println("Error fetching question type 2");
+							System.out.println("Error fetching question type 3");
 							//error fetching question
 						}
 						
 					} break;
+					
+					case 4: {
+						PictureResponse temp_question = new PictureResponse();
+						temp_question.pr_question_id = rs.getInt("pr_question_id");
+						if (temp_question.fetch()) {
+							this.questions.add(temp_question);
+						} else {
+							System.out.println("Error fetching question type 4");
+							//error fetching question
+						}
+						
+						
+					}
 				}
 					
 			}

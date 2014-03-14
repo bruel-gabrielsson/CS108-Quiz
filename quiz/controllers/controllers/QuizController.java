@@ -73,7 +73,6 @@ public class QuizController extends HttpServlet {
 				Quiz quiz = new Quiz();
 				quiz.quiz_id = quiz_id;
 				if (quiz.fetch() && quiz.fetchQuestions()) {
-					request.setAttribute("quiz", quiz);
 					System.out.println(quiz.quiz_name.toString());
 					
 					if (request.getParameter("order").equals("ordered")) {
@@ -88,12 +87,18 @@ public class QuizController extends HttpServlet {
 						}
 						Collections.shuffle(random);
 						app.current_questions = random;
+						
+						quiz = app.current_quiz;
 					}
 					
+					request.setAttribute("app", app);
+					
 					if (request.getParameter("pages").equals("one")) {
+						request.setAttribute("quiz", quiz);
 						RequestDispatcher rd = request.getRequestDispatcher("quizViews/quiz.jsp");
 						rd.forward(request, response);
 					} else { //multiple pages
+						request.setAttribute("quiz", quiz);
 						RequestDispatcher rd = request.getRequestDispatcher("quizViews/quiz_multiple_pages.jsp");
 						rd.forward(request, response);
 					}

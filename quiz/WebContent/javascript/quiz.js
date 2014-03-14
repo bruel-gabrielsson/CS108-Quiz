@@ -4,9 +4,22 @@ window.onload = function () {
 		
 		var correction = document.getElementById("correction_div").getAttribute("correction_value");	
 		
-		if (correction === "immediate") {
+		var practice = document.getElementById("practice_div").getAttribute("practice_value");
+		
+		console.log(correction + " " + practice);
+		
+		var submit_correction = document.getElementById("submit_quiz_correction");
+		
+		if (practice === "on") {
 			
-			console.log(correction + "asdasd!!!");
+			if (submit_correction) {
+				submit_correction.innerHTML = "Done With Practice";
+				submit_correction.onclick = function(e) {
+					e.preventDefault();
+					window.history.back();
+				}
+			}
+			
 			var form = document.getElementsByTagName("UL")[0];
 			var list = form.getElementsByTagName("LI");
 			var length = list.length;
@@ -68,15 +81,20 @@ window.onload = function () {
 				}
 			}
 			
-		} else { // later
+		} else { // practice none
+			if (correction == "immediate") {
+				console.log("immediate");
+			} else { //later
+				console.log("later");
+			}
 			
 		}
 		
-		multipleQuestions();
+		multipleQuestions(practice, correction);
 		
 	};
 	
-	var multipleQuestions = function() {
+	var multipleQuestions = function(practice, correction) {
 		
 		var questions = document.getElementsByClassName("question_multiple_pages");
 		if(questions.length) {
@@ -93,16 +111,66 @@ window.onload = function () {
 				//e.target.removeEventListener(e.type, arguments.callee);
 				if (i >= 0) {
 					var previous = i + 1;
+					// Immediate feedback
+					if (correction == "immediate") {
+						
+						var input = questions[previous].getElementsByTagName("input");
+						
+						if(input[0].getAttribute("type") === "text") {
+						
+							var value = input[0].value;
+							var answer = questions[previous].getElementsByClassName("answer")[0].getAttribute("answer");
+							console.log("answer" + answer + " " + value);
+							
+							if (answer === value) {
+								alert("Your answer was correct!");
+							} else {
+								alert("Your answer was incorrect, better luck next time");
+							}
+							
+						} else if (input[0].getAttribute("type") === "radio") {
+							for (var n = 0; n < input.length; n ++) {
+								if (input[n].checked) {
+									var answer = questions[previous].getElementsByClassName("answer")[0].getAttribute("answer");
+									var value = input[n].value;
+									console.log("answer" + answer + " " + value);
+									if (answer === value) {
+										alert("Your answer was correct!");
+									} else {
+										alert("Your answer was incorrect, better luck next time");
+									}
+									
+								}
+								
+							}
+							
+						}
+					}
 					
-					//
+					
 					questions[i].style.display = "inline-block";
-					i = i-1;
+					
 					console.log(previous);
 					questions[parseInt(previous)].style.display = "none";
+					
+					i = i-1;
+					
+					
 				} else {
-					var submit = document.getElementsByClassName("multiple_pages_submit")[0];
-					submit.style.display = "inline-block";
-					e.target.style.display = "none";
+					if (practice != "on") {
+						var submit = document.getElementsByClassName("multiple_pages_submit")[0];
+						submit.style.display = "inline-block";
+						e.target.style.display = "none";
+					} else { // on
+						var submit = document.getElementsByClassName("multiple_pages_submit")[0];
+						submit.style.display = "inline-block";
+						e.target.style.display = "none";
+						submit.innerHTML = "Done With Practice";
+						submit.onclick = function(e) {
+							e.preventDefault();
+							window.history.back();
+						}
+					}
 				}
 				
 			});

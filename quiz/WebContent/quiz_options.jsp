@@ -27,6 +27,11 @@
 			Later <input type="radio" name="correction" value="later"></input>
 		</p>
 		
+		<p><b>Practice Mode:</b><br>
+			On <input type="radio" name="practice" value="on"></input>
+			Off <input type="radio" name="practice" value="off"></input>
+		</p>
+		
 		<input type="hidden" name="quiz_id" value="<%= request.getParameter("quiz_id") %>"></input>
 			
 		<button type="submit">Start Quiz</button>

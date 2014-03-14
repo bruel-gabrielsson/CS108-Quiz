@@ -56,11 +56,13 @@ public class QuizController extends HttpServlet {
 			
 			System.out.println(request.getParameter("correction"));
 			
+			String practice = request.getParameter("practice");
+			
 			String correction = request.getParameter("correction");
 			String order = request.getParameter("order");
 			String pages = request.getParameter("pages");
 			
-			if (correction != null && order != null && pages != null) {
+			if (practice != null && order != null && pages != null && correction != null) {
 			
 				Quiz quiz = new Quiz();
 				quiz.quiz_id = quiz_id;

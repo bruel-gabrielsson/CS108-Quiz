@@ -7,6 +7,7 @@
 <%
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
 	String correction_value = (String) request.getParameter("correction");
+	String practice_value = (String) request.getParameter("practice");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,6 +26,7 @@
 </head>
 <body>
 
+<div id="practice_div" practice_value="<%= practice_value %>" ></div>
 <div id="correction_div" correction_value="<%= correction_value %>" ></div>
 	
 <div id="wrap">
@@ -158,7 +160,7 @@
 		<% } %>
 		</ul>
 		
-		<button type="submit" >Submit Answers</button>
+		<button id="submit_quiz_correction" type="submit" >Submit Answers</button>
 		</form>
 	</div>
 

@@ -1,0 +1,9 @@
+@CHARSET "US-ASCII";
+
+#add_new_question_options {
+	visibility: hidden;
+}
+
+#submit_and_new_question {
+	display: none;
+}

@@ -33,6 +33,7 @@
 		  <option value="Arts">Arts</option>
 		  <option value="Sports">Sports</option>
 		</select>
+		Timer (seconds): <input id="quiz_time_form" type="number" name="time"></input>
 	</div>
 	<div class="row" id="quiz_question_count">
 		Questions: 0
@@ -55,6 +56,7 @@
 				<button id="question_fill_in_blank_option">Fill In The Blank</button>
 				<button id="question_free_response_option">Free Response</button>
 				<button id="question_multiple_choice_option">Multiple Choice</button>
+				<button id="question_picture_response">Picture Response</button>
 			</div>
 			<br/>
 			<div class="row">

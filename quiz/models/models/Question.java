@@ -16,7 +16,7 @@ public abstract class Question implements model {
 	public String type = null; // MUST BE HERE, otherwise not accessible before knowing type
 	public String name = null;
 	public int question_type_id = -1;
-	public int question_id = 1;
+	public int question_id = -1;
 	public String date_created = null;
 	public int question_number = -1;
 	public String answer = null;

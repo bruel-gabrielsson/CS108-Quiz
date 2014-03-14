@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import questions.FillInTheBlank;
 import questions.FreeResponse;
 import questions.MultipleChoice;
+import questions.PictureResponse;
 import models.Question;
 import models.Quiz;
 import app.App;
@@ -60,21 +61,29 @@ public class CreateQuizServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			String description = request.getParameter("description");
 			String cat = request.getParameter("category");
+			String time = request.getParameter("time");
+			if (time.isEmpty()) {
+				time = "60";
+			}
+			long t = Long.parseLong(time);
 			
 			System.out.println(app.new_quiz.questions.size());
+			app.new_quiz.quiz_timer = t;
 			app.new_quiz.category_name = cat;
 			app.new_quiz.quiz_name = name;
 			app.new_quiz.quiz_description = description;
 			app.new_quiz.creator_id = app.current_user.user_id;
 			
-			int question_number = 1;
 			if(app.new_quiz.save()) {
+				int question_nr = 1;
+				
 				for (Question q : app.new_quiz.questions) {
-					q.question_number = question_number;
+					System.out.println("q_nr" + question_nr + "NAME :" + q.name);
+					q.question_number = question_nr;
 					q.quiz_id = app.new_quiz.quiz_id;
 					System.out.println("quizid: " + q.quiz_id + "" + app.new_quiz.quiz_id);
 					q.save();
-					question_number += 1;
+					question_nr += 1;
 				}
 				
 				// Update the number of quizzes the user created
@@ -123,7 +132,7 @@ public class CreateQuizServlet extends HttpServlet {
 				System.out.println("CREATING FR" +  q.answer  + q.name + q.question_text);
 				
 				app.new_quiz.questions.add(q);
-			} else { // Multiplechoice
+			} else if(type.equals(MultipleChoice.this_type)) { // Multiplechoice
 				MultipleChoice q = new MultipleChoice();
 				q.answer = request.getParameter("answer");
 				q.name = request.getParameter("name");
@@ -138,6 +147,17 @@ public class CreateQuizServlet extends HttpServlet {
 				System.out.println("CREATING MC" +  q.answer  + q.name + q.question_text);
 				
 				app.new_quiz.questions.add(q);
+			} else { // picture response
+				PictureResponse q = new PictureResponse();
+				q.answer = request.getParameter("answer");
+				q.name = request.getParameter("name");
+				q.question_text = request.getParameter("question_text");
+				q.picture_url = request.getParameter("picture_url");
+				/*TEW: The question text is showing up null for some reason*/
+				
+				System.out.println("CREATING PR" +  q.answer  + q.name + q.question_text + q.picture_url);
+				
+				
 			}
 		
 		

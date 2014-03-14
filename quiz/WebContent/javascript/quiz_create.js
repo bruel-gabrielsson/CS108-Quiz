@@ -8,6 +8,7 @@ window.onload = function () {
 	var fillInTheBlank = document.getElementById("question_fill_in_blank_option");
 	var freeResponse = document.getElementById("question_free_response_option");
 	var multipleChoice = document.getElementById("question_multiple_choice_option");
+	var pictureResponse = document.getElementById("question_picture_response");
 	
 	var form = document.getElementById("quiz_create_form");
 	
@@ -22,18 +23,21 @@ window.onload = function () {
 		var name = document.getElementById("quiz_name_form").value;
 		var description = document.getElementById("quiz_description_form").value;
 		var category = document.getElementById("category_form").value;
+		var time = document.getElementById("quiz_time_form").value;
 		
 		console.log("submitting final form");
 		if (ob.questions_nr > 0 && name != "" && description != "") {
 			$.ajax( {
 				   type: "POST",
 				   url: "CreateQuizServlet",
-				   data: {submit: "true", name: name, description: description, category: category},
+				   data: {submit: "true", name: name, description: description, category: category, time: time},
 				   success: function( response ) {
 					   console.log( response );
 				       console.log("success");
+				       window.history.back();
 				   }
 			});
+			//window.history.back();
 		} else {
 			if(ob.questions_nr < 0) {
 				quiz_question_count.innerHTML = "<h3 style='color:red'>Cannot submit an empty quiz</h3>";
@@ -80,8 +84,7 @@ window.onload = function () {
 				   options.style.display = "block";
 				   e.target.style.display = "none";
 				   ob.questions_nr++;
-				   quiz_question_count.innerHTML = "Questions: " + ob.questions_nr;
-						
+				   quiz_question_count.innerHTML = "Questions: " + ob.questions_nr;				
 			   }
 			});
 		} else {
@@ -102,7 +105,7 @@ window.onload = function () {
 		html += "Name: <input type='text' name='name' ></input><br/>";
 		html += "Question text before: <input type='text' name='question_text_before' ></input><br/>";
 		html += "Answer: <input type='text' name='answer' ></input><br/>";
-		html += "Question text before: <input type='text' name='question_text_after' ></input><br/>";
+		html += "Question text after: <input type='text' name='question_text_after' ></input><br/>";
 		//div.innerHTML = html;
 		form.innerHTML = html;
 		submitAndNew.style.display = "inline-block";
@@ -115,6 +118,20 @@ window.onload = function () {
 		html += "<input type='hidden' name='type' value='question_free_response'></input>"
 		html += "Name: <input type='text' name='name' ></input><br/>";
 		html += "Question: <input type='text' name='question_text' ></input><br/>";
+		/*TEW: updated to 'question_text' instead of 'question' */
+		html += "Answer: <input type='text' name='answer' ></input><br/>";
+		form.innerHTML = html;
+		submitAndNew.style.display = "inline-block";
+	}
+	
+	pictureResponse.onclick = function() {
+		options.style.display = "none";
+		
+		var html = "<h3>Picture Response:</h3>";
+		html += "<input type='hidden' name='type' value='question_picture_response'></input>"
+		html += "Name: <input type='text' name='name' ></input><br/>";
+		html += "Question: <input type='text' name='question_text' ></input><br/>";
+		html += "Picture URL: <input type='text' name='picture_url' ></input><br/>";
 		/*TEW: updated to 'question_text' instead of 'question' */
 		html += "Answer: <input type='text' name='answer' ></input><br/>";
 		form.innerHTML = html;

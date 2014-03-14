@@ -6,9 +6,37 @@ window.onload = function () {
 		
 		var practice = document.getElementById("practice_div").getAttribute("practice_value");
 		
-		console.log(correction + " " + practice);
+		var time_value = document.getElementById("time_div").getAttribute("time_value");
+		
+		console.log("TIME VALUE" + time_value);
+		
+		var timer_value = parseInt(time_value);
 		
 		var submit_correction = document.getElementById("submit_quiz_correction");
+		
+		var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+		
+		var timer_div = document.getElementById("show_timer_value_div");
+		
+		if (isNaN(timer_value)) {timer_value = 240;}; // 240 default value	
+		
+		timer_div.innerHTML = "Time Left: " + timer_value + "s";
+
+		function timer()
+		{
+		timer_value = timer_value-1;
+		  if (timer_value <= 0)
+		  {
+		     clearInterval(counter);
+		     //counter ended, do something here
+		     submit_correction.submit();
+		     return;
+		  }
+		  //Do code for showing the number of seconds here
+		  timer_div.innerHTML = "Time Left: " + timer_value + "s";
+		}
+		
+		console.log(correction + " " + practice);
 		
 		if (practice === "on") {
 			

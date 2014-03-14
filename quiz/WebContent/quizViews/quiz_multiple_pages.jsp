@@ -8,6 +8,7 @@
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
 	String correction_value = (String) request.getParameter("correction");
 	String practice_value = (String) request.getParameter("practice");
+	String time_value = (String) request.getParameter("time");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -45,6 +46,7 @@
 
 <div id="practice_div" practice_value="<%= practice_value %>" ></div>
 <div id="correction_div" correction_value="<%= correction_value %>" ></div>
+<div id="time_div" time_value="<%= time_value %>" ></div>
 <div id="wrap">
 	
 <!--HEADER BAR-->
@@ -86,9 +88,11 @@
 	<% String quiz_id = request.getParameter("quiz_id"); %>
 	<% if (quiz_id != null && !quiz_id.isEmpty()) {%>	
 		
+	
 	<div>
 		<h1>Quiz <%= quiz.quiz_name %></h1>
 		<h1><%= quiz.category_name %>, <%= quiz.quiz_description %></h1>
+		<div id="show_timer_value_div"></div>
 		
 		<form href="QuizController" method="post">
 		
@@ -124,7 +128,7 @@
 						<div style="hidden" class="answer" answer="<%= fib.answer %>" ></div>
 					
 					<%
-				} else { // "question_multiple_choice"
+				} else if (type.equals("question_multiple_choice")){ // "question_multiple_choice"
 						MultipleChoice mc = (MultipleChoice) q;
 					%>
 					
@@ -152,22 +156,27 @@
 						<%= mc.choice_e %>
 						<input type="radio" name="question<%= mc.question_number %>" value="E"></input><br/>
 					<% } %>
-					<% if (mc.choice_f != null) { %>
-						<%= mc.choice_f %>
-						<input type="radio" name="question<%= mc.question_number %>" value="F"></input><br/>
-					<% } %>
-					<% if (mc.choice_g != null) { %>
-						<%= mc.choice_g %>
-						<input type="radio" name="question<%= mc.question_number %>" value="G"></input><br/>
-					<% } %>
-					
+				
 					</div>
 					
 					<hr></hr>
 					
 					<div style="hidden" class="answer" answer="<%= mc.answer %>" ></div>
 					<%
-					}
+				}  else { // picture response
+					PictureResponse pr = (PictureResponse) q;
+					%>
+					
+					<%= pr.name %>:
+					<%= pr.question_text %>
+					
+					<img src='<%= pr.picture_url %>'></img>
+					
+					<input type="text" name="question<%= pr.question_number %>"></input>
+				
+					<div style="hidden" class="answer" answer="<%= pr.answer %>" ></div>
+				<%
+				}
 				%>
 				</div>
 				</li>

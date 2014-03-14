@@ -43,6 +43,7 @@ public class Quiz implements model {
 	private DBConnector connector = null;
 	
 	public ArrayList<Question> questions = null;
+	public ArrayList<History> topScores = null;
 	/**
 	 * 
 	 */
@@ -368,6 +369,31 @@ public class Quiz implements model {
 				}
 					
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	public boolean fetchTopScores() {
+		
+		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + " ORDER BY total_score DESC, quiz_time LIMIT 5"; 
+		ResultSet rs = connector.query(query);
+		
+		topScores = new ArrayList<History>();
+		
+		try {
+			while(rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					topScores.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -83,7 +83,8 @@ public class User implements model {
 					"am_created_quizzes = " + am_created_quizzes + ", " +
 					"am_taken_quizzes = " + am_taken_quizzes + ", " +
 					"am_challenges_sent = " + am_challenges_sent + ", " +
-					"am_messages_sent = " + am_messages_sent + " " +
+					"am_messages_sent = " + am_messages_sent + ", " +
+					"am_number_friends = " + am_number_friends + " " +
 					"WHERE user_id = " + user_id;
 			System.out.println("user update: " + updateStmt[0]);
 			int result = connector.updateOrInsert(updateStmt);
@@ -142,6 +143,11 @@ public class User implements model {
 				this.message_received = rs.getInt("message_received"); 
 				this.challenge_received = rs.getInt("challenge_received");
 				this.is_admin = rs.getInt("is_admin");
+				this.am_created_quizzes = rs.getInt("am_created_quizzes");
+				this.am_taken_quizzes = rs.getInt("am_taken_quizzes");
+				this.am_challenges_sent = rs.getInt("am_challenges_sent");
+				this.am_messages_sent = rs.getInt("am_messages_sent");
+				this.am_number_friends = rs.getInt("am_number_friends");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -299,6 +299,8 @@ public class Quiz implements model {
 				this.quiz_description = rs.getString("quiz_description");
 				this.category_name = rs.getString("category_name");
 				this.date_created = rs.getString("date_created");
+				this.times_taken = rs.getInt("times_taken");
+				this.quiz_timer = rs.getInt("quiz_timer");
 				if (this.creator_id == -1) {
 					this.creator_id = rs.getInt("creator_id");
 				}

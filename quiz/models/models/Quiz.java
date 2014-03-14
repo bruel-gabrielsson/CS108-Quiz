@@ -384,6 +384,9 @@ public class Quiz implements model {
 		return true;
 	}
 	
+	/*
+	 * Retrieves the top scores of all time for a quiz and populates topScores with an ArrayList<History>
+	 */
 	public boolean fetchTopScores() {
 		
 		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + 
@@ -432,6 +435,9 @@ public class Quiz implements model {
 		return true;
 	}
 	
+	/*
+	 * Returns the user's history on the quiz and populates userScores with an ArrayList<History>
+	 */
 	public boolean fetchUserScores(int user_id) {
 		String query = "SELECT * FROM history WHERE quiz_id = " + quiz_id + " AND "
 				+ "user_id =" + user_id + " ORDER BY timestamp DESC";
@@ -456,6 +462,9 @@ public class Quiz implements model {
 		return true;
 	}
 	
+	/*
+	 * Retrieves the recent takers of the quiz and stores in recentTakers as ArrayList<History>
+	 */
 	public boolean fetchRecentTakers() {
 		String query = "SELECT * FROM history WHERE quiz_id = "+ quiz_id +
 				" ORDER BY timestamp DESC;";

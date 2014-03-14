@@ -21,7 +21,7 @@
 <body>
 	<ul>
 	<% for (String key : feedback.keySet()) { %>
-		<% if (!key.equals("score")) { %>
+		<% if (!key.equals("score") && !key.equals("time")) { %>
 		<li>		
 			<%= feedback.get(key) %>
 		</li>
@@ -29,5 +29,6 @@
 	<% } %>
 	</ul>
 	<h3>Total Score: <%= feedback.get("score") %></h3>
+	<h3>Total Time: <%= feedback.get("time") %>s</h3>
 </body>
 </html>

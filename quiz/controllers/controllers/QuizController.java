@@ -137,8 +137,11 @@ public class QuizController extends HttpServlet {
 			}
 		}
 		
+		long time = System.currentTimeMillis() - this.start;
 		// Corrects the quiz and returns receives an hashmap of errors or success message
 		HashMap<String, String> feedback = app.current_quiz.correctMap(answers);
+		time = time/1000;
+		feedback.put("time", Long.toString(time));
 		request.setAttribute("feedback", feedback);
 	
 		// TEW: should add error checking?
@@ -153,7 +156,7 @@ public class QuizController extends HttpServlet {
 			
 		}
 		
-		long time = System.currentTimeMillis() - this.start;
+		
 		
 		History hist = new History();
 		hist.quiz_id = app.current_quiz.quiz_id;

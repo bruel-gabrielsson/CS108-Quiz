@@ -114,7 +114,8 @@ window.onload = function () {
 		var html = "<h3>Free Response:</h3>";
 		html += "<input type='hidden' name='type' value='question_free_response'></input>"
 		html += "Name: <input type='text' name='name' ></input><br/>";
-		html += "Question: <input type='text' name='question' ></input><br/>";
+		html += "Question: <input type='text' name='question_text' ></input><br/>";
+		/*TEW: updated to 'question_text' instead of 'question' */
 		html += "Answer: <input type='text' name='answer' ></input><br/>";
 		form.innerHTML = html;
 		submitAndNew.style.display = "inline-block";

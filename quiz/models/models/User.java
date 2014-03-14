@@ -148,7 +148,8 @@ public class User implements model {
 		}
 		
 		// also populate the this.quizzes list with quizzes whose user_id == this.user_id
-		String quiz_query = "SELECT quiz_id FROM quiz WHERE creator_id = '" + this.user_id + "'";
+		String quiz_query = "SELECT quiz_id FROM quiz WHERE creator_id = '" + this.user_id + "' ORDER BY date_created DESC";
+		/*TEW: Order the user's quizzes by the date the were created starting from the most recent*/
 		rs = null;
 		rs = connector.query(quiz_query);
 		this.quizzes = new ArrayList<Quiz>();

@@ -109,6 +109,7 @@ public class CreateQuizServlet extends HttpServlet {
 				q.answer = request.getParameter("answer");
 				q.name = request.getParameter("name");
 				q.question_text = request.getParameter("question_text");
+				/*TEW: The question text is showing up null for some reason*/
 				
 				System.out.println("CREATING FR" +  q.answer  + q.name + q.question_text);
 				

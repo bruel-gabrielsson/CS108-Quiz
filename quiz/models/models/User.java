@@ -35,6 +35,7 @@ public class User implements model {
 	public ArrayList<String> friends = null;
 	public ArrayList<Message> messages = null;
 	public ArrayList<Notification> notifications = null;
+	public ArrayList<History> friendActivity = null;
 	
 //	private boolean is_admin = false;
 
@@ -452,5 +453,29 @@ public class User implements model {
 		}
 		
 		return isFriend;
+	}
+	
+	public boolean fetchFriendActivity() {
+		String query = "SELECT * FROM history WHERE user_id "
+				+ "IN(SELECT friend_id FROM relationship WHERE user_id = "
+				+ user_id +") ORDER BY timestamp DESC";
+		
+		ResultSet rs = connector.query(query);
+		friendActivity = new ArrayList<History>();
+		try {
+			while (rs.next()) {
+				History hist = new History();
+				hist.history_id = rs.getInt("history_id");
+				if (hist.fetch()) {
+					friendActivity.add(hist);
+				} else {
+					System.out.println("Error: History not found");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 }

@@ -24,6 +24,9 @@ import app.App;
 public class QuizController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private long start = 0;
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -64,6 +67,8 @@ public class QuizController extends HttpServlet {
 			
 			if (practice != null && order != null && pages != null && correction != null) {
 			
+				this.start = System.currentTimeMillis();
+				
 				Quiz quiz = new Quiz();
 				quiz.quiz_id = quiz_id;
 				if (quiz.fetch() && quiz.fetchQuestions()) {
@@ -131,10 +136,15 @@ public class QuizController extends HttpServlet {
 		request.setAttribute("feedback", feedback);
 	
 		app.current_quiz.times_taken += 1;
+		long time = System.currentTimeMillis() - this.start;
+		System.out.println("TIME: " + time);
+		
+		this.start = 0;
 	
 		if(app.current_quiz.save()) {
 		
 		}
+	
 		
 		RequestDispatcher rd = request.getRequestDispatcher("quiz_feedback.jsp");
 		rd.forward(request, response);

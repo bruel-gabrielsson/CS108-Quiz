@@ -13,6 +13,7 @@ public class History implements model {
 	public int total_score;
 	public double percent_score;
 	public long quiz_time;
+	public int rating = -1;
 	
 	public String quiz_name;
 	public String user_name;
@@ -32,8 +33,9 @@ public class History implements model {
 					"user_id = " + user_id + ", " + 
 					"total_score = " + total_score + ", " + 
 					"percent_score = " + percent_score + ", " +
-					"quiz_time = " + quiz_time +
-					" WHERE history_id = " + history_id;
+					"quiz_time = " + quiz_time + ", " +
+					"rating = " + rating + " " +
+					"WHERE history_id = " + history_id;
 			System.out.println("history update: " + updateStmt[0]);
 			int result = connector.updateOrInsert(updateStmt);
 			if(result < 0){
@@ -45,8 +47,8 @@ public class History implements model {
 		} else {
 			
 			String[] insertStmt = new String[1];
-			insertStmt[0] = "INSERT INTO history(quiz_id, user_id, total_score, percent_score, quiz_time) VALUES(" +
-			quiz_id + ", " + user_id + ", " + total_score + ", " + percent_score + ", " + quiz_time + ")";
+			insertStmt[0] = "INSERT INTO history(quiz_id, user_id, total_score, percent_score, quiz_time, rating) VALUES(" +
+			quiz_id + ", " + user_id + ", " + total_score + ", " + percent_score + ", " + quiz_time + ", " + rating + ")";
 			System.out.println("history insert: " + insertStmt[0]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
@@ -77,6 +79,7 @@ public class History implements model {
 				this.total_score = rs.getInt("total_score");
 				this.percent_score = rs.getDouble("percent_score");
 				this.quiz_time = rs.getLong("quiz_time");
+				this.rating = rs.getInt("rating");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

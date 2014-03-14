@@ -22,7 +22,7 @@
 			
 				<form action="LoginServlet" method="post"> 
 					username <input type="text" name="username" />&nbsp;
-					password <input type="text" name="password" />
+					password <input type="password" name="password" />
 					<input type="submit" value="LOGIN" />
 					&nbsp; &#124; &nbsp;<a href="registration.jsp">Register!</a>
 				</form>	 

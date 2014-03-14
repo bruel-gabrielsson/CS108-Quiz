@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,6 +76,14 @@ public class CreateQuizServlet extends HttpServlet {
 					q.save();
 					question_number += 1;
 				}
+				
+				// Update the number of quizzes the user created
+				app.current_user.am_created_quizzes++;
+				app.current_user.save();
+		
+				// Return to home screen (isn't working???)
+				RequestDispatcher dispatch = request.getRequestDispatcher("home.jsp");
+				dispatch.forward(request, response);	
 			} else {
 				
 			}

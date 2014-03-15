@@ -42,8 +42,8 @@ public class Challenge implements model {
 			return true;
 		} else {
 			String[] insertStmt = new String[1];
-			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, challenge_status, time_sent) VALUES(" +
-			to_user_id + ", " + from_user_id + ", " + quiz_id + ", " + challenge_status + ", NOW())";
+			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, time_sent) VALUES(" +
+			to_user_id + ", " + from_user_id + ", " + quiz_id + ", NOW())";
 			System.out.println("challenge insert: " + insertStmt[0]);
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){

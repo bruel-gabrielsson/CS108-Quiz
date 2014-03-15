@@ -58,6 +58,8 @@
 				
 				
 				<a href="MessageController?recipient=<%= profile_username %>">Send a message</a>
+				<br>
+				<a href="ChallengeController?recipient=<%= profile_username %>">Challenge</a>
 				
 			<% } %>
 			

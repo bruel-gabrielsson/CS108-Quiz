@@ -124,7 +124,15 @@
 							
 							<!-- challenge -->
 							<% } else if (n.notification_type_id == 2) { %>
-								<li> Challenge ID: <%= n.challenge_id %> </li>				
+								<li> 
+									<%= n.notification_text %> 
+										<form action="ChallengeController" method="get">
+										<input type="hidden" name="challenge_id" value="<%= n.challenge_id %>" />	
+										<input type="hidden" name="notification_id" value="<%= n.notification_id %>" />
+									    <input type="submit" name="action" value="Accept" />
+									    <input type="submit" name="action" value="Decline" />
+									</form>
+								</li>				
 							
 							<!--  Friend request -->
 							<% } else if (n.notification_type_id == 3) { %>
@@ -161,10 +169,35 @@
 					<li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>	
 				<% } %>
 			</ul>
+	
+			<form href = "FindFriendsController" method = post>
+				<input type="text" name="user_name" value="search for friends" /><br>
+				<button type="submit" >Search</button>
+			</form>
+			<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
 			
 			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
-			
+				<li><%if (user.am_challenges_sent > 10) {%>
+						Ten Challenges Sent!<br>
+					<%} %>
+					
+					<%if (user.am_created_quizzes > 10) {%>
+						Ten Quizzes Created!<br>
+					<%} %>
+					
+					<%if (user.am_messages_sent > 10) {%>
+						Ten Messages Sent!<br>
+					<%} %>
+					
+					<%if (user.am_number_friends > 10) {%>
+						Popular! (More Than 10 Friends)<br>
+					<%} %>
+					
+					<%if (user.am_taken_quizzes > 10) {%>
+						Ten Quizzes Taken!<br>
+					<%} %>
+				</li>
 		</div>
 	<% } %>
 </div>

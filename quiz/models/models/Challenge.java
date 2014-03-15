@@ -41,10 +41,15 @@ public class Challenge implements model {
 			}
 			return true;
 		} else {
-			String[] insertStmt = new String[1];
-			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, challenge_status, time_sent) VALUES(" +
-			to_user_id + ", " + from_user_id + ", " + quiz_id + ", " + challenge_status + ", NOW())";
-			System.out.println("challenge insert: " + insertStmt[0]);
+			String[] insertStmt = new String[2];
+			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, time_sent) VALUES(" +
+			to_user_id + ", " + from_user_id + ", " + quiz_id + ", NOW())";
+			
+			// Insert notification for challenge
+			insertStmt[1] = "INSERT INTO notification(user_id, notification_type_id, challenge_id, "
+					+ "notification_text) VALUES(" +  to_user_id + ", " + 2 + ", " 
+					+ " LAST_INSERT_ID(), " + "'" + from_user_name + " has sent you a challenge!')";
+			
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){
 				System.err.println("There was an error in the INSERT call to the CHALLENGE table");

@@ -256,6 +256,20 @@ public class Quiz implements model {
 				if (updates.containsKey("question" + mc.question_number + "choice_j")) {
 					mc.choice_j = updates.get("question" + mc.question_number + "choice_j");
 				}
+			} else if (type.equals("question_multiple_choice")) {
+				PictureResponse pr = (PictureResponse) q;
+				if (updates.containsKey("question" + pr.question_number + "name")) {
+					pr.name = updates.get("question" + pr.question_number + "name");
+				}
+				if (updates.containsKey("question" + pr.question_number + "question_text")) {
+					pr.question_text = updates.get("question" + pr.question_number + "question_text");
+				}
+				if (updates.containsKey("question" + pr.question_number + "answer")) {
+					pr.answer = updates.get("question" + pr.question_number + "answer");
+				}
+				if (updates.containsKey("question" + pr.question_number + "picture_url")) {
+					pr.picture_url = updates.get("question" + pr.question_number + "picture_url");
+				}
 			}
 			if (!q.save()) return false;
 		}

@@ -30,7 +30,7 @@
 
 	<form action="ChallengeController" method="post">
 		Recipient: <input type="text" name="recipient" value="<%= recipient %>"/><br /> 
-		Quiz: <select id = "dropdown">
+		Quiz: <select name="quiz_id" id="dropdown">
 				<%for(Quiz q : Quiz.getAllQuizzes()){ %>
 					<option value = "<%=q.quiz_id%>"><%=q.quiz_name %></option>
 				<%} %>

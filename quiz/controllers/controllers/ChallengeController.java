@@ -50,28 +50,27 @@ public class ChallengeController extends HttpServlet {
 			if (chal.fetch()) {
 				// User wishes to accept relationship
 				if (action.equals("Accept")) {
-//					if (!.isAccepted()) System.out.println("Failed to accept relationship ID" + relationship_id);
-//					
-//					// Update the number of friends the sending user has
-//					int fromUserID = rel.user_id;
-//					User fromUser = new User();
-//					fromUser.user_id = fromUserID;
-//					fromUser.fetch();
-//					fromUser.am_number_friends++;
-//					fromUser.save();
-//					
-//					// Update the number of friends the accepting user has
-//					int toUserID = rel.friend_id;
-//					User toUser = new User();
-//					toUser.user_id = toUserID;
-//					toUser.fetch();
-//					toUser.am_number_friends++;
-//					toUser.save();
+					String url = "QuizSummary?quiz_id=" + chal.quiz_id;
+					System.out.println("URL: "+url);
+					Notification n = new Notification();
+					n.notification_id = Integer.parseInt(notification_id);
+					n.destroy();
+					chal.destroy();
+					RequestDispatcher rd = request.getRequestDispatcher(url);
+					rd.forward(request, response);
+					
+
 				}
 				
 				// User wishes to decline relationship
 				if (action.equals("Decline")) {
 //					if (!rel.isRejected()) System.out.println("Failed to decline relationship ID" + relationship_id);
+					Notification n = new Notification();
+					n.notification_id = Integer.parseInt(notification_id);
+					n.destroy();
+					
+					chal.destroy();
+					
 				}
 			} else {
 //				System.out.println("Failed to fetch relationship ID: " + relationship_id);
@@ -88,6 +87,8 @@ public class ChallengeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ChallengeController: Received POST request to add new challenge");
 		
+		int quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
+		
 		App app = (App)request.getSession().getAttribute("app");
 		User fromUser = app.current_user;
 		User toUser = new User();
@@ -96,7 +97,6 @@ public class ChallengeController extends HttpServlet {
 //		String s_quiz_id = request.getParameter("quiz_id");
 //		System.out.println("THE QUIZ ID = "+ s_quiz_id);
 //		Integer quiz_id = Integer.parseInt(s_quiz_id);
-		int quiz_id =1;
 		
 		String ChallengeStatus = "Failed to send challenge!";
 		
@@ -116,8 +116,8 @@ public class ChallengeController extends HttpServlet {
 		request.getSession().setAttribute("ChallengeStatus", ChallengeStatus);
 		request.getSession().setAttribute("challenge_id", challenge_id);
 		
-		String url = "QuizController?quiz_id=" + quiz_id;
-		url = "profile.jsp?username=" + toUser.user_name;
+		
+		String url = "quiz_options.jsp?quiz_id=" + quiz_id;
 		System.out.println("URL: "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import questions.FreeResponse;
-
 import database.DBConnector;
+import models.Challenge;
 import models.Question;
 import models.User;
 import models.Quiz;
@@ -36,6 +36,7 @@ public class App {
 	public ArrayList<Quiz> recent_quizzes = null;
 	
 	public User current_user = null;
+	public Challenge current_challenge = null;
 	
 	public Quiz new_quiz = null;
 	public Quiz current_quiz = null;

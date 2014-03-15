@@ -164,7 +164,26 @@
 			
 			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
-			
+				<li><%if (user.am_challenges_sent > 10) {%>
+						Ten Challenges Sent!<br>
+					<%} %>
+					
+					<%if (user.am_created_quizzes > 10) {%>
+						Ten Quizzes Created!<br>
+					<%} %>
+					
+					<%if (user.am_messages_sent > 10) {%>
+						Ten Messages Sent!<br>
+					<%} %>
+					
+					<%if (user.am_number_friends > 10) {%>
+						Popular! (More Than 10 Friends)<br>
+					<%} %>
+					
+					<%if (user.am_taken_quizzes > 10) {%>
+						Ten Quizzes Taken!<br>
+					<%} %>
+				</li>
 		</div>
 	<% } %>
 </div>

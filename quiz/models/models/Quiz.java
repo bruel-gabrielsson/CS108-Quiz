@@ -256,7 +256,7 @@ public class Quiz implements model {
 				if (updates.containsKey("question" + mc.question_number + "choice_j")) {
 					mc.choice_j = updates.get("question" + mc.question_number + "choice_j");
 				}
-			} else if (type.equals("question_multiple_choice")) {
+			} else if (type.equals("question_picture_response")) {
 				PictureResponse pr = (PictureResponse) q;
 				if (updates.containsKey("question" + pr.question_number + "name")) {
 					pr.name = updates.get("question" + pr.question_number + "name");

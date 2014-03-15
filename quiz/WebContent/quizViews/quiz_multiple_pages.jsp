@@ -8,7 +8,7 @@
 	Quiz quiz = (Quiz) request.getAttribute("quiz");
 	String correction_value = (String) request.getParameter("correction");
 	String practice_value = (String) request.getParameter("practice");
-	String time_value = (String) request.getParameter("time");
+	String time_value = Long.toString(quiz.quiz_timer);
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

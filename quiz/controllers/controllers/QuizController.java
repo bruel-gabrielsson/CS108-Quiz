@@ -80,6 +80,8 @@ public class QuizController extends HttpServlet {
 				if (quiz.fetch() && quiz.fetchQuestions()) {
 					System.out.println(quiz.quiz_name.toString());
 					
+					System.out.println("!!!QUITIMER" + quiz.quiz_timer);
+					
 					if (request.getParameter("order").equals("ordered")) {
 						app.current_quiz = quiz;
 						app.current_questions = quiz.questions;

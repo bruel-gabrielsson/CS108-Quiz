@@ -34,7 +34,7 @@ public class Quiz implements model {
 	public String date_created;
 	public int random_yn;
 	public int times_taken = 0;
-	public long quiz_timer = 600000;
+	public long quiz_timer = 60000;
 	public String category_name;
 	public double rating;
 	
@@ -333,7 +333,7 @@ public class Quiz implements model {
 			e1.printStackTrace();
 		}
 		
-		
+		System.out.println("QUIZ INSIDE TIMER:" + this.quiz_timer);
 		
 		return true;
 	}

@@ -10,12 +10,13 @@
 	String correction_value = (String) request.getParameter("correction");
 	String practice_value = (String) request.getParameter("practice");
 	long time_v  = app.current_quiz.quiz_timer;
-	if (app.current_quiz != null) {
-		System.out.println(quiz.quiz_timer);
-		String time_value = (String) String.valueOf(app.current_quiz.quiz_timer);
+	String time_value = "240";
+	if (quiz != null) {
+		System.out.println("TIMER:!!!" + quiz.quiz_timer);
+		time_value = (String) String.valueOf(quiz.quiz_timer);
 	}
 	
-	String time_value = "240";
+	
 	
 
 %>

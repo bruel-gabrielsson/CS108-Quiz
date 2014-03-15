@@ -148,8 +148,16 @@
 				}
 				%>
 				Question Answer:<input type="text" name="question<%= mc.question_number%>answer" value="<%= mc.answer%>" /><br>
-		<%
-			}
+			<%
+			} else if (type.equals("question_picture_response")) {
+				PictureResponse pr = (PictureResponse) q;
+			%>
+				Question Name: <input type="text" name="question<%= pr.question_number%>name" value="<%= pr.name%>" /><br>
+				Question Text:<input type="text" name="question<%= pr.question_number%>question_text" value="<%= pr.question_text%>" /><br>
+				Picture URL: <input type="text" name="question<%= pr.question_number%>picture_url" value="<%= pr.picture_url%>" /><br>
+				Question Answer:<input type="text" name="question<%= pr.question_number%>answer" value="<%= pr.answer%>" /><br>
+			<%	
+			}	
 		}
 		%>
 		

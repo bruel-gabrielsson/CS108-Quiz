@@ -60,7 +60,7 @@ public class QuizController extends HttpServlet {
 		}
 		
 		App app = (App) request.getSession().getAttribute("app");
-		if (app != null && quiz_id != -1) { // Just in case
+		if (app != null && quiz_id != -1 && app.current_user.user_id != -1) { // Just in case
 			
 			System.out.println(request.getParameter("correction"));
 			
@@ -118,6 +118,10 @@ public class QuizController extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
+		} else {
+			System.out.println("NOT LOGGED IN");
+			RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+			rd.forward(request, response);
 		}
 	}
 

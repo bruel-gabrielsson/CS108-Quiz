@@ -126,7 +126,7 @@
 							<% } else if (n.notification_type_id == 2) { %>
 								<li> 
 									<%= n.notification_text %> 
-										<form action="ChallengeController" method="get">
+									<form action="ChallengeController" method="get">
 										<input type="hidden" name="challenge_id" value="<%= n.challenge_id %>" />	
 										<input type="hidden" name="notification_id" value="<%= n.notification_id %>" />
 									    <input type="submit" name="action" value="Accept" />

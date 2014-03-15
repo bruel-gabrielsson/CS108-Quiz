@@ -49,6 +49,10 @@ public class QuizController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Take the quiz, must give id
 		
+		//if (request.getParameterMap().containsKey("challange")) {
+		//	App.current_challenge = request.getParameter("challenge");
+		//}
+		
 		int quiz_id = -1;
 		try {
 			quiz_id = Integer.parseInt(request.getParameter("quiz_id"));
@@ -159,7 +163,7 @@ public class QuizController extends HttpServlet {
 			
 		}
 		
-		
+		int rating = Integer.parseInt(request.getParameter("rating"));
 		
 		History hist = new History();
 		hist.quiz_id = app.current_quiz.quiz_id;
@@ -169,6 +173,7 @@ public class QuizController extends HttpServlet {
 		double denom = app.current_questions.size();
 		hist.percent_score = num/denom;
 		hist.quiz_time = time;
+		hist.rating = rating;
 		hist.save();
 		
 		int challenge_id = (int)request.getSession().getAttribute("challenge_id");

@@ -45,7 +45,7 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							<a href="QuizSummary?quiz_id=<%= quiz.quiz_id %>" ><%= quiz.quiz_name %></a><br/>
 							<% if (quiz.creator() != null) { %>
 								Created by <a href="profile.jsp?username=<%= quiz.creator().user_name %>"><%= quiz.creator().user_name %></a>	
 							<% } else { %>
@@ -70,7 +70,7 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							<a href="QuizSummary?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
 							<% if (quiz.creator() != null) { %>
 								Created by <a href="profile.jsp?username=<%= quiz.creator().user_name %>"><%= quiz.creator().user_name %></a>	
 							<% } else { %>
@@ -169,10 +169,35 @@
 					<li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>	
 				<% } %>
 			</ul>
+	
+			<form href = "FindFriendsController" method = post>
+				<input type="text" name="user_name" value="search for friends" /><br>
+				<button type="submit" >Search</button>
+			</form>
+			<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
 			
 			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
-			
+				<li><%if (user.am_challenges_sent > 10) {%>
+						Ten Challenges Sent!<br>
+					<%} %>
+					
+					<%if (user.am_created_quizzes > 10) {%>
+						Ten Quizzes Created!<br>
+					<%} %>
+					
+					<%if (user.am_messages_sent > 10) {%>
+						Ten Messages Sent!<br>
+					<%} %>
+					
+					<%if (user.am_number_friends > 10) {%>
+						Popular! (More Than 10 Friends)<br>
+					<%} %>
+					
+					<%if (user.am_taken_quizzes > 10) {%>
+						Ten Quizzes Taken!<br>
+					<%} %>
+				</li>
 		</div>
 	<% } %>
 </div>

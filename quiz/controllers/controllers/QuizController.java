@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Challenge;
 import models.History;
 import models.Question;
 import models.Quiz;
@@ -60,6 +61,8 @@ public class QuizController extends HttpServlet {
 		}
 		
 		App app = (App) request.getSession().getAttribute("app");
+	
+		
 		if (app != null && quiz_id != -1) { // Just in case
 			
 			System.out.println(request.getParameter("correction"));
@@ -160,7 +163,7 @@ public class QuizController extends HttpServlet {
 			
 		}
 		
-		
+		int rating = Integer.parseInt(request.getParameter("rating"));
 		
 		History hist = new History();
 		hist.quiz_id = app.current_quiz.quiz_id;
@@ -170,14 +173,19 @@ public class QuizController extends HttpServlet {
 		double denom = app.current_questions.size();
 		hist.percent_score = num/denom;
 		hist.quiz_time = time;
+		hist.rating = rating;
 		hist.save();
-
+		
+		int challenge_id = (int)request.getSession().getAttribute("challenge_id");
+		if(challenge_id > 0){
+			hist.fetch();
+		}
+		
 		System.out.println("TIME: " + time);
 		
 		this.start = 0;
 		
-		
-		
+
 	
 		
 		RequestDispatcher rd = request.getRequestDispatcher("quiz_feedback.jsp");

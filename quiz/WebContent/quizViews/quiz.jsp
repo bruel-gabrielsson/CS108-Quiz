@@ -84,6 +84,14 @@
 		<div id="show_timer_value_div"></div>
 		
 		<form href="QuizController" method="post">
+			Rate this quiz:
+			<select name="rating" id="rating_form" >
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option value="4">4</option>
+			  <option value="5">5</option>
+			</select>
 		
 		<ul>
 			<% for (Question q : app.current_questions) { %>

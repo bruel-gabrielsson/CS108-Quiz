@@ -45,7 +45,7 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							<a href="QuizSummary?quiz_id=<%= quiz.quiz_id %>" ><%= quiz.quiz_name %></a><br/>
 							<% if (quiz.creator() != null) { %>
 								Created by <a href="profile.jsp?username=<%= quiz.creator().user_name %>"><%= quiz.creator().user_name %></a>	
 							<% } else { %>
@@ -70,7 +70,7 @@
 							<img src="crab.jpg" alt="crab.jpg" height="42" width="42"></img>
 						</div>
 						<div class="contentDiv">
-							<a href="QuizController?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
+							<a href="QuizSummary?quiz_id=<%= quiz.quiz_id %>"><%= quiz.quiz_name %></a><br/>
 							<% if (quiz.creator() != null) { %>
 								Created by <a href="profile.jsp?username=<%= quiz.creator().user_name %>"><%= quiz.creator().user_name %></a>	
 							<% } else { %>

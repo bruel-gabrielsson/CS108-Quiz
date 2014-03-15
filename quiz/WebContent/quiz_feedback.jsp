@@ -19,6 +19,7 @@
 	<title>Feedback</title>
 </head>
 <body>
+	<a href="home.jsp" style="font-size:24px">HOME</a>
 	<ul>
 	<% for (String key : feedback.keySet()) { %>
 		<% if (!key.equals("score") && !key.equals("time")) { %>
@@ -30,5 +31,6 @@
 	</ul>
 	<h3>Total Score: <%= feedback.get("score") %></h3>
 	<h3>Total Time: <%= feedback.get("time") %>s</h3>
+	
 </body>
 </html>

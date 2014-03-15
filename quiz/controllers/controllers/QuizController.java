@@ -160,7 +160,7 @@ public class QuizController extends HttpServlet {
 			
 		}
 		
-		
+		int rating = Integer.parseInt(request.getParameter("rating"));
 		
 		History hist = new History();
 		hist.quiz_id = app.current_quiz.quiz_id;
@@ -170,6 +170,7 @@ public class QuizController extends HttpServlet {
 		double denom = app.current_questions.size();
 		hist.percent_score = num/denom;
 		hist.quiz_time = time;
+		hist.rating = rating;
 		hist.save();
 
 		System.out.println("TIME: " + time);

@@ -45,10 +45,38 @@ public class Challenge implements model {
 			insertStmt[0] = "INSERT INTO challenge(to_user_id, from_user_id, quiz_id, time_sent) VALUES(" +
 			to_user_id + ", " + from_user_id + ", " + quiz_id + ", NOW())";
 			
+			// Get the from_user_id's highest score on the quiz
+			int high_score = 0;
+			String highScoreQuery = "SELECT max(total_score) FROM history WHERE user_id = " + from_user_id + " AND "
+					+ "quiz_id = " + quiz_id;
+			ResultSet rs = connector.query(highScoreQuery);
+			try{
+				if(rs != null){
+					rs.first();
+					high_score = rs.getInt("max(total_score)");
+					System.out.println("USER HAS HIGH SCORE OF: "+ high_score);
+				}
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+			
+			//Get the quiz name
+			String query = "SELECT quiz_name FROM quiz WHERE quiz_id = " + this.quiz_id;
+			rs = connector.query(query);
+			try {
+				if (rs.next()) {
+					quiz_name = rs.getString("quiz_name");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+			
 			// Insert notification for challenge
 			insertStmt[1] = "INSERT INTO notification(user_id, notification_type_id, challenge_id, "
 					+ "notification_text) VALUES(" +  to_user_id + ", " + 2 + ", " 
-					+ " LAST_INSERT_ID(), " + "'" + from_user_name + " has sent you a challenge!')";
+					+ " LAST_INSERT_ID(), " + "'" + from_user_name + " has sent you a challenge for quiz: "
+					+ quiz_name +"! "+ from_user_name + " has a high score of "+ high_score + ".')";
 			
 			int result = connector.updateOrInsert(insertStmt);
 			if(result < 0){

@@ -17,7 +17,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<%@ include file="media/home_style.jspf" %>
-	<title>Insert title here</title>
+	<title>Send Challenge</title>
 </head>
 
 <body>

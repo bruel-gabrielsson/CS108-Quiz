@@ -124,7 +124,15 @@
 							
 							<!-- challenge -->
 							<% } else if (n.notification_type_id == 2) { %>
-								<li> Challenge ID: <%= n.challenge_id %> </li>				
+								<li> 
+									<%= n.notification_text %> 
+										<form action="ChallengeController" method="get">
+										<input type="hidden" name="challenge_id" value="<%= n.challenge_id %>" />	
+										<input type="hidden" name="notification_id" value="<%= n.notification_id %>" />
+									    <input type="submit" name="action" value="Accept" />
+									    <input type="submit" name="action" value="Decline" />
+									</form>
+								</li>				
 							
 							<!--  Friend request -->
 							<% } else if (n.notification_type_id == 3) { %>

@@ -52,8 +52,14 @@ public class ChallengeController extends HttpServlet {
 				if (action.equals("Accept")) {
 					String url = "QuizSummary?quiz_id=" + chal.quiz_id;
 					System.out.println("URL: "+url);
+					Notification n = new Notification();
+					n.notification_id = Integer.parseInt(notification_id);
+					n.destroy();
+					chal.destroy();
 					RequestDispatcher rd = request.getRequestDispatcher(url);
 					rd.forward(request, response);
+					
+
 				}
 				
 				// User wishes to decline relationship

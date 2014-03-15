@@ -170,10 +170,11 @@
 				<% } %>
 			</ul>
 	
-			<form href = "FindFriendsController" method = post>
+			<form href="FindFriendsController" id="friends_search_form" method = post>
 				<input type="text" name="user_name" value="search for friends" /><br>
 				<button type="submit" >Search</button>
 			</form>
+			
 			<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
 			
 			<!-- Arraylist of user's achievements -->

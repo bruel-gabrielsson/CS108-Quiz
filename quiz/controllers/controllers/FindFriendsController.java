@@ -41,9 +41,12 @@ public class FindFriendsController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("POST SEARCH USER");
+		
 		App app = (App) request.getSession().getAttribute("app");
 		String user_name = request.getParameter("user_name");
-		String query = "SELECT * FROM user WHERE ";
+		
+		String query = "SELECT * FROM user WHERE user_name LIKE '%"+ user_name +"%'";
 		ResultSet rs = app.connector.query(query);
 		ArrayList<User> results = new ArrayList<User>();
 		

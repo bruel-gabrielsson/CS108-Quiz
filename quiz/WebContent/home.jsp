@@ -169,6 +169,12 @@
 					<li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>	
 				<% } %>
 			</ul>
+	
+			<form href = "FindFriendsController" method = post>
+				<input type="text" name="user_name" value="search for friends" /><br>
+				<button type="submit" >Search</button>
+			</form>
+			<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
 			
 			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>

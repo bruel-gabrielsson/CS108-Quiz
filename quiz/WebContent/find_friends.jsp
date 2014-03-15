@@ -5,30 +5,20 @@
 <%@ page import="models.*" %>
 <%@ page import="java.util.ArrayList" %>
 
-<%
-	ArrayList<User> results = (ArrayList<User>) request.getAttribute("results");
-%>
-    
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Search Results</title>
+	<title>Find Friends</title>
 </head>
 
 <body>
 
-	<div id="content-users">
-		<h3>Search Results:</h3>
-		<ol>
-			<% for (User u : results) { %>
-				<li>  
-					<a href="profile.jsp?username=<%= u.user_name %>"><%= u.user_name %></a>
-					
-					</li>
-			<% } %>
-		</ol>
-	</div>
+	<form action="FindFriendsController" method="post"> 
+		<p>User Name: <input type="text" name="user_name" />
+		<input type="submit" value="Search"/></p>
+	</form>
+
 </body>
 </html>

@@ -91,7 +91,7 @@
 	<%	if (user != null && user.user_name != null) { %>
 		<div id="sidebar">
 				
-			<button type="button" id="new-quiz-button" onclick="location.href='quiz_create.jsp'">+ Create a new quiz!</button>
+			<button type="button" id="new-quiz-button" onclick="location.href='quiz_create.jsp'">+ Create a new quiz!</button><br>
 			
 			<!-- Global announcement -->
 			<div id="announcements">
@@ -169,32 +169,28 @@
 					<li><a href="profile.jsp?username=<%= friend %>"><%= friend %></a></li>	
 				<% } %>
 			</ul>
-	
-			<form href = "FindFriendsController" method = post>
-				<input type="text" name="user_name" value="search for friends" /><br>
-				<button type="submit" >Search</button>
-			</form>
-			<p><a href="QuizEditController?quiz_id=<%= request.getParameter("quiz_id") %>">Edit This Quiz</a></p>
 			
+			<button type="button" onclick="location.href='find_friends.jsp'">+ Search for friends!</button><br>
+		
 			<!-- Arraylist of user's achievements -->
 			<div class="smallHeader">YOUR ACHIEVEMENTS</div>
-				<li><%if (user.am_challenges_sent > 10) {%>
+				<li><%if (user.am_challenges_sent >= 10) {%>
 						Ten Challenges Sent!<br>
 					<%} %>
 					
-					<%if (user.am_created_quizzes > 10) {%>
+					<%if (user.am_created_quizzes >= 10) {%>
 						Ten Quizzes Created!<br>
 					<%} %>
 					
-					<%if (user.am_messages_sent > 10) {%>
+					<%if (user.am_messages_sent >= 10) {%>
 						Ten Messages Sent!<br>
 					<%} %>
 					
-					<%if (user.am_number_friends > 10) {%>
-						Popular! (More Than 10 Friends)<br>
+					<%if (user.am_number_friends >=10) {%>
+						Popular! (10+ Friends)<br>
 					<%} %>
 					
-					<%if (user.am_taken_quizzes > 10) {%>
+					<%if (user.am_taken_quizzes >= 10) {%>
 						Ten Quizzes Taken!<br>
 					<%} %>
 				</li>

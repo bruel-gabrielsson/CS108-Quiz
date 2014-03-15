@@ -34,7 +34,26 @@ public class FindFriendsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		App app = (App) request.getSession().getAttribute("app");
+		System.out.println("AFDFDDFSDFDSFSDF");
+		String user_name = request.getParameter("user_name");
+		String query = "SELECT * FROM user WHERE user_name LIKE '%" + user_name + "%'";
+		ResultSet rs = app.connector.query(query);
+		ArrayList<User> results = new ArrayList<User>();
+		
+		try {
+			while (rs.next()) {
+				User user = new User();
+				user.user_id = rs.getInt("user_id");
+				if (user.fetch()) results.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("results", results);
+		RequestDispatcher rd = request.getRequestDispatcher("search_results.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -42,8 +61,9 @@ public class FindFriendsController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		App app = (App) request.getSession().getAttribute("app");
+		System.out.println("AFDFDDFSDFDSFSDF");
 		String user_name = request.getParameter("user_name");
-		String query = "SELECT * FROM user WHERE ";
+		String query = "SELECT * FROM user WHERE user_name LIKE \"%" + user_name + "%\"";
 		ResultSet rs = app.connector.query(query);
 		ArrayList<User> results = new ArrayList<User>();
 		

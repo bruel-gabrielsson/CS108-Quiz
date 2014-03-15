@@ -178,11 +178,6 @@ public class QuizController extends HttpServlet {
 		hist.rating = rating;
 		hist.save();
 		
-		int challenge_id = (int)request.getSession().getAttribute("challenge_id");
-		if(challenge_id > 0){
-			hist.fetch();
-		}
-		
 		System.out.println("TIME: " + time);
 		
 		this.start = 0;

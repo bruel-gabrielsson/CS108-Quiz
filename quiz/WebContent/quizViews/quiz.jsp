@@ -14,7 +14,9 @@
 		System.out.println(quiz.quiz_timer);
 		String time_value = (String) String.valueOf(app.current_quiz.quiz_timer);
 	}
+	
 	String time_value = "240";
+	
 
 %>
 

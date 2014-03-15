@@ -49,7 +49,7 @@ public class QuizEditController extends HttpServlet {
 			Quiz quiz = new Quiz();
 			quiz.quiz_id = quiz_id;
 			if (quiz.fetch() && quiz.fetchQuestions()) {
-			//	if (app.current_user != null && app.current_user.user_id == quiz.creator_id) {
+				if (app.current_user != null && app.current_user.user_id == quiz.creator_id) {
 					
 					request.setAttribute("quiz", quiz);
 					app.current_quiz = quiz;
@@ -57,13 +57,13 @@ public class QuizEditController extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("quiz_edit.jsp");
 					rd.forward(request, response);
 					
-				/*} else {
+				} else {
 					String edit_feedback = "You don't have permission to edit that quiz";
 					System.out.println(edit_feedback);
 					request.setAttribute("edit_feedback", edit_feedback);
 					RequestDispatcher rd = request.getRequestDispatcher("quiz_options.jsp");
 					rd.forward(request, response);
-				}*/
+				}
 				
 			} else {
 				System.out.println("ERROR FETCHING QUIZ");
